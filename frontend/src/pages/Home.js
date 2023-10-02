@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react"
 
+// components
+import CircleDetails from '../components/CircleDetails'
+
 const Home = () => {
     const [circles, setCircles] = useState(null)
 
@@ -20,7 +23,7 @@ const Home = () => {
         <div className="home">
             <div className="circles">
                 {circles && circles.map((circle) => (
-                    <p key={circle._id}>{circle.title}</p>
+                    <CircleDetails key={circle._id} circle={circle}/>
                 ))}
             </div>
         </div>
