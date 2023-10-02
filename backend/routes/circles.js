@@ -1,47 +1,28 @@
 const express = require('express')
 
-const Circle = require('../models/circleModel')
+const {
+    getCircles,
+    getCircle,
+    createCircle,
+    deleteCircle,
+    updateCircle,
+} = require('../controllers/circleController')
 
 const router = express.Router()
 
 // GET all circles
-router.get('/', (req, res) => {
-    res.json({
-        msg: 'GET all circles'
-    })
-})
+router.get('/', getCircles)
 
 // GET a single circle
-router.get('/:id', (req, res) => {
-    res.json({
-        msg: 'GET a single circle'
-    })
-})
+router.get('/:id', getCircle)
 
 // POST a new circle
-router.post('/', async (req, res) => {
-    const {title, description} = req.body
-
-    try {
-        const circle = await Circle.create({title, description})
-        res.status(200).json(circle)
-    } catch (error) {
-        res.status(400).json({error: error.message})
-    }
-})
+router.post('/', createCircle)
 
 // DELETE a circle
-router.delete('/:id', (req, res) => {
-    res.json({
-        msg: 'DELETE a circle'
-    })
-})
+router.delete('/:id', deleteCircle)
 
 // UPDATE a circle
-router.patch('/:id', (req, res) => {
-    res.json({
-        msg: 'UPDATE a circle'
-    })
-})
+router.patch('/:id', updateCircle)
 
 module.exports = router
