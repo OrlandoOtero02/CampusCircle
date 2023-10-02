@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 
 // components
 import CircleDetails from '../components/CircleDetails'
+import CircleForm from "../components/CircleForm"
 
 const Home = () => {
     const [circles, setCircles] = useState(null)
@@ -26,6 +27,7 @@ const Home = () => {
                     <CircleDetails key={circle._id} circle={circle}/>
                 ))}
             </div>
+            <CircleForm />
         </div>
     )
 }
