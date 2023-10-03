@@ -12,6 +12,10 @@ export const circlesReducer = (state, action) => {
             return {
                 circles: [action.payload, ...state.circles]
             }
+        case 'DELETE_CIRCLE':
+            return {
+                circles: state.circles.filter((c) => c._id !== action.payload._id)
+            }
         default:
             return state
     }
