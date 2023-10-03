@@ -6,6 +6,7 @@ const CircleForm = () => {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [error, setError] = useState(null)
+    const [emptyFields, setEmptyFields] = useState([])
 
 
     const handleSubmit = async (e) => {
@@ -24,12 +25,14 @@ const CircleForm = () => {
 
         if (!response.ok) {
             setError(json.error)
+            setEmptyFields(json.emptyFields)
         }
 
         if (response.ok) {
             setTitle('')
             setDescription('')
             setError(null)
+            setEmptyFields([])
             console.log('new circle added', json)
             dispatch({type: 'CREATE_CIRCLE', payload: json})
         }
@@ -44,6 +47,7 @@ const CircleForm = () => {
                 type="text"
                 onChange={(e) => setTitle(e.target.value)}
                 value={title}
+                className={emptyFields.includes('title') ? 'error' : ''}
             />
 
             <label>Description:</label>
@@ -51,6 +55,7 @@ const CircleForm = () => {
                 type="text"
                 onChange={(e) => setDescription(e.target.value)}
                 value={description}
+                className={emptyFields.includes('description') ? 'error' : ''}
             />
 
             <button>Add Circle</button>

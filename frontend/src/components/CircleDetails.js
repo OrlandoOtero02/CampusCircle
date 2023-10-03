@@ -1,5 +1,8 @@
 import { useCircleContext } from "../hooks/useCircleContext"
 
+// date fns
+import formatDistanceToNow from 'date-fns/formatDistanceToNow'
+
 const CircleDetails = ({ circle }) => {
     const { dispatch } = useCircleContext()
 
@@ -18,8 +21,8 @@ const CircleDetails = ({ circle }) => {
         <div className="circle-details">
             <h4>{circle.title}</h4>
             <p>Description: {circle.description}</p>
-            <p>{circle.createdAt}</p>
-            <span onClick={handleClick}>delete</span>
+            <p>{formatDistanceToNow(new Date(circle.createdAt), { addSuffix: true })}</p>
+            <span className="material-symbols-outlined" onClick={handleClick}>delete</span>
         </div>
     )
 }

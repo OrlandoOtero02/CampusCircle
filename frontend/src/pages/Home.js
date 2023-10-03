@@ -19,7 +19,7 @@ const Home = () => {
         }
 
         fetchCircles()
-    })
+    }, [dispatch])
 
     return(
         <div className="home">
