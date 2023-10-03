@@ -1,6 +1,8 @@
 import { useState } from "react"
+import { useCircleContext } from "../hooks/useCircleContext"
 
 const CircleForm = () => {
+    const { dispatch } = useCircleContext()
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [error, setError] = useState(null)
@@ -29,6 +31,7 @@ const CircleForm = () => {
             setDescription('')
             setError(null)
             console.log('new circle added', json)
+            dispatch({type: 'CREATE_CIRCLE', payload: json})
         }
     }
 

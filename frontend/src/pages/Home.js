@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
+import { useCircleContext } from "../hooks/useCircleContext"
 
 // components
 import CircleDetails from '../components/CircleDetails'
 import CircleForm from "../components/CircleForm"
 
 const Home = () => {
-    const [circles, setCircles] = useState(null)
+    const {circles, dispatch} = useCircleContext()
 
     useEffect(() => {
         const fetchCircles = async () => {
@@ -13,12 +14,12 @@ const Home = () => {
             const json = await response.json()
 
             if (response.ok) {
-                setCircles(json)
+                dispatch({type: 'SET_CIRCLES', payload: json})
             }
         }
 
         fetchCircles()
-    }, [])
+    })
 
     return(
         <div className="home">
