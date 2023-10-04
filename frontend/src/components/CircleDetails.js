@@ -7,6 +7,7 @@ const CircleDetails = ({ circle }) => {
         const json = await response.json()
 
         if (response.ok) {
+            // will need to update local frontend
             console.log(json)
         }
     }
