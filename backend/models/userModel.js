@@ -13,14 +13,19 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: true
+    },
+    username: {
+        type: String,
+        required: true,
+        unique: true
     }
 })
 
 //static signup method
-userSchema.statics.signup = async function (email, password) {
+userSchema.statics.signup = async function (email, password, username) {
 
     //validation
-    if (!email || !password) {
+    if (!email || !password || !username) {
         throw Error('All fields must be filled')
     }
     if (!validator.isEmail(email)) {
@@ -36,10 +41,16 @@ userSchema.statics.signup = async function (email, password) {
         throw Error('Email already in use')
     }
 
+    const existsU = await this.findOne({ username })
+
+    if (existsU) {
+        throw Error('Username already in use')
+    }
+
     const salt = await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(password, salt)
 
-    const user = await this.create({ email, password: hash })
+    const user = await this.create({ email, password: hash, username})
 
     return user
 }
