@@ -10,7 +10,11 @@ const circleSchema = new Schema({
     description: {
         type: String,
         required: true
-    }
+    },
+    members: {
+        type: Array,
+        //required: true
+    },
 }, { timestamps: true })
 
 module.exports = mongoose.model('Circle', circleSchema)

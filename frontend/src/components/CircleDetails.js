@@ -21,6 +21,7 @@ const CircleDetails = ({ circle }) => {
         <div className="circle-details">
             <h4>{circle.title}</h4>
             <p>Description: {circle.description}</p>
+            <p>Members: {circle.members.length}</p>
             <p>{formatDistanceToNow(new Date(circle.createdAt), { addSuffix: true })}</p>
             <span className="material-symbols-outlined" onClick={handleClick}>delete</span>
         </div>
