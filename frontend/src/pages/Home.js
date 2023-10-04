@@ -9,7 +9,7 @@ const Home = () => {
 
     useEffect(() => {
         const fetchCircles = async () => {
-            const response = await fetch('/home/circles')
+            const response = await fetch('/api/circles')
             const json = await response.json()
 
             if (response.ok) {

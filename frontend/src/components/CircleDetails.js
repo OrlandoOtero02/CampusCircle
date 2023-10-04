@@ -1,7 +1,7 @@
 const CircleDetails = ({ circle }) => {
 
     const handleClick = async() => {
-        const response = await fetch('/home/circles/' + circle._id, {
+        const response = await fetch('/api/circles/' + circle._id, {
             method: 'DELETE'
         })
         const json = await response.json()

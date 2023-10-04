@@ -12,7 +12,7 @@ const CircleForm = () => {
 
         const circle = {title, description}
 
-        const response = await fetch('/home/circles', {
+        const response = await fetch('/api/circles', {
             method: 'POST',
             body: JSON.stringify(circle),
             headers: {
