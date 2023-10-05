@@ -1,0 +1,88 @@
+/* Signup.css */
+
+/* Base styles for the whole signup page */
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #07689f;
+  }
+  
+  /* Container for the signup form */
+  .signup-container {
+    background-color: white;
+    border-radius: 25px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: row; /* Set to row to create a horizontal layout */
+    align-items: center;
+    padding: 20px;
+    height: 65%;
+    width: 100%;
+  }
+  
+  /* Logo image styling */
+  .logo-image {
+    max-width: 45%; /* Adjust the width of the logo */
+    max-height: auto; /* Maintain aspect ratio */
+    margin-right: 10px; /* Add space between the logo and signup form */
+  }
+  
+  /* Header text styling */
+  .header {
+    margin-top: 10px;
+  }
+  
+  /* Signup form styles */
+  .signup-form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px; /* Add padding for spacing between signup elements */
+    width: 55%; /* Adjust the width of the signup form */
+  }
+  
+  /* Form container for input fields */
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%; /* Make sure the form container takes full width */
+  }
+  
+  /* Form field styles */
+  .form-group {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    padding: 2%;
+    margin: 1%;
+    border-radius: 15px;
+    outline: none;
+  }
+  
+  /* Signup button styles */
+  .signup-button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 15px;
+    background-color: #07689f;
+    color: white;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+  
+  .signup-button:hover {
+    background-color: #055a8c;
+  }
+  
