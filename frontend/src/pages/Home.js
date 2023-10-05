@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { useAuthContext } from '../hooks/useAuthContext'
 
 // components
 import CircleDetails from '../components/CircleDetails'
@@ -6,10 +7,15 @@ import CircleForm from "../components/CircleForm"
 
 const Home = () => {
     const [circles, setCircles] = useState(null)
+    const {user} = useAuthContext()
 
     useEffect(() => {
         const fetchCircles = async () => {
-            const response = await fetch('/api/circles')
+            const response = await fetch('/api/circles', {
+                headers: {
+                    'Authorization': `Bearer ${user.token}`
+                }
+            })
             const json = await response.json()
 
             if (response.ok) {
@@ -17,8 +23,10 @@ const Home = () => {
             }
         }
 
-        fetchCircles()
-    }, [])
+        if (user) {
+            fetchCircles()
+        }
+    }, [user])
 
     return(
         <div className="home">

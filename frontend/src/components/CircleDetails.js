@@ -1,8 +1,17 @@
+import { useAuthContext } from "../hooks/useAuthContext"
+
 const CircleDetails = ({ circle }) => {
+    const { user } = useAuthContext()
 
     const handleClick = async() => {
+        if (!user) {
+            return
+        }
         const response = await fetch('/api/circles/' + circle._id, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${user.token}`
+            }
         })
         const json = await response.json()
 
