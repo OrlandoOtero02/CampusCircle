@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useAuthContext } from '../hooks/useAuthContext'
 import { useCircleContext } from "../hooks/useCircleContext"
 
@@ -8,7 +8,7 @@ import CircleForm from "../components/CircleForm"
 import CircleNavbar from "../components/CircleNavbar"
 
 const Home = () => {
-    const [circles, setCircles] = useState(null)
+    const {circles, dispatch} = useCircleContext()
     const {user} = useAuthContext()
 
     useEffect(() => {
@@ -28,7 +28,7 @@ const Home = () => {
         if (user) {
             fetchCircles()
         }
-    }, [user])
+    }, [user, dispatch])
 
     return(
         <div className="home">

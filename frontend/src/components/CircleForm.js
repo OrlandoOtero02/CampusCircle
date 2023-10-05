@@ -4,8 +4,8 @@ import { useCircleContext } from "../hooks/useCircleContext"
 
 const CircleForm = () => {
     const { user } = useAuthContext()
-
     const { dispatch } = useCircleContext()
+    
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [error, setError] = useState(null)
@@ -13,6 +13,7 @@ const CircleForm = () => {
 
 
     const handleSubmit = async (e) => {
+        
         e.preventDefault()
 
         if (!user) {
