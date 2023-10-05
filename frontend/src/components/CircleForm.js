@@ -1,7 +1,10 @@
 import { useState } from "react"
+import { useAuthContext } from "../hooks/useAuthContext"
 import { useCircleContext } from "../hooks/useCircleContext"
 
 const CircleForm = () => {
+    const { user } = useAuthContext()
+
     const { dispatch } = useCircleContext()
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
@@ -12,13 +15,19 @@ const CircleForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
+        if (!user) {
+            setError('You must be logged in')
+            return
+        }
+
         const circle = {title, description}
 
-        const response = await fetch('/home/circles', {
+        const response = await fetch('/api/circles', {
             method: 'POST',
             body: JSON.stringify(circle),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`
             }
         })
         const json = await response.json()

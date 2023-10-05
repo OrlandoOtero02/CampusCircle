@@ -11,6 +11,11 @@ const circleSchema = new Schema({
         type: String,
         required: true
     },
+    user_id: {
+        type: String,
+        required: true,
+        required: true
+    },
     members: {
         type: Array,
         //required: true

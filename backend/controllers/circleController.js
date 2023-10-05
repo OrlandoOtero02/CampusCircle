@@ -3,7 +3,9 @@ const mongoose = require('mongoose')
 
 // get all circles
 const getCircles = async (req, res) => {
-    const circles = await Circle.find({}).sort({createdAt: -1})
+    const user_id = req.user._id
+
+    const circles = await Circle.find({ user_id }).sort({createdAt: -1})
 
     res.status(200).json(circles)
 }
@@ -31,21 +33,22 @@ const getCircle = async (req, res) => {
 const createCircle = async (req, res) => {
     const {title, description} = req.body
 
+    //error for empty fields
     let emptyFields = []
-
-    if (!title) {
+    if(!title) {
         emptyFields.push('title')
     }
-    if (!description) {
+    if(!description) {
         emptyFields.push('description')
     }
-    if (emptyFields.length > 0) {
-        return res.status(400).json({ error: 'Please fill in all fields', emptyFields})
+    if(emptyFields.length > 0) {
+        return res.status(400).json({ error: 'Please fill in all fields', emptyFields })
     }
 
     // add doc to db
     try {
-        const circle = await Circle.create({title, description})
+        const user_id = req.user._id
+        const circle = await Circle.create({title, description, user_id})
         res.status(200).json(circle)
     } catch (error) {
         res.status(400).json({error: error.message})
