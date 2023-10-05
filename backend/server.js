@@ -6,6 +6,7 @@ const mongoose = require('mongoose')
 
 // routes
 const circlesRoutes = require('./routes/circles')
+const usersRoutes = require('./routes/users')
 
 // express app
 const app = express()
@@ -20,6 +21,7 @@ app.use((req, res, next) => {
 
 // routes
 app.use('/home/circles', circlesRoutes)
+app.use('/home/users', usersRoutes)
 
 // connect to db
 mongoose.connect(process.env.MONGO_URI)
