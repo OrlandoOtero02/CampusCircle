@@ -4,6 +4,7 @@ import { useCircleContext } from "../hooks/useCircleContext"
 // components
 import CircleDetails from '../components/CircleDetails'
 import CircleForm from "../components/CircleForm"
+import CircleNavbar from "../components/CircleNavbar"
 
 const Home = () => {
     const {circles, dispatch} = useCircleContext()
@@ -23,11 +24,11 @@ const Home = () => {
 
     return(
         <div className="home">
-            <div className="circles">
-                {circles && circles.map((circle) => (
-                    <CircleDetails key={circle._id} circle={circle}/>
+                <div className="circles">
+                    {circles && circles.map((circle) => (
+                        <CircleDetails key={circle._id} circle={circle}/>
                 ))}
-            </div>
+                </div>
             <CircleForm />
         </div>
     )
