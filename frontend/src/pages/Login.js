@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useLogin } from '../hooks/useLogin'
+import { Link } from 'react-router-dom'; // Import Link from React Router
 
 const Login = () => {
     //const [email, setEmail] = useState('')
@@ -34,6 +35,7 @@ const Login = () => {
 
             <button disabled={isLoading}>Login</button>
             {error && <div className="error">{error}</div>}
+            <Link to="/forgot-password" className="forgot-password-link">Forgot Password?</Link> {/* Link to the ForgotPassword page */}
         </form>
     )
 }

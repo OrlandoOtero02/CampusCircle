@@ -129,3 +129,16 @@ form.signup, form.login {
   background: #fff;
   border-radius: 4px;
 }
+.forgot-password-link {
+  color: var(--primary);
+  font-family: "Poppins";
+  align-self: flex-end;
+  padding-left: 12rem;
+}
+.forgot-password {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 4px;
+}
