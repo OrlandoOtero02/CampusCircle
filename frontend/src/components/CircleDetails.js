@@ -2,10 +2,12 @@ import { useAuthContext } from "../hooks/useAuthContext"
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 import { useCircleContext } from "../hooks/useCircleContext"
 import Button from '@mui/material/Button'
+import { useState } from "react"
 
 const CircleDetails = ({ circle }) => {
     const { dispatch } = useCircleContext()
     const { user } = useAuthContext()
+    const [error, setError] = useState(null)
 
     const handleDelete = async () => {
         const response = await fetch('/api/circles/' + circle._id, {
@@ -24,8 +26,11 @@ const CircleDetails = ({ circle }) => {
     }
 
     const handleJoin = async () => {
-
-        const response = await fetch('/api/user/add', {
+        if (!user) {
+            setError('You must be logged in')
+            return
+        }
+        const response = await fetch('/api/user/', {
             method: 'PATCH',
             body: JSON.stringify(circle._id),
             headers: {

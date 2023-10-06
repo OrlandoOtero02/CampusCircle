@@ -40,13 +40,13 @@ const signupUser = async (req, res) => {
 
 const addCircle = async (req,res) => {
     const {circleId} = req.body
-    const userId = req.param._id
+    const userId = req.user._id
     if (!mongoose.Types.ObjectId.isValid(userId)) {
         return res.status(404).json({error: 'No such user'})
     }
 
     try {
-    const circle = await Circle.findByIdAndUpdate({userId},
+    const circle = await User.findByIdAndUpdate({userId},
         { $push: { joinedCircles: { circleId: circleId }}})
         res.status(200).json(circle)
     } catch (error) {
