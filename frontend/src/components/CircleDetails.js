@@ -30,9 +30,27 @@ const CircleDetails = ({ circle }) => {
             setError('You must be logged in')
             return
         }
-        const response = await fetch('/api/user/', {
+        const response = await fetch('/api/circles/add/' + circle._id, {
             method: 'PATCH',
-            body: JSON.stringify(circle._id),
+            headers: {
+                'Authorization': `Bearer ${user.token}`
+            }
+        })
+        
+        const json = await response.json()
+
+        if (response.ok) {
+            console.log(json)
+        }
+    }
+
+    const handleLeave = async () => {
+        if (!user) {
+            setError('You must be logged in')
+            return
+        }
+        const response = await fetch('/api/circles/leave/' + circle._id, {
+            method: 'PATCH',
             headers: {
                 'Authorization': `Bearer ${user.token}`
             }
@@ -53,6 +71,7 @@ const CircleDetails = ({ circle }) => {
             <p>{formatDistanceToNow(new Date(circle.createdAt), { addSuffix: true })}</p>
             <span className="material-symbols-outlined" onClick={handleDelete}>delete</span>
             <Button onClick={handleJoin}>Join</Button>
+            <Button onClick={handleLeave}>Leave</Button>
         </div>
     )
 }

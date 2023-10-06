@@ -18,9 +18,7 @@ const circleSchema = new Schema({
     },
     members: [
         {
-        userid: {
             type: String, 
-        }
     }],
 }, { timestamps: true })
 

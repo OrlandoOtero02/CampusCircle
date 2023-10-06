@@ -5,6 +5,7 @@ import { useAuthContext } from './hooks/useAuthContext';
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Signup from './pages/Signup';
+import JoinableCircles from './pages/JoinableCircles';
 import Navbar from './components/Navbar';
 import CircleNavbar from "./components/CircleNavbar"
 
@@ -28,6 +29,10 @@ function App() {
             <Route
               path="/signup"
               element={!user ? <Signup /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/joinablecircles"
+              element={!user ? <Signup /> : <JoinableCircles />}
             />
           </Routes>
         </div>

@@ -21,7 +21,7 @@ const userSchema = new Schema({
     },
     joinedCircles: [
         {
-            circleId: {type: String}
+            type: String
         }
     ]
 })

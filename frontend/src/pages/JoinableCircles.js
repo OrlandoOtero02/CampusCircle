@@ -8,21 +8,21 @@ import CircleDetails from '../components/CircleDetails'
 import CircleForm from "../components/CircleForm"
 import CircleNavbar from "../components/CircleNavbar"
 
-const Home = () => {
+const JoinableCircles = () => {
     const {circles, dispatch} = useCircleContext()
     const {user} = useAuthContext()
 
     useEffect(() => {
         const fetchCircles = async () => {
-            const response = await fetch('/api/circles/user', {
+            const response = await fetch('/api/circles/joinable', {
                 headers: {
                     'Authorization': `Bearer ${user.token}`
                 }
             })
-            const json = await response.json()
+            const jsonJoinable = await response.json()
 
             if (response.ok) {
-                dispatch({type: 'SET_CIRCLES', payload: json})
+                dispatch({type: 'SET_CIRCLES', payload: jsonJoinable})
             }
         }
 
@@ -53,7 +53,7 @@ const Home = () => {
     )
 }
 
-export default Home
+export default JoinableCircles
 /*<Button 
             
 onClick={(event) => {

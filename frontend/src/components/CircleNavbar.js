@@ -7,7 +7,7 @@ const CircleNavbar = () => {
                 <Link to="/">
                     <h4>My Circles</h4>
                 </Link>
-                <Link to="/">
+                <Link to="/JoinableCircles">
                     <h4>Joinable Circles</h4>
                 </Link>
             </div>

@@ -10,6 +10,20 @@ const getCircles = async (req, res) => {
     res.status(200).json(circles)
 }
 
+const getUserCircles = async (req, res) => {
+    const user_id = req.user._id
+
+    const circles = await Circle.find({"members" : { $in : user_id}}).sort({createdAt: -1})
+
+    res.status(200).json(circles)
+}
+
+const getJoinableCircles = async (req, res) => {
+    const user_id = req.user._id
+    const circles = await Circle.find({"members" : { $nin: user_id}}).sort({createdAt: -1})
+
+    res.status(200).json(circles)
+}
 
 // get a single circle
 const getCircle = async (req, res) => {
@@ -94,21 +108,45 @@ const updateCircle = async (req, res) => {
     res.status(200).json(circle)
 }
 
-const addMember = async (req, res) => {
-    const { member } = req.body
-    const { id } = req.params
 
-    const circle = await Circle.findByIdAndUpdate(
-        {_id: id},
-        {$push: {"members": {user_id: member}}}
-    )
+const joinCircle = async (req,res) => {
+    const { id }  = req.params
+    const userId = req.user._id
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({error: 'No such circle'})
+    }
+    try {
+    const circle = await Circle.findByIdAndUpdate({_id: id},
+        { $push: { members: userId }})
+        res.status(200).json(circle)
+    } catch (error) {
+        res.status(400).json({error: error.message})
+    }
+}
 
+const leaveCircle = async (req,res) => {
+    const { id }  = req.params
+    const userId = req.user._id
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({error: 'No such circle'})
+    }
+    try {
+    const circle = await Circle.findByIdAndUpdate({_id: id},
+        { $pull: { members: userId }})
+        res.status(200).json(circle)
+    } catch (error) {
+        res.status(400).json({error: error.message})
+    }
 }
 
 module.exports = {
     getCircles,
+    getUserCircles,
+    getJoinableCircles,
     getCircle,
     createCircle,
     deleteCircle,
-    updateCircle
+    updateCircle,
+    joinCircle,
+    leaveCircle,
 }

@@ -6,6 +6,10 @@ const {
     createCircle,
     deleteCircle,
     updateCircle,
+    getUserCircles,
+    getJoinableCircles,
+    joinCircle,
+    leaveCircle,
 } = require('../controllers/circleController')
 const requireAuth = require('../middleware/requireAuth')
 
@@ -17,6 +21,10 @@ router.use(requireAuth)
 // GET all circles
 router.get('/', getCircles)
 
+router.get('/user', getUserCircles)
+
+router.get('/joinable', getJoinableCircles)
+
 // GET a single circle
 router.get('/:id', getCircle)
 
@@ -27,6 +35,10 @@ router.post('/', createCircle)
 router.delete('/:id', deleteCircle)
 
 // UPDATE a circle
-router.patch('/:id', updateCircle)
+router.patch('/u', updateCircle)
+
+router.patch('/add/:id', joinCircle)
+
+router.patch('/leave/:id', leaveCircle)
 
 module.exports = router
