@@ -1,9 +1,11 @@
 import { useState } from "react"
 import { useAuthContext } from "../hooks/useAuthContext"
+import { useCircleContext } from "../hooks/useCircleContext"
 
 const CircleForm = () => {
     const { user } = useAuthContext()
-
+    const { dispatch } = useCircleContext()
+    
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [error, setError] = useState(null)
@@ -11,6 +13,7 @@ const CircleForm = () => {
 
 
     const handleSubmit = async (e) => {
+        
         e.preventDefault()
 
         if (!user) {
@@ -41,6 +44,7 @@ const CircleForm = () => {
             setError(null)
             setEmptyFields([])
             console.log('new circle added', json)
+            dispatch({type: 'CREATE_CIRCLE', payload: json})
         }
     }
 

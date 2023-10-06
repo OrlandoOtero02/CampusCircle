@@ -6,7 +6,11 @@ import { useAuthContext } from './hooks/useAuthContext';
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Signup from './pages/Signup';
+import JoinableCircles from './pages/JoinableCircles';
 import Navbar from './components/Navbar';
+
+import CircleNavbar from "./components/CircleNavbar"
+
 import ForgotPassword from './pages/ForgotPassword';
 
 import Profile from './pages/Profile';
@@ -15,12 +19,14 @@ import Settings from './pages/Settings';
 import UsersList from './pages/UsersList'
 import FollowingList from './pages/FollowingList';
 
+
 function App() {
   const { user } = useAuthContext()
   return (
     <div className="App">
       <BrowserRouter>
         <Navbar />
+        <CircleNavbar />
         <div className="pages">
           <Routes>
             <Route
@@ -35,6 +41,11 @@ function App() {
               path="/signup"
               element={!user ? <Signup /> : <Navigate to="/" />}
             />
+
+            <Route
+              path="/joinablecircles"
+              element={!user ? <Signup /> : <JoinableCircles />}
+
             <Route 
               path="/forgot-password"
               element={<ForgotPassword/>}
@@ -54,6 +65,7 @@ function App() {
             <Route 
               path="/following"
               element={user ? <FollowingList/> : <Navigate to="/" />}
+
             />
           </Routes>
         </div>

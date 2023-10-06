@@ -8,25 +8,21 @@ import CircleDetails from '../components/CircleDetails'
 import CircleForm from "../components/CircleForm"
 import CircleNavbar from "../components/CircleNavbar"
 
-//import CircleNavbar from "../components/CircleNavbar"
-//import Navbar from "../components/Navbar"
-
-
-const Home = () => {
+const JoinableCircles = () => {
     const {circles, dispatch} = useCircleContext()
     const {user} = useAuthContext()
 
     useEffect(() => {
         const fetchCircles = async () => {
-            const response = await fetch('/api/circles/user', {
+            const response = await fetch('/api/circles/joinable', {
                 headers: {
                     'Authorization': `Bearer ${user.token}`
                 }
             })
-            const json = await response.json()
+            const jsonJoinable = await response.json()
 
             if (response.ok) {
-                dispatch({type: 'SET_CIRCLES', payload: json})
+                dispatch({type: 'SET_CIRCLES', payload: jsonJoinable})
             }
         }
 
@@ -45,7 +41,6 @@ const Home = () => {
     }
 
     return(
-        <>
         <div className="home">
                 <div className="circles">
                     {circles && circles.map((circle) => (
@@ -55,11 +50,10 @@ const Home = () => {
             <CircleForm />
            
         </div>
-        </>
     )
 }
 
-export default Home
+export default JoinableCircles
 /*<Button 
             
 onClick={(event) => {

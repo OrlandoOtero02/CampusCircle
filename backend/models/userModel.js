@@ -20,6 +20,12 @@ const userSchema = new Schema({
         required: true,
         unique: true
     },
+  
+    joinedCircles: [
+        {
+            type: String
+        }
+    ],
     // New fields for following and followers
     following: [{
         type: mongoose.Schema.Types.ObjectId,
