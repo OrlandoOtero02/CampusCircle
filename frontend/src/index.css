@@ -1,13 +1,209 @@
+/* google font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&family=VT323&display=swap');
+
+/* layout */
+:root {
+  --primary: #0988d0;
+  --error: #e7195a;
+}
 body {
+  background: #f1f1f1;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: "Poppins";
+}
+header {
+  background: #fff;
+}
+header .container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+header a {
+  color: #333;
+  text-decoration: none;
+}
+.pages {
+  max-width: 1400px;
+  padding: 20px;
+  margin: 0 auto;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* homepage */
+.home {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 100px;
+}
+.circle-details {
+  background: #fff;
+  border-radius: 4px;
+  margin: 20px auto;
+  padding: 20px;
+  position: relative;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+}
+.circle-details h4 {
+  margin: 0 0 10px 0;
+  font-size: 1.2em;
+  color: var(--primary);
+}
+.circle-details p {
+  margin: 0;
+  font-size: 0.9em;
+  color: #555;
+}
+.circle-details span {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  background: #f1f1f1;
+  padding: 6px;
+  border-radius: 50%;
+  color: #333;
+}
+
+/* new circle form */
+label, input {
+  display: block;
+}
+input {
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+form button {
+  background: var(--primary);
+  border: 0;
+  color: #fff;
+  padding: 10px;
+  font-family: "Poppins";
+  border-radius: 4px;
+  cursor: pointer;
+}
+div.error {
+  padding: 10px;
+  background: #ffefef;
+  border: 1px solid var(--error);
+  color: var(--error);
+  border-radius: 4px;
+  margin: 20px 0;
+}
+input.error {
+  border: 1px solid var(--error);
+}
+
+/* navbar */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 10px;
+}
+
+nav a {
+  margin-right: 10px;
+}
+
+nav button {
+  background: #fff;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-family: "Poppins";
+  cursor: pointer;
+  font-size: 1em;
+  margin-left: 20px;
+}
+
+nav button:hover {
+  background-color: #055a8c;
+}
+
+/* auth forms */
+form.signup, form.login {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 4px;
+}
+.forgot-password-link {
+  color: var(--primary);
+  font-family: "Poppins";
+  align-self: flex-end;
+  padding-left: 12rem;
+}
+.forgot-password {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 4px;
+}
+
+/* userDetails */
+.user-details {
+  background: #fff;
+  border-radius: 4px;
+  margin: 20px auto;
+  padding: 20px;
+  position: relative;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+}
+.user-details h4 {
+  margin: 0 0 10px 0;
+  font-size: 1.2em;
+  color: var(--primary);
+}
+.user-details p {
+  margin: 0;
+  font-size: 0.9em;
+  color: #555;
+}
+.user-details span {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  background: #f1f1f1;
+  padding: 6px;
+  border-radius: 50%;
+  color: #333;
+}
+
+/* USERS LIST */
+/* Basic styling for the split screen */
+.split-users-list {
+  display: flex;
+}
+/* Styling for each column */
+.users-list {
+  width: 100%; /* maybe change back to 50 */
+  height: 80vh; /* Adjust the height as needed */
+  box-sizing: border-box; /* Include padding and border in the width */
+  float: left;
+  overflow: auto; /* Add scrolling if the content exceeds the column height */
+  border-right: 3px #ccc; /* Add a border between the columns (optional) */
+  padding: 10px; /* Add padding around the columns */
+}
+/* Clear the float to prevent issues */
+.users-list:last-child {
+  float: none;
+  border-right: none; /* Remove the border on the last column (optional) */
+}
+.users-list h3 {
+  position:sticky;
+  top: 0;
+  background-color: white; /* Optional: Add a background color to hide overlapping content */
+  z-index: 1; /* Optional: Specify a higher z-index to make sure it stays on top */
 }

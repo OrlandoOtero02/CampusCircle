@@ -1,3 +1,4 @@
+// circleModel.js
 const mongoose = require('mongoose')
 
 const Schema = mongoose.Schema
@@ -8,7 +9,12 @@ const circleSchema = new Schema({
         required: true
     },
     description: {
-        type: String
+        type: String,
+        required: true
+    },
+    user_id: {
+        type: String,
+        required: true
     }
 }, { timestamps: true })
 
