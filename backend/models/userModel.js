@@ -24,13 +24,34 @@ const userSchema = new Schema({
     following: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    }]
+    }],
+    birthdate: {
+        type: Date,
+        required: true,
+    }
 })
 
 //static signup method
-userSchema.statics.signup = async function (email, password, username) {
+userSchema.statics.signup = async function (email, password, username, birthdate) {
 
-    //validation
+    // Validation for birthdate
+    const currentDate = new Date();
+    const thisYear = currentDate.getFullYear();
+
+    const birthdayInput = new Date(birthdate);
+    const birthYear = birthdayInput.getFullYear();
+
+    console.log(thisYear);
+    console.log(birthYear);
+
+    const age = thisYear - birthYear;
+
+    // Check if the user is younger than 16
+    if (age < 16) {
+        throw new Error('You must be at least 16 years old to sign up.');
+    }
+
+     // Other validation
     if (!email || !password || !username) {
         throw Error('All fields must be filled')
     }
@@ -66,7 +87,7 @@ userSchema.statics.signup = async function (email, password, username) {
     const salt = await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(password, salt)
 
-    const user = await this.create({ email, password: hash, username})
+    const user = await this.create({ email, password: hash, username, birthdate})
 
     return user
 }
