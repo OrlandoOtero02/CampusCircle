@@ -37,8 +37,18 @@ userSchema.statics.signup = async function (email, password, username) {
     if (!validator.isEmail(email)) {
         throw Error('Email is not valid')
     }
+    if (!email.endsWith('@purdue.edu')) {
+        throw Error('Email is not very purduey')
+    }
     if (!validator.isStrongPassword(password)) {
         throw Error('Password is not strong enough')
+    }
+    const usernameLength = username.length;
+    if (usernameLength < 5) {
+        throw Error ('Username is too short')
+    }
+    if (usernameLength > 16) {
+        throw Error ('Username is too long')
     }
 
     const existsE = await this.findOne({ email })

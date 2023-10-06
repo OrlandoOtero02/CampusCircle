@@ -105,10 +105,14 @@ input.error {
 nav {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  margin-right: 10px;
 }
+
 nav a {
-  margin-left: 10px;
+  margin-right: 10px;
 }
+
 nav button {
   background: #fff;
   color: var(--primary);
@@ -118,7 +122,11 @@ nav button {
   font-family: "Poppins";
   cursor: pointer;
   font-size: 1em;
-  margin-left: 10px;
+  margin-left: 20px;
+}
+
+nav button:hover {
+  background-color: #055a8c;
 }
 
 /* auth forms */
@@ -171,4 +179,31 @@ form.signup, form.login {
   padding: 6px;
   border-radius: 50%;
   color: #333;
+}
+
+/* USERS LIST */
+/* Basic styling for the split screen */
+.split-users-list {
+  display: flex;
+}
+/* Styling for each column */
+.users-list {
+  width: 100%; /* maybe change back to 50 */
+  height: 80vh; /* Adjust the height as needed */
+  box-sizing: border-box; /* Include padding and border in the width */
+  float: left;
+  overflow: auto; /* Add scrolling if the content exceeds the column height */
+  border-right: 3px #ccc; /* Add a border between the columns (optional) */
+  padding: 10px; /* Add padding around the columns */
+}
+/* Clear the float to prevent issues */
+.users-list:last-child {
+  float: none;
+  border-right: none; /* Remove the border on the last column (optional) */
+}
+.users-list h3 {
+  position:sticky;
+  top: 0;
+  background-color: white; /* Optional: Add a background color to hide overlapping content */
+  z-index: 1; /* Optional: Specify a higher z-index to make sure it stays on top */
 }

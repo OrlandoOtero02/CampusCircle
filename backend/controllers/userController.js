@@ -16,7 +16,7 @@ const loginUser = async (req, res) => {
         //create a token
         const token = createToken(user._id)
 
-        res.status(200).json({email: user.email, token})
+        res.status(200).json({email: user.email, token, _id: user._id})
     } catch (error) {
         res.status(400).json({error: error.message})
     }
@@ -32,7 +32,7 @@ const signupUser = async (req, res) => {
         //create a token
         const token = createToken(user._id)
 
-        res.status(200).json({email, token})
+        res.status(200).json({email, token, _id: user._id})
     } catch (error) {
         res.status(400).json({error: error.message})
     }
@@ -40,28 +40,33 @@ const signupUser = async (req, res) => {
 
 // Follow a user
 const followUser = async (req, res) => {
-    const { currentUserId, userIdToFollow } = req.body;
+    const person = await User.findById(req.params.Id)
 
+    
     try {
-        // Update the user's following list
-        await User.findByIdAndUpdate(currentUserId, {
-            $addToSet: { following: userIdToFollow }
-        });
-
-        res.status(200).json({ message: 'User followed successfully' });
+        if (person.following.includes(req.params.userId)) {
+            await User.findByIdAndUpdate(req.params.Id, {
+                $pull: { following: req.params.userId }
+             });        
+            res.status(200).json({ message: 'User unfollowed successfully' });
+        } else {
+            await User.findByIdAndUpdate(req.params.Id, {
+                $push: { following: req.params.userId }
+            });        
+            res.status(200).json({ message: 'User followed successfully' });
+        }
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
 };
 
+
 // Unfollow a user
 const unfollowUser = async (req, res) => {
-    const { currentUserId, userIdToUnfollow } = req.body;
-
     try {
         // Remove the user from the following list
-        await User.findByIdAndUpdate(currentUserId, {
-            $pull: { following: userIdToUnfollow }
+        await User.findByIdAndUpdate(req.params.Id, {
+            $pull: { following: req.params.userId }
         });
 
         res.status(200).json({ message: 'User unfollowed successfully' });
@@ -77,4 +82,13 @@ const getUsers = async (req, res) => {
     res.status(200).json({users})
 }
 
-module.exports = { loginUser, signupUser, followUser, unfollowUser, getUsers }
+// get following users
+const getFollowingUsers = async (req, res) => {
+    const person = await User.findById(req.params.Id).populate("following")
+
+    const following = person.following
+    //console.log(users)
+    res.status(200).json({following})
+}
+
+module.exports = { loginUser, signupUser, followUser, unfollowUser, getUsers, getFollowingUsers }

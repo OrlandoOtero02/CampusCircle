@@ -2,7 +2,7 @@
 const express = require('express')
 
 // controller functions
-const { loginUser, signupUser, followUser, unfollowUser, getUsers } = require('../controllers/userController')
+const { loginUser, signupUser, followUser, unfollowUser, getUsers, getFollowingUsers } = require('../controllers/userController')
 
 const router = express.Router()
 
@@ -13,12 +13,15 @@ router.post('/login', loginUser)
 router.post('/signup', signupUser)
 
 // follow user
-router.post('/follow/:userId', followUser)
+router.put('/follow/:userId/:Id', followUser)
 
 // unfollow user
-router.post('/unfollow/:userId', unfollowUser)
+router.put('/unfollow/:userId/:Id', unfollowUser)
 
 // get all users
 router.get('/', getUsers)
+
+// get following users
+router.get('/getFollowingUsers/:Id', getFollowingUsers)
 
 module.exports = router

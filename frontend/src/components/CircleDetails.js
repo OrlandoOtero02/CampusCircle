@@ -4,6 +4,7 @@ const CircleDetails = ({ circle }) => {
     const { user } = useAuthContext()
 
     const handleClick = async() => {
+        console.log(user.email)
         if (!user) {
             return
         }

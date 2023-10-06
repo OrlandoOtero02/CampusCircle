@@ -1,21 +1,22 @@
 // UsersList.js
 
 import { useEffect, useState } from "react";
-// import { useAuthContext } from '../hooks/useAuthContext';
+//import { useAuthContext } from '../hooks/useAuthContext';
 
 // components
 import UserDetails from '../components/UserDetails';
 
 const UsersList = () => {
     const [users, setUsers] = useState(null);
-    // const { user } = useAuthContext();
+    //const { user } = useAuthContext();
 
     useEffect(() => {
         const fetchUsers = async () => {
             try {
                 // Replace 'currentUserId' with the actual user's ID
-                const currentUserId = '12345'; // Replace with your logic to get the user's ID
-                const response = await fetch(`/api/user/?currentUserId=${currentUserId}`);
+                //const currentUserId = '12345'; // Replace with your logic to get the user's ID
+                //?currentUserId=${currentUserId}
+                const response = await fetch(`/api/user/`);
                 const json = await response.json();
 
                 if (response.ok) {
@@ -30,10 +31,11 @@ const UsersList = () => {
         fetchUsers();
         // }
     }, []);
-
+    
     return (
-        <div className="users-list-home">
+        <div className="split-users-list">
             <div className="users-list">
+                <h3>Users</h3>
                 {users && users.map((user) => (
                     <UserDetails key={user._id} user={user} />
                 ))}

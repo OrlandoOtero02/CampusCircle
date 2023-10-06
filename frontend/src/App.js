@@ -9,7 +9,11 @@ import Signup from './pages/Signup';
 import Navbar from './components/Navbar';
 import ForgotPassword from './pages/ForgotPassword';
 
+import Profile from './pages/Profile';
+import Settings from './pages/Settings';
+
 import UsersList from './pages/UsersList'
+import FollowingList from './pages/FollowingList';
 
 function App() {
   const { user } = useAuthContext()
@@ -35,9 +39,21 @@ function App() {
               path="/forgot-password"
               element={<ForgotPassword/>}
             />
+            <Route
+              path="/profile"
+              element={user ? <Profile/> : <Navigate to="/" />}
+            />
             <Route 
-              path="/displayUsers"
-              element={<UsersList/>}
+              path="/settings"
+              element={user ? <Settings/> : <Navigate to="/" />}
+            />
+            <Route 
+              path="/users"
+              element={user ? <UsersList/> : <Navigate to="/" />}
+            />
+            <Route 
+              path="/following"
+              element={user ? <FollowingList/> : <Navigate to="/" />}
             />
           </Routes>
         </div>

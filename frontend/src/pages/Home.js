@@ -4,6 +4,8 @@ import { useAuthContext } from '../hooks/useAuthContext'
 // components
 import CircleDetails from '../components/CircleDetails'
 import CircleForm from "../components/CircleForm"
+//import CircleNavbar from "../components/CircleNavbar"
+//import Navbar from "../components/Navbar"
 
 const Home = () => {
     const [circles, setCircles] = useState(null)
@@ -29,6 +31,7 @@ const Home = () => {
     }, [user])
 
     return(
+        <>
         <div className="home">
             <div className="circles">
                 {circles && circles.map((circle) => (
@@ -37,6 +40,7 @@ const Home = () => {
             </div>
             <CircleForm />
         </div>
+        </>
     )
 }
 
