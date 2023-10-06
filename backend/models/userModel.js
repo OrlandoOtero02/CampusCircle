@@ -18,7 +18,12 @@ const userSchema = new Schema({
         type: String,
         required: true,
         unique: true
-    }
+    },
+    joinedCircles: [
+        {
+            circleId: {type: String}
+        }
+    ]
 })
 
 //static signup method

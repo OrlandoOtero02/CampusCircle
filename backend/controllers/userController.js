@@ -1,5 +1,6 @@
 const User = require('../models/userModel')
 const jwt = require('jsonwebtoken')
+const mongoose = require('mongoose')
 
 const createToken = (_id) => {
     return jwt.sign({_id}, process.env.SECRET, { expiresIn: '3d' })
@@ -37,4 +38,20 @@ const signupUser = async (req, res) => {
     }
 }
 
-module.exports = { loginUser, signupUser }
+const addCircle = async (req,res) => {
+    const {circleId} = req.body
+    const userId = req.param._id
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+        return res.status(404).json({error: 'No such user'})
+    }
+
+    try {
+    const circle = await Circle.findByIdAndUpdate({userId},
+        { $push: { joinedCircles: { circleId: circleId }}})
+        res.status(200).json(circle)
+    } catch (error) {
+        res.status(400).json({error: error.message})
+    }
+}
+
+module.exports = { loginUser, signupUser, addCircle }

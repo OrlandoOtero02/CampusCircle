@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useAuthContext } from '../hooks/useAuthContext'
 import { useCircleContext } from "../hooks/useCircleContext"
+import Button from "@mui/material/Button";
 
 // components
 import CircleDetails from '../components/CircleDetails'
@@ -30,6 +31,15 @@ const Home = () => {
         }
     }, [user, dispatch])
 
+    const [createOpen, setCreateOpen] = useState(false);
+
+    const openCreateDialogue = () => {
+        setCreateOpen(true);
+    }
+    const closeCreateDialogue = () => {
+        setCreateOpen(false);
+    }
+
     return(
         <div className="home">
                 <div className="circles">
@@ -38,8 +48,17 @@ const Home = () => {
                 ))}
                 </div>
             <CircleForm />
+           
         </div>
     )
 }
 
 export default Home
+/*<Button 
+            
+onClick={(event) => {
+    openCreateDialogue();
+}}
+>
+    Join
+</Button>*/

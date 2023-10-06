@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const getCircles = async (req, res) => {
     const user_id = req.user._id
 
-    const circles = await Circle.find({ user_id }).sort({createdAt: -1})
+    const circles = await Circle.find({}).sort({createdAt: -1})
 
     res.status(200).json(circles)
 }
@@ -48,7 +48,8 @@ const createCircle = async (req, res) => {
     // add doc to db
     try {
         const user_id = req.user._id
-        const circle = await Circle.create({title, description, user_id})
+        const members = req.user._id
+        const circle = await Circle.create({title, description, user_id, members})
         res.status(200).json(circle)
     } catch (error) {
         res.status(400).json({error: error.message})
@@ -93,6 +94,16 @@ const updateCircle = async (req, res) => {
     res.status(200).json(circle)
 }
 
+const addMember = async (req, res) => {
+    const { member } = req.body
+    const { id } = req.params
+
+    const circle = await Circle.findByIdAndUpdate(
+        {_id: id},
+        {$push: {"members": {user_id: member}}}
+    )
+
+}
 
 module.exports = {
     getCircles,
