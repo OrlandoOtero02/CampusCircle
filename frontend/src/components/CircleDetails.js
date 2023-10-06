@@ -9,6 +9,7 @@ const CircleDetails = ({ circle }) => {
     const { user } = useAuthContext()
     const [error, setError] = useState(null)
 
+
     const handleDelete = async () => {
         const response = await fetch('/api/circles/' + circle._id, {
             method: 'DELETE',
@@ -26,6 +27,10 @@ const CircleDetails = ({ circle }) => {
     }
 
     const handleJoin = async () => {
+
+    const handleClick = async() => {
+        console.log(user.email)
+      
         if (!user) {
             setError('You must be logged in')
             return

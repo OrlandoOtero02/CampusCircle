@@ -5,15 +5,16 @@ const Signup = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [username, setUsername] = useState('')
+    const [birthdate, setBirthdate] = useState(new Date());
     const {signup, isLoading, error} = useSignup()
 
     const handleSubmit = async (e) => {
         //stop refresh of page
         e.preventDefault()
 
-        //console.log(email, password, username)
+        //console.log(email, password, username, birthdate)
 
-        await signup(email, password, username)
+        await signup(email, password, username, birthdate)
     }
 
     return (
@@ -22,7 +23,7 @@ const Signup = () => {
 
             <label>Email:</label>
             <input 
-                type="text"
+                type="email"
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
             />
@@ -38,7 +39,12 @@ const Signup = () => {
                 onChange={(e) => setUsername(e.target.value)}
                 value={username}
             />
-
+            <label>Birthdate:</label>
+            <input
+                type="date"
+                onChange={(e) => setBirthdate(e.target.value)}
+                value={birthdate}
+            />
             <button disabled={isLoading}>Sign up</button>
             {error && <div className="error">{error}</div>}
         </form>

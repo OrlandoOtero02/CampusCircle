@@ -8,6 +8,10 @@ import CircleDetails from '../components/CircleDetails'
 import CircleForm from "../components/CircleForm"
 import CircleNavbar from "../components/CircleNavbar"
 
+//import CircleNavbar from "../components/CircleNavbar"
+//import Navbar from "../components/Navbar"
+
+
 const Home = () => {
     const {circles, dispatch} = useCircleContext()
     const {user} = useAuthContext()
@@ -41,6 +45,7 @@ const Home = () => {
     }
 
     return(
+        <>
         <div className="home">
                 <div className="circles">
                     {circles && circles.map((circle) => (
@@ -50,6 +55,7 @@ const Home = () => {
             <CircleForm />
            
         </div>
+        </>
     )
 }
 

@@ -1,3 +1,4 @@
+// app.js
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useAuthContext } from './hooks/useAuthContext';
 
@@ -7,7 +8,17 @@ import Login from './pages/Login'
 import Signup from './pages/Signup';
 import JoinableCircles from './pages/JoinableCircles';
 import Navbar from './components/Navbar';
+
 import CircleNavbar from "./components/CircleNavbar"
+
+import ForgotPassword from './pages/ForgotPassword';
+
+import Profile from './pages/Profile';
+import Settings from './pages/Settings';
+
+import UsersList from './pages/UsersList'
+import FollowingList from './pages/FollowingList';
+
 
 function App() {
   const { user } = useAuthContext()
@@ -30,9 +41,31 @@ function App() {
               path="/signup"
               element={!user ? <Signup /> : <Navigate to="/" />}
             />
+
             <Route
               path="/joinablecircles"
               element={!user ? <Signup /> : <JoinableCircles />}
+
+            <Route 
+              path="/forgot-password"
+              element={<ForgotPassword/>}
+            />
+            <Route
+              path="/profile"
+              element={user ? <Profile/> : <Navigate to="/" />}
+            />
+            <Route 
+              path="/settings"
+              element={user ? <Settings/> : <Navigate to="/" />}
+            />
+            <Route 
+              path="/users"
+              element={user ? <UsersList/> : <Navigate to="/" />}
+            />
+            <Route 
+              path="/following"
+              element={user ? <FollowingList/> : <Navigate to="/" />}
+
             />
           </Routes>
         </div>
