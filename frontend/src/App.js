@@ -7,6 +7,8 @@ import Login from './pages/Login'
 import Signup from './pages/Signup';
 import Navbar from './components/Navbar';
 import ForgotPassword from './pages/ForgotPassword';
+import Profile from './pages/Profile';
+import Settings from './pages/Settings';
 
 function App() {
   const { user } = useAuthContext()
@@ -31,6 +33,14 @@ function App() {
             <Route 
               path="/forgot-password"
               element={<ForgotPassword/>}
+            />
+            <Route 
+              path="/profile"
+              element={user ? <Profile/> : <Navigate to="/" />}
+            />
+            <Route 
+              path="/settings"
+              element={user ? <Settings/> : <Navigate to="/" />}
             />
           </Routes>
         </div>

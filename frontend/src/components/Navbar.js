@@ -19,6 +19,8 @@ const Navbar = () => {
                 <nav>
                     {user && (
                         <div>
+                            <Link to="/profile">Profile</Link>
+                            <Link to="/settings">Settings</Link>
                             <span>{user.email}</span>
                             <button onClick={handleClick}>Log out</button>
                         </div>
