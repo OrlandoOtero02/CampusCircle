@@ -26,9 +26,7 @@ const CircleDetails = ({ circle }) => {
         }
     }
 
-    const handleJoin = async () => {
-
-    const handleClick = async() => {
+    const handleJoin = async() => {
         console.log(user.email)
       
         if (!user) {
@@ -80,5 +78,4 @@ const CircleDetails = ({ circle }) => {
         </div>
     )
 }
-
 export default CircleDetails

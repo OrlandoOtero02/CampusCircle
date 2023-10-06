@@ -44,9 +44,10 @@ function App() {
 
             <Route
               path="/joinablecircles"
-              element={!user ? <Signup /> : <JoinableCircles />}
+              element={<JoinableCircles />}
+            />
 
-            <Route 
+            <Route
               path="/forgot-password"
               element={<ForgotPassword/>}
             />

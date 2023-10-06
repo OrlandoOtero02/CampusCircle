@@ -12,15 +12,6 @@ const CircleNavbar = () => {
                 </Link>
             </div>
         </header>
-
-        <div>
-            <Link to="/">
-                <h4>My Circles</h4>
-            </Link>
-            <Link to="/">
-                <h4>Joinable Circles</h4>
-            </Link>
-        </div>
     )
 }
 
