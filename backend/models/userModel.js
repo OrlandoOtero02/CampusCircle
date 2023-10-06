@@ -19,7 +19,12 @@ const userSchema = new Schema({
         type: String,
         required: true,
         unique: true
-    }
+    },
+    // New fields for following and followers
+    following: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }]
 })
 
 //static signup method

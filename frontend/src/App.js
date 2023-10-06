@@ -1,3 +1,4 @@
+// app.js
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useAuthContext } from './hooks/useAuthContext';
 
@@ -7,6 +8,8 @@ import Login from './pages/Login'
 import Signup from './pages/Signup';
 import Navbar from './components/Navbar';
 import ForgotPassword from './pages/ForgotPassword';
+
+import UsersList from './pages/UsersList'
 
 function App() {
   const { user } = useAuthContext()
@@ -31,6 +34,10 @@ function App() {
             <Route 
               path="/forgot-password"
               element={<ForgotPassword/>}
+            />
+            <Route 
+              path="/displayUsers"
+              element={<UsersList/>}
             />
           </Routes>
         </div>
