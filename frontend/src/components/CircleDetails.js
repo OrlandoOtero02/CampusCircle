@@ -72,7 +72,7 @@ const CircleDetails = ({ circle }) => {
             <p>Description: {circle.description}</p>
             <p>Members: {circle.members.length}</p>
             <p>{formatDistanceToNow(new Date(circle.createdAt), { addSuffix: true })}</p>
-            <Button className="material-symbols-outlined" onClick={handleDelete}>Delete</Button>
+            <Button onClick={handleDelete}>Delete</Button>
             <Button onClick={handleJoin}>Join</Button>
             <Button onClick={handleLeave}>Leave</Button>
         </div>
