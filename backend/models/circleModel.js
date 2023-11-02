@@ -21,6 +21,11 @@ const circleSchema = new Schema({
         {
             type: String, 
     }],
+    messages: [
+        {
+            type: String,
+        }
+    ],
 }, { timestamps: true })
 
 module.exports = mongoose.model('Circle', circleSchema)
