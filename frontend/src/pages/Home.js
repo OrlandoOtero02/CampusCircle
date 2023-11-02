@@ -70,7 +70,7 @@ const Home = () => {
                                 );
                             })
                             .map((circle) => (
-                                <CircleDetails key={circle._id} circle={circle} />
+                                <CircleDetails key={circle._id} circle={circle} joined={true} />
                             ))}
                 </div>
                 <CircleForm />
