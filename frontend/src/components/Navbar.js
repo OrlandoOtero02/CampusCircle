@@ -37,7 +37,7 @@ const Navbar = () => {
                     {user && (
                         <div>
                             <Link to="/joinablecircles">Join Circles</Link>
-                            <Link to="/following">Following</Link>
+                            {/* <Link to="/following">Following</Link> */}
                             <Link to="/users">Users</Link>
                             <Link to="/profile">Profile</Link>
                             <Link to="/settings">Settings</Link>
