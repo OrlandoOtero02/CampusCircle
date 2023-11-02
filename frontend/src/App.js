@@ -26,7 +26,6 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Navbar />
-        <CircleNavbar />
         <div className="pages">
           <Routes>
             <Route
@@ -44,12 +43,12 @@ function App() {
 
             <Route
               path="/joinablecircles"
-              element={<JoinableCircles />}
+              element={user ? <JoinableCircles /> : <Navigate to="/"/>}
             />
 
             <Route
               path="/forgot-password"
-              element={<ForgotPassword/>}
+              element={!user ? <ForgotPassword /> : <Navigate to="/" />}
             />
             <Route
               path="/profile"
