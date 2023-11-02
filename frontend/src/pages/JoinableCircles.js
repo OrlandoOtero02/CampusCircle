@@ -40,20 +40,43 @@ const JoinableCircles = () => {
         setCreateOpen(false);
     }
 
-    return(
-        <div className="home">
-                <div className="circles">
-                    {circles && circles.map((circle) => (
-                        <CircleDetails key={circle._id} circle={circle}/>
-                ))}
-                </div>
-            <CircleForm />
-           
-        </div>
-    )
-}
+    const [searchQuery, setSearchQuery] = useState("");
 
-export default JoinableCircles
+    return (
+        <>
+            <div className="home">
+                <div className="search-bar">
+                    <input
+                        type="text"
+                        placeholder="Search Circles"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                </div>
+                <div className="circles">
+                    {circles &&
+                        circles
+                            .filter((circle) => {
+                                if (searchQuery.trim() === "") {
+                                    return true; // Show all circles when the search query is blank
+                                }
+                                return (
+                                    circle.title &&
+                                    circle.title.toLowerCase().includes(searchQuery.toLowerCase())
+                                    || circle.description.toLowerCase().includes(searchQuery.toLowerCase())
+                                );
+                            })
+                            .map((circle) => (
+                                <CircleDetails key={circle._id} circle={circle} />
+                            ))}
+                </div>
+                <CircleForm />
+            </div>
+        </>
+    );
+};
+
+export default JoinableCircles;
 /*<Button 
             
 onClick={(event) => {

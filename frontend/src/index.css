@@ -43,7 +43,7 @@ header a {
 
 /* homepage */
 .home {
-  display: grid;
+  /*display: grid; */
   grid-template-columns: 3fr 1fr;
   gap: 100px;
 }
@@ -65,7 +65,7 @@ header a {
   font-size: 0.9em;
   color: #555;
 }
-.circle-details span {
+/*.circle-details span {
   position: absolute;
   top: 20px;
   right: 20px;
@@ -75,6 +75,7 @@ header a {
   border-radius: 50%;
   color: #333;
 }
+*/
 
 /* new circle form */
 label, input {
