@@ -4,7 +4,7 @@ import { useCircleContext } from "../hooks/useCircleContext"
 import Button from '@mui/material/Button'
 import { useState } from "react"
 
-const CircleDetails = ({ circle }) => {
+const CircleDetails = ({ circle, joined }) => {
     const { dispatch } = useCircleContext()
     const { user } = useAuthContext()
     const [error, setError] = useState(null)
@@ -77,8 +77,7 @@ const CircleDetails = ({ circle }) => {
             <p>Members: {circle.members.length}</p>
             <p>{formatDistanceToNow(new Date(circle.createdAt), { addSuffix: true })}</p>
             {isOwner && <Button onClick={handleDelete}>Delete</Button>}
-            <Button onClick={handleJoin}>Join</Button>
-            <Button onClick={handleLeave}>Leave</Button>
+            { joined ? <Button onClick={handleLeave}>Leave</Button> : <Button onClick={handleJoin}>Join</Button>}
         </div>
     )
 }
