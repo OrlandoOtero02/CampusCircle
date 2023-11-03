@@ -32,24 +32,42 @@ const UserProfile = () => {
     fetchUserDetails();
   }, [userId]);
 
+  const handleBlockUser = async () => {
+    const currentUserId = JSON.parse(localStorage.getItem('user'))._id;
+    const currentUserToken = JSON.parse(localStorage.getItem('user')).token;
+    console.log(currentUserId)
+    console.log('Blocking user:', user._id);
+
+    
+
+
+    const response = await fetch('/api/user/block/' + currentUserId + '/' + user._id, {
+      method: 'PUT',
+      // body: JSON.stringify(requestBody),
+      headers: {
+          'Authorization': `Bearer ${currentUserToken}`
+      },
+    })
+    const json = await response.json()
+
+    if (response.ok) {
+      // will need to update local frontend
+      console.log(json)
+    } 
+
+
+
+
+};
+
   return (
-    // <div className="user-profile">
-    //   {user ? (
-    //     <div>
-    //       {user.email}
-    //       {user.username}
-    //       {/* Add more user profile information here */}
-    //     </div>
-    //   ) : (
-    //     <p>Loading user profile...</p>
-    //   )}
-    // </div>
     <div className="user-profile">
       {user ? (
         <div>
           <div className="profile-header">
             <img src={user.profilePicture} alt="Profile" className="profile-picture" />
             <h2>{user.username}</h2>
+            <button onClick={handleBlockUser} className="blocking-user-button">Block</button>
           </div>
           <div className="profile-info">
             <h3>About Me</h3>

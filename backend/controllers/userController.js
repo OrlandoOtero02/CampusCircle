@@ -95,12 +95,25 @@ const getFollowingUsers = async (req, res) => {
 // Block a user
 const blockUser = async (req, res) => {
     try {
-        // Block the user by adding their ID to the blockedUsers array
-        await User.findByIdAndUpdate(req.params.Id, {
-            $push: { blockedUsers: req.params.userId }
-        });
+        const person = await User.findById(req.params.userId)
 
-        res.status(200).json({ message: 'User blocked successfully' });
+        if (person.blockedUsers.includes(req.params.blockId)) {
+            await User.findByIdAndUpdate(req.params.userId, {
+                $pull: { blockedUsers: req.params.blockId }
+             });        
+            res.status(200).json({ message: 'User unblocked successfully' });
+        } else {
+            await User.findByIdAndUpdate(req.params.userId, {
+                $push: { blockedUsers: req.params.blockId }
+            });        
+            res.status(200).json({ message: 'User blocked successfully' });
+        }
+
+
+        // Block the user by adding their ID to the blockedUsers array
+        // await User.findByIdAndUpdate(req.params.userId, {
+        //     $push: { blockedUsers: req.params.blockId }
+        // });
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
@@ -110,8 +123,8 @@ const blockUser = async (req, res) => {
 const unblockUser = async (req, res) => {
     try {
         // Unblock the user by removing their ID from the blockedUsers array
-        await User.findByIdAndUpdate(req.params.Id, {
-            $pull: { blockedUsers: req.params.userId }
+        await User.findByIdAndUpdate(req.params.userId, {
+            $pull: { blockedUsers: req.params.unblockId }
         });
 
         res.status(200).json({ message: 'User unblocked successfully' });
@@ -123,7 +136,7 @@ const unblockUser = async (req, res) => {
 // Get blocked users
 const getBlockedUsers = async (req, res) => {
     try {
-        const user = await User.findById(req.params.Id).populate('blockedUsers');
+        const user = await User.findById(req.params.userId).populate('blockedUsers');
 
         const blockedUsers = user.blockedUsers;
 

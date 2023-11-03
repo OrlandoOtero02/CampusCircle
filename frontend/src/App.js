@@ -19,6 +19,7 @@ import Settings from './pages/Settings';
 
 import UsersList from './pages/UsersList'
 import FollowingList from './pages/FollowingList';
+import BlockedUsers from './pages/BlockedUsers';
 
 
 function App() {
@@ -72,6 +73,10 @@ function App() {
               element={user ? <UserProfile /> : <Navigate to="/" />}
             /> */}
             <Route path="/profile/:userId" element={<UserProfile />} />
+            <Route 
+              path="/blockedUsers"
+              element={user ? <BlockedUsers/> : <Navigate to="/" />}
+            />
 
           </Routes>
         </div>

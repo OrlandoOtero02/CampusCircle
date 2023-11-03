@@ -25,13 +25,13 @@ router.get('/', getUsers)
 router.get('/getFollowingUsers/:Id', getFollowingUsers)
 
 // Block user
-router.put('/block/:userId/:Id', blockUser);
+router.put('/block/:userId/:blockId', blockUser);
 
 // Unblock user
-router.put('/unblock/:userId/:Id', unblockUser);
+router.put('/unblock/:userId/:unblockId', unblockUser);
 
 // Get blocked users
-router.get('/blockedUsers/:Id', getBlockedUsers);
+router.get('/blockedUsers/:userId', getBlockedUsers);
 
 // get user by id
 router.get('/getUserById/:userId', getUserById);
