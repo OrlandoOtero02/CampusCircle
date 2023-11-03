@@ -36,6 +36,7 @@ const Navbar = () => {
                 <nav>
                     {user && (
                         <div>
+                            <Link to="/blockedUsers">BlockedUsers</Link>
                             <Link to="/joinablecircles">Join Circles</Link>
                             {/* <Link to="/following">Following</Link> */}
                             <Link to="/users">Users</Link>

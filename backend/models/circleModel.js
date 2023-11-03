@@ -15,7 +15,6 @@ const circleSchema = new Schema({
     user_id: {
         type: String,
         required: true,
-        required: true
     },
     members: [
         {
