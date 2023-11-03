@@ -10,10 +10,11 @@ import { useEffect } from 'react';
 import { useCircleContext } from '../hooks/useCircleContext';
 import { useParams } from 'react-router-dom';
 
-const CircleLandingPage = ({circleId}) => {
+const CircleLandingPage = () => {
     const {circles, dispatch} = useCircleContext()
     const location = useLocation();
     const { user } = useAuthContext();
+    const { circleId } = useParams();
 
     useEffect(() => {
         console.log(circleId);

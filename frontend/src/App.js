@@ -68,7 +68,7 @@ function App() {
               element={user ? <FollowingList/> : <Navigate to="/" />}
             />
             <Route
-              path="/circlelanding"
+              path="/circlelanding/:circleId"
               element={<CircleLandingPage/>}
             />
           </Routes>
