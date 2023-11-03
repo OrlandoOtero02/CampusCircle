@@ -1,5 +1,6 @@
 //circleController.js
 const Circle = require('../models/circleModel')
+const User = require('../models/userModel'); // Adjust the path as per your project structure
 const mongoose = require('mongoose')
 
 // get all circles
@@ -21,20 +22,28 @@ const getUserCircles = async (req, res) => {
 
 const getJoinableCircles = async (req, res) => {
     const user_id = req.user._id;
-
-    // Define the query to find joinable circles
+  
+    // Step 1: Query the User collection to retrieve the 'following' array
+    const user = await User.findOne({ _id: user_id });
+  
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+  
+    const following = user.following;
+  
+    // Step 2: Use the retrieved 'following' array to query the Circle collection
     const query = {
-        $or: [
-            { $and: [{ isPrivate: false }, {"members" : { $nin : user_id}}] },  // Check if isPrivate is false
-            { $and: [{ isPrivate: true }, { user_id: { $in: req.user.following } }, {"members" : { $nin : user_id}}] }  // Check if isPrivate is true and user_id is in user.following array
-        ]
+      $or: [
+        { isPrivate: false, members: { $nin: user_id } }, // Check if isPrivate is false
+        { isPrivate: true, user_id: { $in: following }, members: { $nin: user_id } } // Check if isPrivate is true and user_id is in 'following' array
+      ]
     };
-
+  
     const circles = await Circle.find(query).sort({ createdAt: -1 });
-
+  
     res.status(200).json(circles);
-};
-
+  };
 
 // get a single circle
 const getCircle = async (req, res) => {
