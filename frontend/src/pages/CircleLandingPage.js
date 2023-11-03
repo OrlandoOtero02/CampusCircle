@@ -8,14 +8,15 @@ import { useLocation } from 'react-router';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useEffect } from 'react';
 import { useCircleContext } from '../hooks/useCircleContext';
+import { useParams } from 'react-router-dom';
 
-const CircleLandingPage = () => {
+const CircleLandingPage = ({circleId}) => {
     const {circles, dispatch} = useCircleContext()
     const location = useLocation();
     const { user } = useAuthContext();
-    const {circleId} = location.state;
 
     useEffect(() => {
+        console.log(circleId);
         const fetchCircle = async () => {
             const response = await fetch('/api/circles/' + circleId, {
                 headers: {
@@ -35,7 +36,6 @@ const CircleLandingPage = () => {
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-        <h1>{circles.title}</h1>
       <ButtonGroup variant="outlined">
         <Button>
           <EmailIcon fontSize="large" />
