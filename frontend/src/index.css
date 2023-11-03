@@ -41,6 +41,45 @@ header a {
   margin: 0 auto;
 }
 
+/* Login.css */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #07689f;
+}
+
+.login-form {
+  background: #fff;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+  width: 70%; /* Adjust the width as needed */
+  text-align: center;
+  display: flex;
+  justify-content: space-between; /* Place the logo on the left, and fields on the right */
+  align-items: center;
+  margin: auto;
+}
+
+.logo-container {
+  width: 30%; /* Adjust the width as needed */
+  display: flex;
+  justify-content: flex-start; /* Place the logo on the left */
+  align-items: center;
+}
+
+.logo-image {
+  display: block;
+}
+
+.fields-container {
+  width: 60%; /* Adjust the width as needed */
+  display: flex;
+  flex-direction: column; /* Stack fields vertically */
+}
+
 /* homepage */
 .home {
   display: grid;
