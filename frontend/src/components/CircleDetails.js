@@ -8,7 +8,8 @@ const CircleDetails = ({ circle }) => {
     const { dispatch } = useCircleContext()
     const { user } = useAuthContext()
     const [error, setError] = useState(null)
-
+    
+    const isOwner = circle.user_id === user._id;
 
     const handleDelete = async () => {
         const response = await fetch('/api/circles/' + circle._id, {
@@ -75,7 +76,7 @@ const CircleDetails = ({ circle }) => {
             <p>Description: {circle.description}</p>
             <p>Members: {circle.members.length}</p>
             <p>{formatDistanceToNow(new Date(circle.createdAt), { addSuffix: true })}</p>
-            <span className="material-symbols-outlined" onClick={handleDelete}>delete</span>
+            {isOwner && <Button onClick={handleDelete}>Delete</Button>}
             <Button onClick={handleJoin}>Join</Button>
             <Button onClick={handleLeave}>Leave</Button>
         </div>

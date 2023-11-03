@@ -3,6 +3,8 @@ import axios from 'axios';
 import Logo from '../assets/CampusCircle Logo White.png';
 import { useAuthContext } from '../hooks/useAuthContext';
 import Button from '@mui/material/Button';
+//Profile.js
+import FollowingList from './FollowingList';
 
 function Profile() {
   const [isEditing, setIsEditing] = useState(false);
@@ -129,6 +131,8 @@ function Profile() {
           )}
           <button onClick={toggleEditMode}>{isEditing ? 'Cancel Edit' : 'Edit Profile'}</button>
         </div>
+        <button>Edit Profile</button>
+        <FollowingList/>
       </div>
     </div>
   );

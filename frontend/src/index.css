@@ -159,7 +159,7 @@ button:focus {
 
 /* homepage */
 .home {
-  display: grid;
+  /*display: grid; */
   grid-template-columns: 3fr 1fr;
   gap: 100px;
 }
@@ -181,7 +181,7 @@ button:focus {
   font-size: 0.9em;
   color: #555;
 }
-.circle-details span {
+/*.circle-details span {
   position: absolute;
   top: 20px;
   right: 20px;
@@ -191,6 +191,7 @@ button:focus {
   border-radius: 50%;
   color: #333;
 }
+*/
 
 /* new circle form */
 label, input {
@@ -289,6 +290,12 @@ form.signup, form.login {
   margin: 0 0 10px 0;
   font-size: 1.2em;
   color: var(--primary);
+}
+.user-details h4.following {
+  margin: 0 0 10px 0;
+  font-size: 1.2em;
+  color: var(--primary);
+  text-align: center;
 }
 .user-details p {
   margin: 0;
