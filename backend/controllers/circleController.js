@@ -25,8 +25,8 @@ const getJoinableCircles = async (req, res) => {
     // Define the query to find joinable circles
     const query = {
         $or: [
-            { isPrivate: false },  // Check if isPrivate is false
-            { $and: [{ isPrivate: true }, { user_id: { $in: req.user.following } }] }  // Check if isPrivate is true and user_id is in user.following array
+            { $and: [{ isPrivate: false }, {"members" : { $nin : user_id}}] },  // Check if isPrivate is false
+            { $and: [{ isPrivate: true }, { user_id: { $in: req.user.following } }, {"members" : { $nin : user_id}}] }  // Check if isPrivate is true and user_id is in user.following array
         ]
     };
 
