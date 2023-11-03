@@ -19,6 +19,8 @@ import Settings from './pages/Settings';
 import UsersList from './pages/UsersList'
 import FollowingList from './pages/FollowingList';
 
+import Messaging from './pages/Messaging.js'
+
 
 function App() {
   const { user } = useAuthContext()
@@ -67,6 +69,11 @@ function App() {
               path="/following"
               element={user ? <FollowingList/> : <Navigate to="/" />}
 
+            />
+            <Route 
+              path="/messaging"
+              //element={user ? <Messaging/> : <Navigate to='/' />}
+              element={<Messaging/>}
             />
           </Routes>
         </div>
