@@ -35,7 +35,7 @@ const UsersList = () => {
     return (
         <div className="split-users-list">
             <div className="users-list">
-                <h3>Users</h3>
+                <h2>Users</h2>
                 {users && users.map((user) => (
                     <UserDetails key={user._id} user={user} />
                 ))}

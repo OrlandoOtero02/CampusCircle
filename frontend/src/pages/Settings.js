@@ -95,13 +95,8 @@ function Settings() {
           <div className="settings-content">
             <h2>Settings Page</h2>
             <div className="settings-section">
-              <h3>General Settings</h3>
-              {/* General settings options */}
-            </div>
-            <div className="settings-section">
-              <h3>Security Settings</h3>
 
-<div className="settings-section">
+          <div className="settings-section">
             <h3>Theme Settings</h3>
             <label>
               Dark Mode
@@ -113,10 +108,13 @@ function Settings() {
             </label>
           </div>
 
-              {/* Security settings options */}
-              <button onClick={() => setShowChangePassword(!showChangePassword)} className="change-password-btn">
+          <div className="settings-section">
+              <h3>Security Settings</h3>
+            </div>
+
+              <Button variant="contained" onClick={() => setShowChangePassword(!showChangePassword)} className="change-password-btn">
                 Change Password
-              </button>
+              </Button>
               {showChangePassword && (
                 <form onSubmit={handleResetPassword}>
                   <h2>Change Password</h2>
@@ -147,11 +145,10 @@ function Settings() {
               )}
             </div>
             <div className="settings-section">
-              <h3>Notifications</h3>
-              {/* Notifications settings options */}
+              <h3>General Settings</h3>
             </div>
             <div className="settings-section">
-              <Button variant="contained" color="secondary" onClick={() => setOpen(true)}>
+              <Button variant="contained" onClick={() => setOpen(true)}>
                 Delete Account
               </Button>
               <Dialog open={open} onClose={() => setOpen(false)}>
