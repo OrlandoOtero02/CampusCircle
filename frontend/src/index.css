@@ -175,6 +175,12 @@ form.signup, form.login {
   font-size: 1.2em;
   color: var(--primary);
 }
+.user-details h4.following {
+  margin: 0 0 10px 0;
+  font-size: 1.2em;
+  color: var(--primary);
+  text-align: center;
+}
 .user-details p {
   margin: 0;
   font-size: 0.9em;

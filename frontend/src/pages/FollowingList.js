@@ -1,8 +1,9 @@
 //FollowingList.js
 import { useEffect, useState } from "react";
 import { useAuthContext } from '../hooks/useAuthContext';
-import UserDetails from '../components/UserDetails';
+//import UserDetailsFollowing from '../components/UserDetailsFollowing';
 import { Link } from 'react-router-dom'
+import UserDetailsFollowing from "../components/UserDetailsFollowing";
 
 
 const FollowingList = () => {
@@ -38,15 +39,13 @@ const FollowingList = () => {
                 <p onClick={toggleUserVisibility} style={{ cursor: "pointer" }}>
                     Total Users: {users ? users.length : 0} (Click to {showUsers ? "Hide" : "Show"})
                 </p>
-                {showUsers && users && users.map((user) => (
+                {/* {showUsers && users && users.map((user) => (
                     <UserDetails key={user._id} user={user} />
-                ))}
-                {users && users.map((user) => (
+                ))} */}
+                {showUsers && users && users.map((user) => (
                 <div key={user._id}>
-                    console.log('User ID:', user._id);
-                    <Link to={`/profile/${user._id}`}>View Profile</Link>
+                    <Link to={`/profile/${user._id}`}><UserDetailsFollowing user={user}/></Link>
                 {/* <Link to={`/profile/${user._id}`}>View Profile</Link> */}
-                <UserDetails user={user} />
                 </div>
                 ))}
             </div>

@@ -34,7 +34,7 @@ router.put('/unblock/:userId/:Id', unblockUser);
 router.get('/blockedUsers/:Id', getBlockedUsers);
 
 // get user by id
-router.get('/getUserById/:Id', getUserById);
+router.get('/getUserById/:userId', getUserById);
 
 
 module.exports = router

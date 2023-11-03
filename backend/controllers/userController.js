@@ -134,6 +134,7 @@ const getBlockedUsers = async (req, res) => {
 };
 
 const getUserById = async (req, res) => {
+    //console.log(`made it to getUSERby ID, and req is ${req.params.userId}`)
     try {
       const userId = req.params.userId;
       const user = await User.findById(userId);
