@@ -1,3 +1,4 @@
+//Profile.js
 import React from 'react';
 import FollowingList from './FollowingList';
 

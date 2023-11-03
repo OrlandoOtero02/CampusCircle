@@ -1,4 +1,4 @@
-// userModel.js
+//userModel.js
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const validator = require('validator')
@@ -34,7 +34,11 @@ const userSchema = new Schema({
     birthdate: {
         type: Date,
         required: true,
-    }
+    },
+    blockedUsers: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }]
 })
 
 //static signup method

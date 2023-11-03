@@ -92,4 +92,73 @@ const getFollowingUsers = async (req, res) => {
     res.status(200).json({following})
 }
 
-module.exports = { loginUser, signupUser, followUser, unfollowUser, getUsers, getFollowingUsers }
+// Block a user
+const blockUser = async (req, res) => {
+    try {
+        // Block the user by adding their ID to the blockedUsers array
+        await User.findByIdAndUpdate(req.params.Id, {
+            $push: { blockedUsers: req.params.userId }
+        });
+
+        res.status(200).json({ message: 'User blocked successfully' });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
+// Unblock a user
+const unblockUser = async (req, res) => {
+    try {
+        // Unblock the user by removing their ID from the blockedUsers array
+        await User.findByIdAndUpdate(req.params.Id, {
+            $pull: { blockedUsers: req.params.userId }
+        });
+
+        res.status(200).json({ message: 'User unblocked successfully' });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
+// Get blocked users
+const getBlockedUsers = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.Id).populate('blockedUsers');
+
+        const blockedUsers = user.blockedUsers;
+
+        res.status(200).json({ blockedUsers });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
+const getUserById = async (req, res) => {
+    try {
+      const userId = req.params.userId;
+      const user = await User.findById(userId);
+  
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+  
+      // Return the user's details as JSON
+      res.status(200).json({ user });
+    } catch (error) {
+      console.error('Error fetching user by ID:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  };
+
+module.exports = {
+    loginUser,
+    signupUser,
+    followUser,
+    unfollowUser,
+    getUsers,
+    getFollowingUsers,
+    blockUser,
+    unblockUser,
+    getBlockedUsers,
+    getUserById
+};

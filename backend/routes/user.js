@@ -2,7 +2,7 @@
 const express = require('express')
 
 // controller functions
-const { loginUser, signupUser, followUser, unfollowUser, getUsers, getFollowingUsers } = require('../controllers/userController')
+const { loginUser, signupUser, followUser, unfollowUser, getUsers, getFollowingUsers, blockUser, unblockUser, getBlockedUsers, getUserById } = require('../controllers/userController')
 
 const router = express.Router()
 
@@ -23,5 +23,18 @@ router.get('/', getUsers)
 
 // get following users
 router.get('/getFollowingUsers/:Id', getFollowingUsers)
+
+// Block user
+router.put('/block/:userId/:Id', blockUser);
+
+// Unblock user
+router.put('/unblock/:userId/:Id', unblockUser);
+
+// Get blocked users
+router.get('/blockedUsers/:Id', getBlockedUsers);
+
+// get user by id
+router.get('/getUserById/:Id', getUserById);
+
 
 module.exports = router

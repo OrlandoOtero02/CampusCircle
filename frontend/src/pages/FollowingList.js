@@ -1,6 +1,9 @@
+//FollowingList.js
 import { useEffect, useState } from "react";
 import { useAuthContext } from '../hooks/useAuthContext';
 import UserDetails from '../components/UserDetails';
+import { Link } from 'react-router-dom'
+
 
 const FollowingList = () => {
     const [users, setUsers] = useState(null);
@@ -37,6 +40,14 @@ const FollowingList = () => {
                 </p>
                 {showUsers && users && users.map((user) => (
                     <UserDetails key={user._id} user={user} />
+                ))}
+                {users && users.map((user) => (
+                <div key={user._id}>
+                    console.log('User ID:', user._id);
+                    <Link to={`/profile/${user._id}`}>View Profile</Link>
+                {/* <Link to={`/profile/${user._id}`}>View Profile</Link> */}
+                <UserDetails user={user} />
+                </div>
                 ))}
             </div>
         </div>
