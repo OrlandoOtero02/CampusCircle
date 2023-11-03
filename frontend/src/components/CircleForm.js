@@ -51,9 +51,6 @@ const CircleForm = () => {
       setEmptyFields(json.emptyFields);
     }
 
-    // Determine the text color based on the theme (light or dark)
-    const buttonColor = '#0988d0';
-
     if (response.ok) {
       setTitle("");
       setDescription("");
@@ -64,6 +61,9 @@ const CircleForm = () => {
       dispatch({ type: "CREATE_CIRCLE", payload: json });
     }
   };
+
+  // Determine the text color based on the theme (light or dark)
+    const buttonColor = '#0988d0';
 
   return (
     <form className="create" onSubmit={handleSubmit}>

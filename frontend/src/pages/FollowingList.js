@@ -37,7 +37,6 @@ const FollowingList = () => {
     return (
         <div className="split-users-list">
             <div className="users-list">
-      //go back
                 <h3 style={{ color: textColor }}>Following</h3>
             
                 {/* <h3>Following</h3> */}

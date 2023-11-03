@@ -113,8 +113,6 @@ function Settings() {
             </label>
           </div>
 
-<h1>space</h1>
-
               {/* Security settings options */}
               <button onClick={() => setShowChangePassword(!showChangePassword)} className="change-password-btn">
                 Change Password
