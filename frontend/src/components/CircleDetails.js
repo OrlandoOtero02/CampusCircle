@@ -75,9 +75,11 @@ const CircleDetails = ({ circle, joined }) => {
             <h4 style={{ color: textColor }}>{circle.title}</h4>
             <p>Description: {circle.description}</p>
             <p>Members: {circle.members.length}</p>
-            <p>{formatDistanceToNow(new Date(circle.createdAt), { addSuffix: true })}</p>
+            <p style={{ marginBottom: 10 }}>{formatDistanceToNow(new Date(circle.createdAt), { addSuffix: true })}</p>
             {isOwner && <Button onClick={handleDelete}>Delete</Button>}
-            { joined ? <Button onClick={handleLeave}>Leave</Button> : <Button onClick={handleJoin}>Join</Button>}
+
+
+            { joined ? <Button onClick={handleLeave}>Leave</Button> : <Button variant="contained" style={{ marginRight: 10 }} onClick={handleJoin}>Join</Button>}
         </div>
     )
 }

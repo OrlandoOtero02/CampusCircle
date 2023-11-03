@@ -77,8 +77,13 @@ body.light header button {
 }
 
 /* Adjust text color for dark mode */
-body.dark .users-list {
-  color: black; /* Black text color in dark mode */
+body.dark .users-list h3 {
+  color: white; /* Black text color in dark mode */
+  background-color: #1a1a1a;
+}
+
+body.dark .user-details {
+  color: black;
 }
 
 body.light .users-list {

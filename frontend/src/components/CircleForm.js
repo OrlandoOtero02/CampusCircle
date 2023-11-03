@@ -3,6 +3,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { useCircleContext } from "../hooks/useCircleContext";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import Button from '@mui/material/Button';
 
 const CircleForm = () => {
   const { user } = useAuthContext();
@@ -97,7 +98,7 @@ const CircleForm = () => {
       </ToggleButtonGroup>
 
 
-      <button style={{ backgroundColor: buttonColor }}>Add Circle</button>
+      <Button variant="contained">Add Circle</Button>
       {error && <div className="error">{error}</div>}
     </form>
   );
