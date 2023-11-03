@@ -92,4 +92,10 @@ const getFollowingUsers = async (req, res) => {
     res.status(200).json({following})
 }
 
-module.exports = { loginUser, signupUser, followUser, unfollowUser, getUsers, getFollowingUsers }
+const deleteUser = async (req, res) => {
+    console.log("KILL ME")
+    await User.findByIdAndDelete(req.params.Id)
+    res.status(200)
+}
+
+module.exports = { loginUser, signupUser, followUser, unfollowUser, getUsers, getFollowingUsers, deleteUser }
