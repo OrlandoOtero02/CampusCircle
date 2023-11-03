@@ -20,6 +20,10 @@ const circleSchema = new Schema({
         {
             type: String, 
     }],
+    isPrivate: {
+        type: Boolean,
+        default: false,
+    }
 }, { timestamps: true })
 
 module.exports = mongoose.model('Circle', circleSchema)

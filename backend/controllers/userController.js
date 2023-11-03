@@ -92,6 +92,7 @@ const getFollowingUsers = async (req, res) => {
     res.status(200).json({following})
 }
 
+
 // Block a user
 const blockUser = async (req, res) => {
     try {
@@ -164,6 +165,13 @@ const getUserById = async (req, res) => {
     }
   };
 
+
+      const deleteUser = async (req, res) => {
+          console.log("KILL ME")
+          await User.findByIdAndDelete(req.params.Id)
+          res.status(200)
+      }
+
 module.exports = {
     loginUser,
     signupUser,
@@ -174,5 +182,8 @@ module.exports = {
     blockUser,
     unblockUser,
     getBlockedUsers,
-    getUserById
+    getUserById,
+    deleteUser
 };
+
+
