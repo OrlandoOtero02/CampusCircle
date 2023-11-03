@@ -2,6 +2,7 @@
 const User = require('../models/userModel')
 const jwt = require('jsonwebtoken')
 const mongoose = require('mongoose')
+const bcrypt = require('bcrypt');
 
 const createToken = (_id) => {
     return jwt.sign({_id}, process.env.SECRET, { expiresIn: '3d' })
@@ -61,6 +62,27 @@ const followUser = async (req, res) => {
     }
 };
 
+// Update user 
+const updateUserPassword = async (req, res) => {
+        const { email, newPassword } = req.body;
+    
+        try {
+            const user = await User.findOne({ email: email });
+    
+            if (!user) {
+                return res.status(404).json({ error: 'User not found.' });
+            }
+    
+            const hashedPassword = await bcrypt.hash(newPassword, 10);
+            user.password = hashedPassword;
+            await user.save();
+    
+            res.status(200).json({ message: 'Password updated successfully.' });
+        } catch (error) {
+            res.status(400).json({ error: error.message });
+        }
+    };
+
 
 // Unfollow a user
 const unfollowUser = async (req, res) => {
@@ -92,4 +114,4 @@ const getFollowingUsers = async (req, res) => {
     res.status(200).json({following})
 }
 
-module.exports = { loginUser, signupUser, followUser, unfollowUser, getUsers, getFollowingUsers }
+module.exports = { loginUser, signupUser, followUser, unfollowUser, getUsers, getFollowingUsers, updateUserPassword}
