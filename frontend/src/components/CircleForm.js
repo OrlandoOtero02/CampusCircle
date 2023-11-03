@@ -51,6 +51,9 @@ const CircleForm = () => {
       setEmptyFields(json.emptyFields);
     }
 
+    // Determine the text color based on the theme (light or dark)
+    const buttonColor = '#0988d0';
+
     if (response.ok) {
       setTitle("");
       setDescription("");
@@ -94,7 +97,7 @@ const CircleForm = () => {
       </ToggleButtonGroup>
 
 
-      <button>Add Circle</button>
+      <button style={{ backgroundColor: buttonColor }}>Add Circle</button>
       {error && <div className="error">{error}</div>}
     </form>
   );

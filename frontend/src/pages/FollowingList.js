@@ -27,6 +27,9 @@ const FollowingList = () => {
         fetchUsers();
     }, [currentUser._id]);
 
+    // Determine the text color based on the theme (light or dark)
+    const textColor = document.body.className === "dark" ? "black" : "black";
+
     const toggleUserVisibility = () => {
         setShowUsers(!showUsers); // Toggle the user visibility
     };
@@ -34,6 +37,9 @@ const FollowingList = () => {
     return (
         <div className="split-users-list">
             <div className="users-list">
+      //go back
+                <h3 style={{ color: textColor }}>Following</h3>
+            
                 {/* <h3>Following</h3> */}
                 <p onClick={toggleUserVisibility} style={{ cursor: "pointer" }}>
                     Total Users: {users ? users.length : 0} (Click to {showUsers ? "Hide" : "Show"})

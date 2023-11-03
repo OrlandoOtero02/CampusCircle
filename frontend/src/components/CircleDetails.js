@@ -67,9 +67,12 @@ const CircleDetails = ({ circle }) => {
         }
     }
 
+    // Determine the text color based on the theme (light or dark)
+    const textColor = document.body.className === "dark" ? "black" : "black";
+
     return(
         <div className="circle-details">
-            <h4>{circle.title}</h4>
+            <h4 style={{ color: textColor }}>{circle.title}</h4>
             <p>Description: {circle.description}</p>
             <p>Members: {circle.members.length}</p>
             <p>{formatDistanceToNow(new Date(circle.createdAt), { addSuffix: true })}</p>

@@ -2,6 +2,7 @@
 const User = require('../models/userModel')
 const jwt = require('jsonwebtoken')
 const mongoose = require('mongoose')
+const upload = require('../middleware/multer'); // Import the multer middleware
 const bcrypt = require('bcrypt');
 
 const createToken = (_id) => {
@@ -143,6 +144,53 @@ const getFollowingUsers = async (req, res) => {
     res.status(200).json({following})
 }
 
+// Get user profile
+const getProfile = async (req, res) => {
+    const userId = req.params.userId;
+
+    try {
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Return the user's profile information
+        res.status(200).json({
+            username: user.username,
+            bio: user.bio,
+            interests: user.interests,
+            // Add any other profile fields you want to include
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+// Update user profile, including profile picture
+const updateProfile = async (req, res) => {
+    const userId = req.params.userId;
+  
+    try {
+      const updatedUser = await User.findByIdAndUpdate(
+        userId,
+        {
+          $set: {
+            bio: req.body.bio,
+            interests: req.body.interests,
+            // Add profilePicture to update if it exists in the request
+            profilePicture: req.file ? req.file.path : undefined,
+          },
+        },
+        { new: true }
+      );
+  
+      res.status(200).json(updatedUser);
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  };
+
 
 
 // Block a user
@@ -237,6 +285,8 @@ module.exports = {
     getUserById,
     deleteUser,
   updatePassword, 
-  updateUserPassword
+  updateUserPassword,
+  getProfile,
+  updateProfile
 };
 

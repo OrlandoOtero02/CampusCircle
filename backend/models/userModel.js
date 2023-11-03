@@ -35,6 +35,19 @@ const userSchema = new Schema({
         type: Date,
         required: true,
     },
+    // Profile fields
+    bio: {
+        type: String,
+        default: 'Cool person, lots of hobbies, definitely not a CS nerd',
+    },
+    interests: {
+        type: [String],
+        default: ['Sports', 'Travel', 'Reading'],
+    },
+    profilePicture: {
+        type: String,
+        default: '',
+    },
     blockedUsers: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
@@ -42,7 +55,7 @@ const userSchema = new Schema({
 })
 
 //static signup method
-userSchema.statics.signup = async function (email, password, username, birthdate) {
+userSchema.statics.signup = async function (email, password, username, birthdate, bio, interests, profilePicture) {
 
     // Validation for birthdate
     const currentDate = new Date();
@@ -50,9 +63,6 @@ userSchema.statics.signup = async function (email, password, username, birthdate
 
     const birthdayInput = new Date(birthdate);
     const birthYear = birthdayInput.getFullYear();
-
-    console.log(thisYear);
-    console.log(birthYear);
 
     const age = thisYear - birthYear;
 
@@ -97,7 +107,7 @@ userSchema.statics.signup = async function (email, password, username, birthdate
     const salt = await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(password, salt)
 
-    const user = await this.create({ email, password: hash, username, birthdate})
+    const user = await this.create({ email, password: hash, username, birthdate, bio, interests, profilePicture })
 
     return user
 }

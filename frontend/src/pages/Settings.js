@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -19,6 +20,20 @@ function Settings() {
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  
+  
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+  };
+
+  useEffect(() => {
+    localStorage.setItem('theme', theme);
+    document.body.className = theme;
+  }, [theme]);
+  
 
   const handleDeleteAccount = async () => {
     if (inputValue === 'DELETE') {
@@ -85,6 +100,21 @@ function Settings() {
             </div>
             <div className="settings-section">
               <h3>Security Settings</h3>
+
+<div className="settings-section">
+            <h3>Theme Settings</h3>
+            <label>
+              Dark Mode
+              <input
+                type="checkbox"
+                checked={theme === 'dark'}
+                onChange={toggleTheme}
+              />
+            </label>
+          </div>
+
+<h1>space</h1>
+
               {/* Security settings options */}
               <button onClick={() => setShowChangePassword(!showChangePassword)} className="change-password-btn">
                 Change Password
