@@ -1,4 +1,5 @@
 import React from 'react';
+import FollowingList from './FollowingList';
 
 function Profile() {
   return (
@@ -24,6 +25,7 @@ function Profile() {
           </div>
         </div>
         <button>Edit Profile</button>
+        <FollowingList/>
       </div>
     </div>
   );
