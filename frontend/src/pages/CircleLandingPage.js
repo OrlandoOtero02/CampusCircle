@@ -4,17 +4,19 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import GroupIcon from '@mui/icons-material/Group';
 import EventIcon from '@mui/icons-material/Event';
 import EmailIcon from '@mui/icons-material/Email';
-import { useLocation } from 'react-router';
+import { Navigate, useLocation } from 'react-router';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useEffect } from 'react';
 import { useCircleContext } from '../hooks/useCircleContext';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 const CircleLandingPage = () => {
     const {circles, dispatch} = useCircleContext()
     const location = useLocation();
     const { user } = useAuthContext();
     const { circleId } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         console.log(circleId);
@@ -35,6 +37,11 @@ const CircleLandingPage = () => {
         }
     }, [user, dispatch])
 
+    const navMemberList = () => {
+        // Use the history object to navigate to the new page with the circleId parameter
+        navigate(`/memberlist/${JSON.stringify(circles.members)}`);
+    };
+
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
       <ButtonGroup variant="outlined">
@@ -46,7 +53,7 @@ const CircleLandingPage = () => {
           <EventIcon fontSize="large" />
           <div>Events</div>
         </Button>
-        <Button>
+        <Button onClick={navMemberList}>
           <GroupIcon fontSize="large" />
           <div>Member List</div>
         </Button>

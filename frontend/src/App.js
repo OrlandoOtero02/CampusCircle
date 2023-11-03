@@ -19,6 +19,7 @@ import Settings from './pages/Settings';
 import UsersList from './pages/UsersList'
 import FollowingList from './pages/FollowingList';
 import CircleLandingPage from './pages/CircleLandingPage';
+import CircleUserList from './pages/CircleUserList';
 
 
 function App() {
@@ -70,6 +71,10 @@ function App() {
             <Route
               path="/circlelanding/:circleId"
               element={<CircleLandingPage/>}
+            />
+            <Route
+            path="/memberlist/:members"
+            element={<CircleUserList/>}
             />
           </Routes>
         </div>

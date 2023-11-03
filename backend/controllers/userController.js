@@ -1,5 +1,6 @@
 //userController.js
 const User = require('../models/userModel')
+const Circle = require('../models/circleModel')
 const jwt = require('jsonwebtoken')
 const mongoose = require('mongoose')
 
@@ -92,4 +93,21 @@ const getFollowingUsers = async (req, res) => {
     res.status(200).json({following})
 }
 
-module.exports = { loginUser, signupUser, followUser, unfollowUser, getUsers, getFollowingUsers }
+const getCircleUsers = async (req, res) => {
+    try {
+      const { userIds } = req.query;
+        console.log(userIds)
+      if (!userIds || !Array.isArray(userIds)) {
+        return res.status(400).json({ error: 'Invalid user IDs provided' });
+      }
+  
+      // Use Mongoose to query the users with the provided IDs
+      const users = await UserModel.find({ _id: { $in: userIds } });
+  
+      res.status(200).json(users);
+    } catch (error) {
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  };
+
+module.exports = { loginUser, signupUser, followUser, unfollowUser, getUsers, getFollowingUsers, getCircleUsers }
