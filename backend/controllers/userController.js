@@ -96,13 +96,14 @@ const getFollowingUsers = async (req, res) => {
 const getCircleUsers = async (req, res) => {
     try {
       const { userIds } = req.query;
-        console.log(userIds)
-      if (!userIds || !Array.isArray(userIds)) {
+      const parsedMembers = JSON.parse(userIds).map(member => member.replace(/["']/g, ''));;
+        console.log(parsedMembers)
+      if (!userIds || !Array.isArray(parsedMembers)) {
         return res.status(400).json({ error: 'Invalid user IDs provided' });
       }
   
       // Use Mongoose to query the users with the provided IDs
-      const users = await UserModel.find({ _id: { $in: userIds } });
+      const users = await User.find({ _id: { $in: userIds } });
   
       res.status(200).json(users);
     } catch (error) {

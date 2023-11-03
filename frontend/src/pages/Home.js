@@ -57,22 +57,26 @@ const Home = () => {
                     />
                 </div>
                 <div className="circles">
-                    {circles &&
-                        circles
-                            .filter((circle) => {
-                                if (searchQuery.trim() === "") {
-                                    return true; // Show all circles when the search query is blank
-                                }
-                                return (
-                                    circle.title &&
-                                    circle.title.toLowerCase().includes(searchQuery.toLowerCase())
-                                    || circle.description.toLowerCase().includes(searchQuery.toLowerCase())
-                                );
-                            })
-                            .map((circle) => (
-                                <CircleDetails key={circle._id} circle={circle} />
-                            ))}
-                </div>
+                    {Array.isArray(circles) ? (
+                    circles
+                    .filter((circle) => {
+                    if (searchQuery.trim() === "") {
+                        return true; // Show all circles when the search query is blank
+                    }
+                    return (
+                        circle.title &&
+                        circle.title.toLowerCase().includes(searchQuery.toLowerCase())
+                        || circle.description.toLowerCase().includes(searchQuery.toLowerCase())
+                    );
+                    })
+                    .map((circle) => (
+                        <CircleDetails key={circle._id} circle={circle} />
+                    ))
+            ) : (
+                <p>No circles available.</p>
+            )}
+</div>
+
                 <CircleForm />
             </div>
         </>
