@@ -48,6 +48,9 @@ const CircleForm = () => {
         }
     }
 
+    // Determine the text color based on the theme (light or dark)
+    const buttonColor = '#0988d0';
+
     return (
         <form className="create" onSubmit={handleSubmit}>
             <h3>Create a New Circle</h3>
@@ -68,7 +71,7 @@ const CircleForm = () => {
                 className={emptyFields.includes('description') ? 'error' : ''}
             />
 
-            <button>Add Circle</button>
+            <button style={{ backgroundColor: buttonColor }}>Add Circle</button>
             {error && <div className="error">{error}</div>}
         </form>
     )

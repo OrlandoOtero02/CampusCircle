@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Logo from '../assets/CampusCircle Logo White.png';
 import { useAuthContext } from '../hooks/useAuthContext';
+import Button from '@mui/material/Button';
 
 function Profile() {
   const [isEditing, setIsEditing] = useState(false);
-  const [bio, setBio] = useState('Cool person, lots of hobbies, definitely not a CS nerd');
-  const [interests, setInterests] = useState(['Sports', 'Travel', 'Reading']);
+  const [bio, setBio] = useState('');
+  const [interests, setInterests] = useState(['']);
   const [editBio, setEditBio] = useState(''); // New state for editing bio
   const [editInterests, setEditInterests] = useState(''); // New state for editing interests
   const [profilePicture, setProfilePicture] = useState(null);

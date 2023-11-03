@@ -28,7 +28,7 @@ const Navbar = () => {
     };
 
     return (
-        <header>
+        <header className={document.body.className}> {/* Apply the 'dark' class dynamically */}
             <div className="container">
                 <Link to="/">
                     <h1>Campus Circle</h1>

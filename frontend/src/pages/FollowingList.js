@@ -33,10 +33,13 @@ const FollowingList = () => {
         // }
     }, [currentUser._id]);
 
+    // Determine the text color based on the theme (light or dark)
+    const textColor = document.body.className === "dark" ? "black" : "black";
+
     return (
         <div className="split-users-list">
             <div className="users-list">
-                <h3>Following</h3>
+                <h3 style={{ color: textColor }}>Following</h3>
                 {users && users.map((user) => (
                     <UserDetails key={user._id} user={user} />
                 ))}
