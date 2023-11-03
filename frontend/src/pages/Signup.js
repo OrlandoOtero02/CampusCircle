@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { useSignup } from '../hooks/useSignup';
 import emailjs from 'emailjs-com';
 import Modal from 'react-modal';
-
 Modal.setAppElement('#root'); // This line is important for accessibility reasons. Replace '#root' with your app's root element.
+//signup.js
+import { useSignup} from '../hooks/useSignup'
 
 const Signup = () => {
     // State hooks for form inputs and modal
