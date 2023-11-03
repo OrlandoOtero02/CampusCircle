@@ -131,7 +131,6 @@ function Profile() {
           )}
           <button onClick={toggleEditMode}>{isEditing ? 'Cancel Edit' : 'Edit Profile'}</button>
         </div>
-        <button>Edit Profile</button>
         <FollowingList/>
       </div>
     </div>

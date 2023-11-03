@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import UserDetails from '../components/UserDetails';
 import { useParams } from 'react-router-dom';
+import Logo from '../assets/CampusCircle Logo White.png';
 
 const UserProfile = () => {
     const { userId } = useParams();
@@ -76,9 +77,9 @@ const UserProfile = () => {
           <div className="profile-info">
             <h3>Interests</h3>
             <ul>
-              {/* {user.interests.map((interest, index) => (
+              {user.interests.map((interest, index) => (
                 <li key={index}>{interest}</li>
-              ))} */}
+              ))}
             </ul>
           </div>
           <div className="profile-info">
