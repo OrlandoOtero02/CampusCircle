@@ -2,6 +2,7 @@
 const User = require('../models/userModel')
 const jwt = require('jsonwebtoken')
 const mongoose = require('mongoose')
+const bcrypt = require('bcrypt');
 
 const createToken = (_id) => {
     return jwt.sign({_id}, process.env.SECRET, { expiresIn: '3d' })
@@ -61,6 +62,56 @@ const followUser = async (req, res) => {
     }
 };
 
+// Update user 
+const updatePassword = async (req, res) => {
+        const { email, newPassword } = req.body;
+    
+        try {
+            const user = await User.findOne({ email: email });
+    
+            if (!user) {
+                return res.status(404).json({ error: 'User not found.' });
+            }
+    
+            const hashedPassword = await bcrypt.hash(newPassword, 10);
+            user.password = hashedPassword;
+            await user.save();
+    
+            res.status(200).json({ message: 'Password updated successfully.' });
+        } catch (error) {
+            res.status(400).json({ error: error.message });
+        }
+    };
+
+    const updateUserPassword = async (req, res) => {
+        const { email, oldPassword, newPassword } = req.body;
+    
+        try {
+            const user = await User.findOne({ email: email });
+    
+            if (!user) {
+                return res.status(404).json({ error: 'User not found.' });
+            }
+    
+            // Compare the provided oldPassword with the hashed password in the database
+            const isMatch = await bcrypt.compare(oldPassword, user.password);
+    
+            if (!isMatch) {
+                // If the passwords do not match, send an error response
+                return res.status(400).json({ error: 'Your old password is incorrect.' });
+            }
+    
+            // If the passwords match, hash the new password and update it in the database
+            const hashedPassword = await bcrypt.hash(newPassword, 10);
+            user.password = hashedPassword;
+            await user.save();
+    
+            res.status(200).json({ message: 'Password updated successfully.' });
+        } catch (error) {
+            res.status(400).json({ error: error.message });
+        }
+    };
+
 
 // Unfollow a user
 const unfollowUser = async (req, res) => {
@@ -91,6 +142,7 @@ const getFollowingUsers = async (req, res) => {
     //console.log(users)
     res.status(200).json({following})
 }
+
 
 
 // Block a user
@@ -183,7 +235,8 @@ module.exports = {
     unblockUser,
     getBlockedUsers,
     getUserById,
-    deleteUser
+    deleteUser,
+  updatePassword, 
+  updateUserPassword
 };
-
 
