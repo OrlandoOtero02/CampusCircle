@@ -3,6 +3,7 @@ import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 import { useCircleContext } from "../hooks/useCircleContext"
 import Button from '@mui/material/Button'
 import { useState } from "react"
+import { Link } from "@mui/material"
 
 const CircleDetails = ({ circle }) => {
     const { dispatch } = useCircleContext()
@@ -69,7 +70,7 @@ const CircleDetails = ({ circle }) => {
 
     return(
         <div className="circle-details">
-            <h4>{circle.title}</h4>
+            <h4><Link to="circlelanding">{circle.title}</Link></h4>
             <p>Description: {circle.description}</p>
             <p>Members: {circle.members.length}</p>
             <p>{formatDistanceToNow(new Date(circle.createdAt), { addSuffix: true })}</p>
