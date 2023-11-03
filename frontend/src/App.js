@@ -18,6 +18,7 @@ import Settings from './pages/Settings';
 
 import UsersList from './pages/UsersList'
 import FollowingList from './pages/FollowingList';
+import CircleLandingPage from './pages/CircleLandingPage';
 
 
 function App() {
@@ -65,7 +66,10 @@ function App() {
             <Route 
               path="/following"
               element={user ? <FollowingList/> : <Navigate to="/" />}
-
+            />
+            <Route
+              path="/circlelanding"
+              element={<CircleLandingPage/>}
             />
           </Routes>
         </div>
