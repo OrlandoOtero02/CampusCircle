@@ -6,7 +6,7 @@ import { useState } from "react"
 import { Link } from "react-router-dom"
 import { useLocation, useNavigate } from "react-router"
 
-const CircleDetails = ({ circle }) => {
+const CircleDetails = ({ circle, key }) => {
     const { dispatch } = useCircleContext()
     const { user } = useAuthContext()
     const [error, setError] = useState(null)
@@ -73,7 +73,7 @@ const CircleDetails = ({ circle }) => {
 
     return(
         <div className="circle-details">
-            <h4><Link to='/circlelanding' circleId={circle._id} >{circle.title}</Link></h4>
+            <h4><Link to='/circlelanding' circleId={key} >{circle.title}</Link></h4>
             <p>Description: {circle.description}</p>
             <p>Members: {circle.members.length}</p>
             <p>{formatDistanceToNow(new Date(circle.createdAt), { addSuffix: true })}</p>
