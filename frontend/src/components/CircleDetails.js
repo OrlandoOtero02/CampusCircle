@@ -70,7 +70,7 @@ const CircleDetails = ({ circle }) => {
 
     return(
         <div className="circle-details">
-            <Link to="circlelanding" state={{circleId: circle._id}}><h4>{circle.title}</h4></Link>
+            <h4><Link to="/circlelanding" state={{circleId: circle._id}}>{circle.title}</Link></h4>
             <p>Description: {circle.description}</p>
             <p>Members: {circle.members.length}</p>
             <p>{formatDistanceToNow(new Date(circle.createdAt), { addSuffix: true })}</p>
