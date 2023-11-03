@@ -4,10 +4,38 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import GroupIcon from '@mui/icons-material/Group';
 import EventIcon from '@mui/icons-material/Event';
 import EmailIcon from '@mui/icons-material/Email';
+import { useLocation } from 'react-router';
+import { useAuthContext } from '../hooks/useAuthContext';
+import { useEffect } from 'react';
+import { useCircleContext } from '../hooks/useCircleContext';
 
 const CircleLandingPage = () => {
+    const {circles, dispatch} = useCircleContext()
+    const location = useLocation();
+    const { user } = useAuthContext();
+    const {circleId} = location.state;
+
+    useEffect(() => {
+        const fetchCircle = async () => {
+            const response = await fetch('/api/circles/' + circleId, {
+                headers: {
+                    'Authorization': `Bearer ${user.token}`
+                }
+            })
+            const json = await response.json()
+            if (response.ok) {
+                dispatch({type: 'SET_CIRCLES', payload: json})
+            }
+        }
+
+        if (user) {
+            fetchCircle()
+        }
+    }, [user, dispatch])
+
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <h1>{circles.title}</h1>
       <ButtonGroup variant="outlined">
         <Button>
           <EmailIcon fontSize="large" />
