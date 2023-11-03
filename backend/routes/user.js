@@ -2,7 +2,7 @@
 const express = require('express')
 
 // controller functions
-const { loginUser, signupUser, followUser, unfollowUser, getUsers, getFollowingUsers, updateUserPassword} = require('../controllers/userController')
+const { loginUser, signupUser, followUser, unfollowUser, getUsers, getFollowingUsers, updatePassword, updateUserPassword} = require('../controllers/userController')
 
 const router = express.Router()
 
@@ -24,7 +24,12 @@ router.get('/', getUsers)
 // get following users
 router.get('/getFollowingUsers/:Id', getFollowingUsers)
 
-//updating the user password
-router.patch('/updatePassword', updateUserPassword);
+//updating the user password from login
+router.patch('/updatePassword', updatePassword);
+
+//updating the user password from settings
+router.patch('/updateUserPassword', updateUserPassword);
+
+
 
 module.exports = router

@@ -4,37 +4,43 @@ import { useAuthContext } from '../hooks/useAuthContext';
 
 function Settings() {
   const [showChangePassword, setShowChangePassword] = useState(false);
+  const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
   const { user: currentUser } = useAuthContext();
 
   const handleResetPassword = (e) => {
     e.preventDefault();
-    // Validation logic here
-    if (newPassword === confirmNewPassword) {
-      // Call API to update password or handle the password change logic
-      console.log('Password has been changed to:', newPassword);
-      // Reset form or give user feedback
+    // Clear any previous error
+    setPasswordError('');
+
+    // Validate new passwords match
+    if (newPassword !== confirmNewPassword) {
+      setPasswordError('New passwords do not match.');
+      return;
+    }
+
+    // API call to update password
+    axios.patch('/api/user/updateUserPassword', {
+      email: currentUser.email,
+      oldPassword: oldPassword,
+      newPassword: newPassword
+    })
+    .then((response) => {
+      // Handle success response
+      console.log('Password has been changed:', response.data.message);
+      // Reset form and possibly give user feedback
+      setOldPassword('');
       setNewPassword('');
       setConfirmNewPassword('');
-      setShowChangePassword(false); // Hide the form after submitting
-
-      axios.patch('/api/user/updatePassword', { email: currentUser.email, newPassword: newPassword })
-          .then((response) => {
-              // Handle the response, e.g., show a success message
-              console.log(response.data.message);
-              // Redirect user or give feedback
-          })
-          .catch((error) => {
-              // Handle any errors
-              console.error(error.response.data.error);
-          });
-  
-      console.log('New password is set:', newPassword);
-    } else {
-      // Handle the error scenario here
-      console.log('Passwords do not match');
-    }
+      setShowChangePassword(false);
+    })
+    .catch((error) => {
+      // Handle errors, such as incorrect old password
+      console.error('Error changing password:', error.response.data.error);
+      setPasswordError(error.response.data.error);
+    });
   };
 
   return (
@@ -54,7 +60,14 @@ function Settings() {
             </button>
             {showChangePassword && (
               <form onSubmit={handleResetPassword}>
-                <h2>Set New Password</h2>
+                <h2>Change Password</h2>
+                <input
+                  type="password"
+                  onChange={(e) => setOldPassword(e.target.value)}
+                  value={oldPassword}
+                  placeholder="Enter current password"
+                  required
+                />
                 <input
                   type="password"
                   onChange={(e) => setNewPassword(e.target.value)}
@@ -69,7 +82,8 @@ function Settings() {
                   placeholder="Confirm new password"
                   required
                 />
-                <button type="submit">Set New Password</button>
+                <button type="submit">Update Password</button>
+                {passwordError && <div className="error-message">{passwordError}</div>}
               </form>
             )}
           </div>
