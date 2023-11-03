@@ -44,10 +44,14 @@ const userSchema = new Schema({
         type: [String],
         default: ['Sports', 'Travel', 'Reading'],
     },
+    profilePicture: {
+        type: String,
+        default: '',
+    },
 })
 
 //static signup method
-userSchema.statics.signup = async function (email, password, username, birthdate, bio, interests) {
+userSchema.statics.signup = async function (email, password, username, birthdate, bio, interests, profilePicture) {
 
     // Validation for birthdate
     const currentDate = new Date();
@@ -99,7 +103,7 @@ userSchema.statics.signup = async function (email, password, username, birthdate
     const salt = await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(password, salt)
 
-    const user = await this.create({ email, password: hash, username, birthdate, bio, interests})
+    const user = await this.create({ email, password: hash, username, birthdate, bio, interests, profilePicture })
 
     return user
 }

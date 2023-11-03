@@ -2,6 +2,7 @@
 const User = require('../models/userModel')
 const jwt = require('jsonwebtoken')
 const mongoose = require('mongoose')
+const upload = require('../middleware/multer'); // Import the multer middleware
 
 const createToken = (_id) => {
     return jwt.sign({_id}, process.env.SECRET, { expiresIn: '3d' })
@@ -115,22 +116,28 @@ const getProfile = async (req, res) => {
     }
 };
 
-// Update user profile
+// Update user profile, including profile picture
 const updateProfile = async (req, res) => {
-    const userId = req.params.userId
-
+    const userId = req.params.userId;
+  
     try {
-        const updatedUser = await User.findByIdAndUpdate(userId, {
-            $set: {
-                bio: req.body.bio,
-                interests: req.body.interests,
-            }
-        }, { new: true });
-
-        res.status(200).json(updatedUser);
+      const updatedUser = await User.findByIdAndUpdate(
+        userId,
+        {
+          $set: {
+            bio: req.body.bio,
+            interests: req.body.interests,
+            // Add profilePicture to update if it exists in the request
+            profilePicture: req.file ? req.file.path : undefined,
+          },
+        },
+        { new: true }
+      );
+  
+      res.status(200).json(updatedUser);
     } catch (error) {
-        res.status(400).json({ error: error.message });
+      res.status(400).json({ error: error.message });
     }
-};
+  };
 
 module.exports = { loginUser, signupUser, followUser, unfollowUser, getUsers, getFollowingUsers, getProfile, updateProfile }
