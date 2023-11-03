@@ -20,11 +20,21 @@ const getUserCircles = async (req, res) => {
 }
 
 const getJoinableCircles = async (req, res) => {
-    const user_id = req.user._id
-    const circles = await Circle.find({"members" : { $nin: user_id}}).sort({createdAt: -1})
+    const user_id = req.user._id;
 
-    res.status(200).json(circles)
-}
+    // Define the query to find joinable circles
+    const query = {
+        $or: [
+            { isPrivate: false },  // Check if isPrivate is false
+            { $and: [{ isPrivate: true }, { user_id: { $in: req.user.following } }] }  // Check if isPrivate is true and user_id is in user.following array
+        ]
+    };
+
+    const circles = await Circle.find(query).sort({ createdAt: -1 });
+
+    res.status(200).json(circles);
+};
+
 
 // get a single circle
 const getCircle = async (req, res) => {
