@@ -21,6 +21,8 @@ import UsersList from './pages/UsersList'
 import FollowingList from './pages/FollowingList';
 import BlockedUsers from './pages/BlockedUsers';
 
+import MapPage from './pages/MapPage';
+
 
 function App() {
   const { user } = useAuthContext()
@@ -76,6 +78,10 @@ function App() {
             <Route 
               path="/blockedUsers"
               element={user ? <BlockedUsers/> : <Navigate to="/" />}
+            />
+            <Route 
+              path="/map"
+              element={user ? <MapPage/> : <Navigate to="/" />}
             />
 
           </Routes>
