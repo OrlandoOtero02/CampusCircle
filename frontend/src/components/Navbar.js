@@ -36,6 +36,7 @@ const Navbar = () => {
                 <nav>
                     {user && (
                         <div>
+                            <Link style={{ marginRight: 30 }} to="/map">Map</Link>
                             <Link style={{ marginRight: 30 }} to="/blockedUsers">BlockedUsers</Link>
                             <Link style={{ marginRight: 30 }} to="/joinablecircles">Join Circles</Link>
                             {/* <Link to="/following">Following</Link> */}
