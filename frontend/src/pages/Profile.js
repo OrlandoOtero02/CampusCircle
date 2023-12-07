@@ -3,7 +3,6 @@ import axios from 'axios';
 import Logo from '../assets/CampusCircle Logo White.png';
 import { useAuthContext } from '../hooks/useAuthContext';
 import Button from '@mui/material/Button';
-//Profile.js
 import FollowingList from './FollowingList';
 
 function Profile() {
@@ -111,7 +110,7 @@ function Profile() {
               <h3>Edit Interests:</h3>
               <input type="text" value={editInterests} onChange={(e) => setEditInterests(e.target.value)} />
               {error && <p className="error-message">{error}</p>}
-              <button onClick={handleSaveClick}>Save Profile</button>
+              <Button style={{ marginBottom: 10 }} variant="contained" onClick={handleSaveClick}>Save Profile</Button>
             </div>
           ) : (
             <div className="view-profile">
@@ -129,7 +128,7 @@ function Profile() {
               </div>
             </div>
           )}
-          <button onClick={toggleEditMode}>{isEditing ? 'Cancel Edit' : 'Edit Profile'}</button>
+          <Button variant="contained" onClick={toggleEditMode}>{isEditing ? 'Cancel Edit' : 'Edit Profile'}</Button>
         </div>
         <FollowingList/>
       </div>
