@@ -20,6 +20,7 @@ import Settings from './pages/Settings';
 import UsersList from './pages/UsersList'
 import FollowingList from './pages/FollowingList';
 import BlockedUsers from './pages/BlockedUsers';
+import AdminPage from './pages/AdminPage';
 
 
 function App() {
@@ -76,6 +77,12 @@ function App() {
             <Route 
               path="/blockedUsers"
               element={user ? <BlockedUsers/> : <Navigate to="/" />}
+            />
+
+            <Route
+              path="/admin"
+              //element={user && user.isAdmin ? <AdminPage /> : <Navigate to="/" />}
+              element={user ? <AdminPage /> : <Navigate to="/" />}
             />
 
           </Routes>
