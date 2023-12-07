@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-//import ReportList from "../components/ReportList";
+import ReportList from "../components/ReportList";
 //import EventList from "../components/EventList";
-
+/*
 const ReportList = () => {
   return <div>This is a placeholder for the ReportList component.</div>;
 };
-
+*/
 const EventList = () => {
   return <div>This is a placeholder for the EventList component.</div>;
 };

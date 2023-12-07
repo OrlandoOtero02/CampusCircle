@@ -42,7 +42,9 @@ const Navbar = () => {
                             <Link to="/users">Users</Link>
                             <Link to="/profile">Profile</Link>
                             <Link to="/settings">Settings</Link>
-                            <Link to="/admin">Admin</Link> {/* Add the link to AdminPage */}
+                            <Link to="/admin">Admin</Link> {/* Add the link to AdminPage it should be admin view only later on */}
+                            {/*{user.isAdmin && <Link to="/admin">Admin</Link>}
+                            <span>{user.email}</span>*/}
                             <span>{user.email}</span>
                             <button onClick={openLogoutDialog}>Log out</button>
                         </div>
