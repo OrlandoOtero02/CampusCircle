@@ -20,6 +20,7 @@ import Settings from './pages/Settings';
 import UsersList from './pages/UsersList'
 import FollowingList from './pages/FollowingList';
 import BlockedUsers from './pages/BlockedUsers';
+import AdminPage from './pages/AdminPage';
 
 import MapPage from './pages/MapPage';
 
@@ -82,6 +83,12 @@ function App() {
             <Route 
               path="/map"
               element={user ? <MapPage/> : <Navigate to="/" />}
+            />
+
+            <Route
+              path="/admin"
+              //element={user && user.isAdmin ? <AdminPage /> : <Navigate to="/" />}
+              element={user ? <AdminPage /> : <Navigate to="/" />}
             />
 
           </Routes>
