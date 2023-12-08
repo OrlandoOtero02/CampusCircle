@@ -1,27 +1,43 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useAuthContext } from '../hooks/useAuthContext';
-import { useLogout } from '../hooks/useLogout';
-import axios from 'axios';
 import Button from '@mui/material/Button';
-import MyConversations from './MyConversations';
+import MyConversations from './MyConversations';  //
+import Messaging from './Messaging';
 
 const Inbox = () => {
-  // You can use any state or logic specific to the Inbox component here
+  const { user } = useAuthContext();
+  const [selectedUserId, setSelectedUserId] = useState(null);
+
+  // Function to handle selecting a user for direct messages
+  const handleSelectUser = (userId) => {
+    setSelectedUserId(userId);
+  };
 
   return (
     <div>
       <h2>Inbox</h2>
-      <Button variant="contained" style={{ marginBottom: 10 }}>
-        Send Message
-      </Button>
-      <br />
-
-      {/* Include the UsersList component to display a list of users */}
-      <MyConversations />
 
       <h3>My conversations</h3>
-      {/* Add logic to display conversations or other inbox-related content */}
+
+      {/* Render the Messaging component with the selectedUserId */}
+      {selectedUserId && (
+        <div>
+          <Messaging circleId={selectedUserId} />
+          <Button
+            variant="contained"
+            onClick={() => setSelectedUserId(null)}
+            style={{ marginTop: 10, marginBottom: 20 }}
+          >
+            Back to Conversations
+          </Button>
+        </div>
+      )}
+
+      {/* Display the list of users, and pass the selectedUserId to the UsersList component */}
+      <MyConversations handleSelectUser={handleSelectUser} />
+
     </div>
+    
   );
 };
 

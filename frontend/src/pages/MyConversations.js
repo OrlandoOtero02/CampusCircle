@@ -1,47 +1,41 @@
-// MyConversations.js
-
-import { useEffect, useState } from "react";
-//import { useAuthContext } from '../hooks/useAuthContext';
-
-// components
+import { useEffect, useState } from 'react';
 import UserConversations from './UserConversations';
 
-const MyConversations = () => {
-    const [users, setUsers] = useState(null);
-    //const { user } = useAuthContext();
+const MyConversations = ({ handleSelectUser }) => {
+  const [users, setUsers] = useState(null);
 
-    useEffect(() => {
-        const fetchUsers = async () => {
-            try {
-                // Replace 'currentUserId' with the actual user's ID
-                //const currentUserId = '12345'; // Replace with your logic to get the user's ID
-                //?currentUserId=${currentUserId}
-                const response = await fetch(`/api/user/`);
-                const json = await response.json();
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch(`/api/user/`);
+        const json = await response.json();
 
-                if (response.ok) {
-                    setUsers(json.users);
-                }
-            } catch (error) {
-                console.error("Error fetching users:", error);
-            }
+        if (response.ok) {
+          setUsers(json.users);
         }
+      } catch (error) {
+        console.error('Error fetching users:', error);
+      }
+    };
 
-        // if (user) {
-        fetchUsers();
-        // }
-    }, []);
-    
-    return (
-        <div className="split-users-list">
-            <div className="users-list">
-                <h2>Users</h2>
-                {users && users.map((user) => (
-                    <UserConversations key={user._id} user={user} />
-                ))}
-            </div>
-        </div>
-    );
+    fetchUsers();
+  }, []);
+
+  return (
+    <div className="split-users-list">
+      <div className="users-list">
+        <h2>Users</h2>
+        {users &&
+          users.map((user) => (
+            <UserConversations
+              key={user._id}
+              user={user}
+              onClick={() => handleSelectUser(user._id)}
+            />
+          ))}
+      </div>
+    </div>
+  );
 };
 
 export default MyConversations;
