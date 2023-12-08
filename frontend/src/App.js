@@ -21,8 +21,12 @@ import Settings from './pages/Settings';
 
 import UsersList from './pages/UsersList'
 import FollowingList from './pages/FollowingList';
+
+import Messaging from './pages/Messaging.js'
 import BlockedUsers from './pages/BlockedUsers';
 import AdminPage from './pages/AdminPage';
+
+import MapPage from './pages/MapPage';
 
 
 function App() {
@@ -85,6 +89,15 @@ function App() {
             <Route 
               path="/blockedUsers"
               element={user ? <BlockedUsers/> : <Navigate to="/" />}
+            />
+            <Route 
+              path="/map"
+              element={user ? <MapPage/> : <Navigate to="/" />}
+            />
+            <Route 
+              path="/messaging"
+              //element={user ? <Messaging/> : <Navigate to='/' />}
+              element={<Messaging/>}
             />
 
             <Route

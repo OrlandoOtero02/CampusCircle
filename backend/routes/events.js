@@ -6,6 +6,12 @@ const {
     getEvent,
     createEvent,
     deleteEvent,
+    updateEvent,
+    joinEvent,
+    leaveEvent,
+    approveEvent,
+    forAdmin1,
+    
 } = require('../controllers/eventController')
 const requireAuth = require('../middleware/requireAuth')
 
@@ -15,16 +21,19 @@ const router = express.Router()
 router.use(requireAuth)
 
 // GET all events
-router.get('/events', getEvents)
+router.get('/', getEvents)
 
 // GET a single event
-router.get('/event/:id', getEvent)
+router.get('/:id', getEvent)
 
 // POST a new event
 router.post('/', createEvent)
 
 // DELETE a event
-router.delete('/event/:id', deleteEvent)
+router.delete('/:id', deleteEvent)
 
+router.patch('/approveEvent/:eventId', approveEvent)
+
+router.get('/forAdmin', forAdmin1);
 
 module.exports = router

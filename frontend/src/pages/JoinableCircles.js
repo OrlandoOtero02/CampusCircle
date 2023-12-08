@@ -67,7 +67,7 @@ const JoinableCircles = () => {
                                 );
                             })
                             .map((circle) => (
-                                <CircleDetails key={circle._id} circle={circle} />
+                                <CircleDetails key={circle._id} circle={circle} joined={false}/>
                             ))}
                 </div>
                 <CircleForm />

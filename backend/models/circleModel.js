@@ -20,6 +20,11 @@ const circleSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     }],
+    messages: [
+        {
+            type: String,
+        }
+    ],
     isPrivate: {
         type: Boolean,
         default: false,

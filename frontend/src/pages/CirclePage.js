@@ -4,6 +4,8 @@ import { useAuthContext } from '../hooks/useAuthContext';
 import EventForm from "../components/EventForm"; // Import the EventForm component
 import MemberDetails from "../components/MemberDetails"; // Import MemberDetails component
 import Button from '@mui/material/Button';
+import EventDetails from "../components/EventDetails"; // Import EventDetails component for displaying each event
+import Messaging from "./Messaging";
 
 const CirclePage = () => {
     const { id } = useParams(); // Get the circle ID from the URL
@@ -94,6 +96,7 @@ const CirclePage = () => {
                         </ul>
                     </div>
                     <EventForm circleId={id} />
+                    <Messaging circleId={id}/>
                 </>
             )}
         </div>
