@@ -89,15 +89,15 @@ function Messaging({circleId, dm}) {
   return (
     <div>
       <div className="chat-box">
-        {messages.map((msg, index) => (
-          // Check if the message's username is in the circles array
-          msg.circles.includes(user._id) && (
-            <div key={index} className="message">
-              <strong>{msg.username}: </strong>
-              {msg.message}
-            </div>
-          )
-        ))}
+      {messages.map((msg, index) => (
+  // Check if msg.circles is defined and includes the user's ID
+  (msg.circles ?? []).includes(user._id) && (
+    <div key={index} className="message">
+      <strong>{msg.username}: </strong>
+      {msg.message}
+    </div>
+  )
+))}
       </div>
       <div className="input-box">
         <input
