@@ -3,12 +3,12 @@ const Report = require('../models/reportModel');
 
 // Get all reports
 const getReports = async (req, res) => {
-    try {
-        const reports = await Report.find();
-        res.status(200).json({ reports });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
+  try {
+      const reports = await Report.find({ isResolved: false });
+      res.status(200).json({ reports });
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
 };
 
 // Get a single report by ID
@@ -31,9 +31,11 @@ const createReport = async (req, res) => {
 
 
     try {
+    const bodyarr = JSON.stringify(reportMessage).split("\"")
+
         const newReport = new Report({
-            user_id: "placeholder",
-            content: JSON.stringify(reportMessage),
+            user_id: bodyarr[7],
+            content: "Report comment: " + bodyarr[3],
         });
 
         const savedReport = await newReport.save();
@@ -78,10 +80,29 @@ const updateReport = async (req, res) => {
     }
 };
 
+const resolveReport = async (req, res) => {
+  try {
+    const resolvedReport = await Report.findByIdAndUpdate(
+      req.params.id,
+      { isResolved: true },
+      { new: true }
+    );
+
+    if (!resolvedReport) {
+      return res.status(404).json({ message: 'Report not found' });
+    }
+
+    res.status(200).json({ report: resolvedReport });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 module.exports = {
     getReports,
     getReportById,
     createReport,
     deleteReport,
     updateReport,
+    resolveReport,
 };

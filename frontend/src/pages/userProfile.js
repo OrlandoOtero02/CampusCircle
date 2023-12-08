@@ -51,9 +51,6 @@ const UserProfile = () => {
     console.log(currentUserId)
     console.log('Blocking user:', user._id);
 
-    
-
-
     const response = await fetch('/api/user/block/' + currentUserId + '/' + user._id, {
       method: 'PUT',
       // body: JSON.stringify(requestBody),
@@ -75,14 +72,18 @@ const handleReportUser = async () => {
   const currentUserToken = JSON.parse(localStorage.getItem('user')).token;
 
   if (isReportingOpen && reportMessage.trim() !== '') {
+
+    const useridtemp = user._id
       const response = await fetch('/api/report', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${currentUserToken}`
           },
-          body: JSON.stringify({ reportMessage: reportMessage }), // Ensure it's a string
-      });
+          body: JSON.stringify({
+            reportMessage: reportMessage,
+            user_id: useridtemp
+          }),      });
 
       if (response.ok) {
           console.log('Report created successfully');
