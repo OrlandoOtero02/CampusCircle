@@ -1,55 +1,29 @@
-// import React, { useState } from 'react';
-// import { useAuthContext } from '../hooks/useAuthContext';
-// import formatDistanceToNow from 'date-fns/formatDistanceToNow';
-// import Button from '@mui/material/Button';
+import React, { useState } from 'react';
+import { useAuthContext } from '../hooks/useAuthContext';
+import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import Button from '@mui/material/Button';
 
-// const EventDetails = ({ event }) => {
-//   const { user } = useAuthContext();
-//   const [error, setError] = useState(null);
-
-//   const handleJoinEvent = async () => {
-//     if (!user) {
-//       setError('You must be logged in');
-//       return;
-//     }
-
-//     // Add logic for joining the event here
-//     console.log('Join Event button clicked');
-//   };
-
-//   const handleLeaveEvent = async () => {
-//     if (!user) {
-//       setError('You must be logged in');
-//       return;
-//     }
-
-//     // Add logic for leaving the event here
-//     console.log('Leave Event button clicked');
-//   };
-
-//   const textColor = document.body.className === 'dark' ? 'white' : 'black';
-
-//   return (
-//     <div className="event-details">
-//       <h4 style={{ color: textColor }}>{event.title}</h4>
-//       <p>Description: {event.description}</p>
-//       <p>Location: {event.location}</p>
-//       <p>Starts at: {formatDistanceToNow(new Date(event.startDate), { addSuffix: true })}</p>
-//       <Button onClick={handleJoinEvent}>Join Event</Button>
-//       <Button onClick={handleLeaveEvent} style={{ marginLeft: '10px' }}>Leave Event</Button>
-//     </div>
-//   );
-// };
-
-// export default EventDetails;
-
-// EventDetails.js
-
-import React from 'react';
-
-const EventDetails = ({ event }) => {
+const EventDetails = ({ event, onApprove }) => {
   const formattedDate = new Date(event.date).toLocaleDateString();
   const formattedTime = event.time; // You might want to format the time as needed
+  const { user } = useAuthContext();
+  const [error, setError] = useState(null);
+
+  const handleApprove = async () => {
+    // Call the onApprove handler, passing the event ID or any other necessary data
+    const response = await fetch(`/api/events/approveEvent/${event._id}`, {
+      method: 'PATCH',
+      headers: {
+        'Authorization': `Bearer ${user.token}`,
+      },
+    });
+
+  };
+
+  // Conditionally render the component based on event.approved
+  if (event.approved) {
+    return null; // or return <></> for an empty fragment
+  }
 
   return (
     <div className="event-details">
@@ -61,9 +35,9 @@ const EventDetails = ({ event }) => {
       <p>Approved: {event.approved ? 'Yes' : 'No'}</p>
       <p>Participants: {event.participants.length}</p>
       <p>Circle ID: {event.circle_id}</p>
+      <button onClick={handleApprove}>Approve</button>
     </div>
   );
 };
 
 export default EventDetails;
-

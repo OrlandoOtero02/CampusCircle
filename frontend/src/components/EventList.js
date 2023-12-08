@@ -1,5 +1,3 @@
-// EventList.js
-
 import React, { useEffect, useState } from 'react';
 import { useAuthContext } from '../hooks/useAuthContext';
 import EventDetails from './EventDetails';
@@ -12,16 +10,15 @@ const EventList = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await fetch('/api/events', {
+        const response = await fetch('/api/events/', {
+          method: 'GET',
           headers: {
-            'Authorization': `Bearer ${user.token}`
-          }
+            'Authorization': `Bearer ${user.token}`,
+          },
         });
-        res1 = await response.json()
-        console.log(res1)
         if (response.ok) {
           const json = await response.json();
-          setEvents(json.events || []);  // Ensure that events is an array
+          setEvents(json || []);  // Ensure that events is an array
         } else {
           console.error('Failed to fetch events:', response.statusText);
         }
@@ -45,9 +42,12 @@ const EventList = () => {
       ) : (
         <ul>
           {events.map((event) => (
-            <li key={event._id}>
-              <EventDetails event={event} />
-            </li>
+            // Conditionally render EventDetails based on event.approved
+            !event.approved && (
+              <li key={event._id}>
+                <EventDetails event={event} />
+              </li>
+            )
           ))}
         </ul>
       )}
