@@ -36,7 +36,7 @@ router.post('/', createCircle)
 router.delete('/:id', deleteCircle)
 
 // UPDATE a circle
-router.patch('/u', updateCircle)
+router.patch('/u/:id', updateCircle)
 
 router.patch('/add/:id', joinCircle)
 
