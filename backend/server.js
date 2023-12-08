@@ -11,6 +11,7 @@ const eventsRoutes = require('./routes/events')
 const userRoutes = require('./routes/user')
 const reportRoutes = require('./routes/reports')
 
+const messageRoutes = require('./routes/messages')
 
 // express app
 const app = express()
@@ -27,8 +28,12 @@ app.use((req, res, next) => {
 app.use('/api/circles', circlesRoutes)
 app.use('/api/events', eventsRoutes)
 app.use('/api/user', userRoutes)
+<<<<<<< HEAD
 app.use('/api/report', reportRoutes)
 
+=======
+app.use('/api/messages', messageRoutes)
+>>>>>>> fd6be09b380418fd968683d795e3c98451c32808
 
 // connect to db
 mongoose.connect(process.env.MONGO_URI, {dbName: 'CampusCircle'})
@@ -41,4 +46,3 @@ mongoose.connect(process.env.MONGO_URI, {dbName: 'CampusCircle'})
     .catch((error) => {
         console.log(error)
     })
-

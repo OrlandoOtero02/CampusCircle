@@ -20,6 +20,11 @@ const circleSchema = new Schema({
         {
             type: String, 
     }],
+    messages: [
+        {
+            type: String,
+        }
+    ],
     isPrivate: {
         type: Boolean,
         default: false,
