@@ -15,10 +15,11 @@ const messageSchema = new Schema({
         type: String,
         required: true,
     }, 
-    circle: {
-        type: String,
-        required: true,
-    },
+    circles: [
+        {
+            type: String,
+        }
+    ],
 }, {timestamps: true})
 
 module.exports = mongoose.model('Message', messageSchema)

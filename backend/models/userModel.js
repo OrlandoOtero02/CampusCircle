@@ -52,6 +52,11 @@ const userSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     }],
+    dmPreference: {
+        type: String,
+        enum: ['everyone', 'noone'],
+        default: 'everyone',
+    }
     isAdmin: {
       type: Boolean,
       default: false,

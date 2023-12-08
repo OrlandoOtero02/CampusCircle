@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAuthContext } from "../hooks/useAuthContext";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import Button from '@mui/material/Button';
 
 const EventForm = ({ onAddEvent, circleId }) => {
     const { user } = useAuthContext();
@@ -125,7 +126,7 @@ const EventForm = ({ onAddEvent, circleId }) => {
                 onChange={(e) => setLocation(e.target.value)}
                 value={location}
             />
-            <button style={{ backgroundColor: buttonColor }}>Add Event</button>
+            <Button variant="contained" style={{ backgroundColor: buttonColor }}>Add Event</Button>
             {error && <div className="error">{error}</div>}
             {success && <div className="success">{success}</div>}
         </form>
