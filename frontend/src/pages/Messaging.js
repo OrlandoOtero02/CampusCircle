@@ -90,10 +90,13 @@ function Messaging({circleId, dm}) {
     <div>
       <div className="chat-box">
         {messages.map((msg, index) => (
-          <div key={index} className="message">
-            <strong>{msg.username}: </strong>
-            {msg.message}
-          </div>
+          // Check if the message's username is in the circles array
+          msg.circles.includes(user._id) && (
+            <div key={index} className="message">
+              <strong>{msg.username}: </strong>
+              {msg.message}
+            </div>
+          )
         ))}
       </div>
       <div className="input-box">
@@ -103,7 +106,9 @@ function Messaging({circleId, dm}) {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
         />
-        <Button variant="contained" onClick={handleSendMessage}>Send</Button>
+        <Button variant="contained" onClick={handleSendMessage}>
+          Send
+        </Button>
       </div>
     </div>
   );
