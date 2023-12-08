@@ -1,6 +1,7 @@
 // UserDetails.js
 import { useState } from 'react'
 import { useAuthContext } from "../hooks/useAuthContext"
+import Button from '@mui/material/Button';
 
 const UserDetails = ({ user }) => {
     const { user:currentUser } = useAuthContext()
@@ -25,15 +26,12 @@ const UserDetails = ({ user }) => {
         } 
     }
 
-
-    const spanClassName = isFollowed ? "followed" : "not-followed";
-
     return (
         <div className="user-details">
-            <h4>{user.username}</h4>
-            <span className={spanClassName} onClick={handleClick}>
+            <h4 style={{display: 'inline'}}>{user.username}</h4>
+            <Button style={{float: 'right'}} variant="contained" onClick={handleClick}>
                 {isFollowed ? "Unfollow" : "Follow"}
-            </span>
+            </Button>
         </div>
     );
 };
