@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useAuthContext } from '../hooks/useAuthContext';
 import EventForm from "../components/EventForm"; // Import the EventForm component
 import EventDetails from "../components/EventDetails"; // Import EventDetails component for displaying each event
+import Messaging from "./Messaging";
 
 const CirclePage = () => {
     const { id } = useParams(); // Get the circle ID from the URL
@@ -23,16 +24,6 @@ const CirclePage = () => {
                 setCircle(jsonCircle);
             }
 
-            // Fetch events related to this circle
-            const eventsResponse = await fetch(`/api/events/circle/${id}`, {
-                headers: {
-                    'Authorization': `Bearer ${user.token}`
-                }
-            });
-            if (eventsResponse.ok) {
-                const jsonEvents = await eventsResponse.json();
-                setEvents(jsonEvents);
-            }
         };
 
         if (user) {
@@ -48,6 +39,8 @@ const CirclePage = () => {
                     <h2>{circle.title}</h2>
                     <p>{circle.description}</p>
                     {/* Additional circle details here if needed */}
+
+                    <Messaging circleId={id}/>
                     
                     <EventForm circleId={id} />
 

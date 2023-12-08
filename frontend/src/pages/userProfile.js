@@ -2,12 +2,24 @@ import React, { useEffect, useState } from 'react';
 import UserDetails from '../components/UserDetails';
 import { useParams } from 'react-router-dom';
 import Logo from '../assets/CampusCircle Logo White.png';
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  TextField,
+} from '@mui/material';
 
 const UserProfile = () => {
     const { userId } = useParams();
     //console.log('User ID from useParams:', userId);    
     const [user, setUser] = useState(null);
   
+    const [isReportingOpen, setIsReportingOpen] = useState(false);
+    const [reportMessage, setReportMessage] = useState('');
+
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
@@ -39,9 +51,6 @@ const UserProfile = () => {
     console.log(currentUserId)
     console.log('Blocking user:', user._id);
 
-    
-
-
     const response = await fetch('/api/user/block/' + currentUserId + '/' + user._id, {
       method: 'PUT',
       // body: JSON.stringify(requestBody),
@@ -56,10 +65,46 @@ const UserProfile = () => {
       console.log(json)
     } 
 
-
-
-
+    
 };
+
+const handleReportUser = async () => {
+  const currentUserToken = JSON.parse(localStorage.getItem('user')).token;
+
+  if (isReportingOpen && reportMessage.trim() !== '') {
+
+    const useridtemp = user._id
+      const response = await fetch('/api/report', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${currentUserToken}`
+          },
+          body: JSON.stringify({
+            reportMessage: reportMessage,
+            user_id: useridtemp
+          }),      });
+
+      if (response.ok) {
+          console.log('Report created successfully');
+      } else {
+          const errorMessage = await response.text();
+          console.error('Failed to create report:', errorMessage);
+      }
+
+      setReportMessage('');
+      setIsReportingOpen(false);
+  }
+};
+
+const toggleReporting = () => {
+  setIsReportingOpen(!isReportingOpen);
+};
+
+const handleReportMessageChange = (event) => {
+  setReportMessage(event.target.value);
+};
+
 
   return (
     <div className="user-profile">
@@ -69,6 +114,7 @@ const UserProfile = () => {
             <img src={user.profilePicture} alt="Profile" className="profile-picture" />
             <h2>{user.username}</h2>
             <button onClick={handleBlockUser} className="blocking-user-button">Block</button>
+            <button onClick={toggleReporting} className="reporting-user-button">Report</button>
           </div>
           <div className="profile-info">
             <h3>About Me</h3>
@@ -90,6 +136,31 @@ const UserProfile = () => {
               ))}
             </ul>
           </div>
+          <Dialog open={isReportingOpen} onClose={toggleReporting}>
+                        <DialogTitle>Report User</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText>
+                                Please provide details for your report:
+                            </DialogContentText>
+                            <TextField
+                                multiline
+                                rows={4}
+                                value={reportMessage}
+                                onChange={handleReportMessageChange}
+                                label="Report Message"
+                                fullWidth
+                                variant="outlined"
+                            />
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={handleReportUser} variant="contained">
+                                Submit Report
+                            </Button>
+                            <Button onClick={toggleReporting} variant="outlined">
+                                Cancel
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
         </div>
       ) : (
         <p>Loading user profile...</p>

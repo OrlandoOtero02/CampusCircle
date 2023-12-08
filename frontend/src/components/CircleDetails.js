@@ -3,7 +3,10 @@ import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 import { useCircleContext } from "../hooks/useCircleContext"
 import Button from '@mui/material/Button'
 import { useState } from "react"
-import { Link } from 'react-router-dom'
+import { 
+Navigate,
+Link, 
+} from "react-router-dom"
 
 const CircleDetails = ({ circle, joined }) => {
     const { dispatch } = useCircleContext()
@@ -68,22 +71,38 @@ const CircleDetails = ({ circle, joined }) => {
         }
     }
 
+    const handleOpen = () => {
+        if (joined) {
+            console.log("\n How did you get here? \n")
+        }
+    }
+
+    const [owner, setOwner] = useState(false);
+
+    if (circle.user_id == user.id) {
+        setOwner(true);
+    }
+
     // Determine the text color based on the theme (light or dark)
     const textColor = document.body.className === "dark" ? "black" : "black";
 
     return(
         <div className="circle-details">
-            {/* <h4 style={{ color: textColor }}>{circle.title}</h4> */}
+            {joined ?
             <Link to={`/circle/${circle._id}`} style={{ textDecoration: 'none' }}>
                 <h4 style={{ color: textColor }}>{circle.title}</h4>
                 <p>Description: {circle.description}</p>
                 <p>Members: {circle.members.length}</p>
                 <p style={{ marginBottom: 10 }}>{formatDistanceToNow(new Date(circle.createdAt), { addSuffix: true })}</p>
-            </Link>
+            </Link> 
+            : <div>
+            <h4 style={{ color: textColor }}>{circle.title}</h4>
+                <p>Description: {circle.description}</p>
+                <p>Members: {circle.members.length}</p>
+                <p style={{ marginBottom: 10 }}>{formatDistanceToNow(new Date(circle.createdAt), { addSuffix: true })}</p>
+               </div> }
             {isOwner && <Button onClick={handleDelete}>Delete</Button>}
-
-
-            { joined ? <Button onClick={handleLeave}>Leave</Button> : <Button variant="contained" style={{ marginRight: 10 }} onClick={handleJoin}>Join</Button>}
+            { joined ? <Button variant="contained" style={{ marginRight: 10 }} onClick={handleLeave}>Leave</Button> : <Button variant="contained" style={{ marginRight: 10 }} onClick={handleJoin}>Join</Button>}
         </div>
     )
 }

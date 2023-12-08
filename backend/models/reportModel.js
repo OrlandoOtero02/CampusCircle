@@ -15,23 +15,6 @@ const reportSchema = new Schema({
         type: String,
         required: true,
     },
-    // Array of strings representing URLs of images related to the report
-    imageUrls: [
-        {
-            type: String,
-        }
-    ],
-    // Geospatial field representing the location of the report (using GeoJSON)
-    location: {
-        type: {
-            type: String,
-            enum: ['Point'],
-        },
-        coordinates: {
-            type: [Number],
-            default: [0, 0],
-        },
-    },
     // Timestamp of when the report was created
     createdAt: {
         type: Date,

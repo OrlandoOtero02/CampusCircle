@@ -9,6 +9,9 @@ const {
     updateEvent,
     joinEvent,
     leaveEvent,
+    approveEvent,
+    forAdmin1,
+    
 } = require('../controllers/eventController')
 const requireAuth = require('../middleware/requireAuth')
 
@@ -35,5 +38,9 @@ router.patch('/u', updateEvent)
 router.patch('/add/:eventId', joinEvent)
 
 router.patch('/leave/:id', leaveEvent)
+
+router.patch('/approveEvent/:eventId', approveEvent)
+
+router.get('/forAdmin', forAdmin1);
 
 module.exports = router

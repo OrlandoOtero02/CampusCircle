@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuthContext } from '../hooks/useAuthContext';
+import ReportDetails from './ReportDetails'; // Assuming you have a ReportDetails component
 
 const ReportList = () => {
   const { user } = useAuthContext();
@@ -7,19 +8,19 @@ const ReportList = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const getReports = async () => {
+    const fetchReports = async () => {
       try {
-        const response = await fetch('/api/reports', {
+        const response = await fetch('/api/report', {
           headers: {
             'Authorization': `Bearer ${user.token}`
           }
         });
-        const data = await response.json();
 
         if (response.ok) {
-          setReports(data);
+          const json = await response.json();
+          setReports(json.reports);
         } else {
-          console.error('Failed to fetch reports:', data.message);
+          console.error('Failed to fetch reports:', response.statusText);
         }
       } catch (error) {
         console.error('Error while fetching reports:', error.message);
@@ -28,8 +29,10 @@ const ReportList = () => {
       }
     };
 
-    getReports();
-  }, [user.token]);
+    if (user) {
+      fetchReports();
+    }
+  }, [user]);
 
   return (
     <div>
@@ -39,12 +42,8 @@ const ReportList = () => {
       ) : (
         <ul>
           {reports.map((report) => (
-            <li key={report.id}>
-              {/* Display the report information */}
-              <p>{`Report ID: ${report.id}`}</p>
-              <p>{`Title: ${report.title}`}</p>
-              <p>{`Description: ${report.description}`}</p>
-              {/* Add other fields as needed */}
+            <li key={report._id}>
+              <ReportDetails report={report} />
             </li>
           ))}
         </ul>
