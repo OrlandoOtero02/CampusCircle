@@ -24,11 +24,26 @@ const ReportDetails = ({ report }) => {
 
     if (response.ok) {
       console.log(json);
+      //window.location.reload();
     }
+
   };
 
   const handleBan = async () => {
     // Add your logic for handling the "Ban" button click here
+    if (!user) {
+      setError('You must be logged in');
+      return;
+    }
+    console.log(report)
+
+    await fetch('/api/user/deleteUser/' + report.user_id, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${user.token}`
+      }
+    });
+
     console.log('Ban button clicked');
   };
 

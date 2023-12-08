@@ -39,7 +39,7 @@ router.delete('/:id', deleteReport);
 // UPDATE a report
 router.patch('/:id', updateReport);
 
-router.patch('/:id', resolveReport);
+router.patch('/resolve/:id', resolveReport);
 
 // Mark a report as resolved
 //router.patch('/resolve/:id', resolveReport);
