@@ -5,12 +5,26 @@ const mongoose = require('mongoose')
 
 
 const getEvents = async (req, res) => {
-    const circle_id = req.circle._id
-
+    console.log("events:")
     const events = await Event.find({}).sort({createdAt: -1})
-
-    res.status(200).json(events)
+    res.status(200).json(events)    
 }
+
+const forAdmin1 = async (req, res) => {
+  console.log("fuck:");
+  try {
+      console.log("aaa")
+      const unapprovedEvents = await Event.find({ approved: false }).sort({ createdAt: -1 });
+
+      res.status(200).json(unapprovedEvents);
+  } catch (error) {
+      console.error('Error fetching unapproved events:', error.message);
+      res.status(500).json({ success: false, error: 'Internal Server Error' });
+  }
+};
+
+
+
 
 
 // get a single event
@@ -136,6 +150,31 @@ const leaveEvent = async (req,res) => {
     }
 }
 
+const approveEvent = async (req, res) => {
+  const eventId = req.params.eventId;
+
+  try {
+      const updatedEvent = await Event.findByIdAndUpdate(
+          eventId,
+          { approved: true },
+          { new: true } // Return the updated document
+      );
+
+      if (!updatedEvent) {
+          return res.status(404).json({ success: false, error: 'Event not found' });
+      }
+
+      res.status(200).json({ success: true, event: updatedEvent });
+  } catch (error) {
+      console.error('Error approving event:', error.message);
+      res.status(500).json({ success: false, error: 'Internal Server Error' });
+  }
+};
+
+
+
+
+
 module.exports = {
     getEvents,
     getEvent,
@@ -144,4 +183,6 @@ module.exports = {
     updateEvent,
     joinEvent,
     leaveEvent,
+    approveEvent,
+    forAdmin1,
 }

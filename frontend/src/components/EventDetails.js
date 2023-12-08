@@ -1,64 +1,43 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState } from 'react';
 import { useAuthContext } from '../hooks/useAuthContext';
+import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import Button from '@mui/material/Button';
 
-const EventDetails = () => {
-    const { id } = useParams(); // Get the event ID from the URL
-    const { user } = useAuthContext();
-    const [event, setEvent] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
+const EventDetails = ({ event, onApprove }) => {
+  const formattedDate = new Date(event.date).toLocaleDateString();
+  const formattedTime = event.time; // You might want to format the time as needed
+  const { user } = useAuthContext();
+  const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const fetchEventDetails = async () => {
-            try {
-                setIsLoading(true);
-                const response = await fetch(`/api/events/${id}`, {
-                    headers: {
-                        'Authorization': `Bearer ${user.token}`
-                    }
-                });
-                const json = await response.json();
+  const handleApprove = async () => {
+    // Call the onApprove handler, passing the event ID or any other necessary data
+    const response = await fetch(`/api/events/approveEvent/${event._id}`, {
+      method: 'PATCH',
+      headers: {
+        'Authorization': `Bearer ${user.token}`,
+      },
+    });
 
-                if (!response.ok) {
-                    throw new Error(json.message || 'Could not fetch event');
-                }
+  };
 
-                setEvent(json);
-            } catch (err) {
-                setError(err.message);
-            } finally {
-                setIsLoading(false);
-            }
-        };
+  // Conditionally render the component based on event.approved
+  if (event.approved) {
+    return null; // or return <></> for an empty fragment
+  }
 
-        if (user) {
-            fetchEventDetails();
-        }
-    }, [id, user]);
-
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
-
-    if (error) {
-        return <div>Error: {error}</div>;
-    }
-
-    return (
-        <div className="event-details">
-            {event && (
-                <>
-                    <h2>{event.title}</h2>
-                    <p>Description: {event.description}</p>
-                    <p>Date: {event.date}</p>
-                    <p>Time: {event.time}</p>
-                    <p>Location: {event.location}</p>
-                    {/* Add more event details here as needed */}
-                </>
-            )}
-        </div>
-    );
+  return (
+    <div className="event-details">
+      <h4>{event.title}</h4>
+      <p>Description: {event.description}</p>
+      <p>Date: {formattedDate}</p>
+      <p>Time: {formattedTime}</p>
+      <p>Location: {event.location}</p>
+      <p>Approved: {event.approved ? 'Yes' : 'No'}</p>
+      <p>Participants: {event.participants.length}</p>
+      <p>Circle ID: {event.circle_id}</p>
+      <button onClick={handleApprove}>Approve</button>
+    </div>
+  );
 };
 
 export default EventDetails;
