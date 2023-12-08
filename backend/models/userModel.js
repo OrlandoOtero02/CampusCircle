@@ -51,7 +51,12 @@ const userSchema = new Schema({
     blockedUsers: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    }]
+    }],
+    dmPreference: {
+        type: String,
+        enum: ['everyone', 'friends', 'noone'],
+        default: 'everyone',
+    }
 })
 
 //static signup method
