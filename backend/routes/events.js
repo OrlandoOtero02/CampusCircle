@@ -32,7 +32,7 @@ router.delete('/:id', deleteEvent)
 // UPDATE a circle
 router.patch('/u', updateEvent)
 
-router.patch('/add/:id', joinEvent)
+router.patch('/add/:eventId', joinEvent)
 
 router.patch('/leave/:id', leaveEvent)
 
