@@ -2,23 +2,16 @@ const Message = require('../models/messageModel')
 const mongoose = require('mongoose')
 
 const getMessages = async (req, res) => {
-    const userId = req.user._id
-    //const circleId = req.circle._id
-    //console.log(`\nUser Id: ${userId} Circle Id: ${circleId}`)
-
-    const messages = await Message.find({"circle" : {$in : "65724c347e9d68c71b6fe7d8"}}).sort({createdAt: 1})
+    const circle1 = req.params.id;
+    console.log(`\n Circle ID: ${circle1}\n`)
+    const messages = await Message.find({"circle" : {$in : circle1}}).sort({createdAt: 1})
 
     res.status(200).json(messages)
 }
 
 const createMessage = async (req, res) => {
-    const {message, username} = req.body;
+    const {message, username, circle} = req.body;
     const user = req.user._id;
-
-    console.log(`\nUser Id: ${user} Message: ${message}\n`);
-
-    const circle = "65724c347e9d68c71b6fe7d8"; //req.circle._id
-    console.log(`\nCircle Id: ${circle}\n`)
 
     let emptyFields = []
     if(!message) {
@@ -35,7 +28,6 @@ const createMessage = async (req, res) => {
     }
 
     try {
-        console.log(`\n Username: ${username}\n`)
         const message1 = await Message.create({user, username, message, circle})
         res.status(200).json(message1)
     } catch (error) {

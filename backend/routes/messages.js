@@ -11,7 +11,7 @@ const router = express.Router()
 router.use(requireAuth)
 
 // GET messages of a circle
-router.get('/', getMessages)
+router.get('/:id', getMessages)
 
 router.post('/', createMessage)
 

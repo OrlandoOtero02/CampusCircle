@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useAuthContext } from '../hooks/useAuthContext';
 
-function Messaging(props) {
+function Messaging({circleId}) {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const [userObject, setUserObject] = useState();
   const {user} = useAuthContext()
+  const circle = circleId;
 
   const getUser = async (e) => {
     const response = await fetch('/api/user/getUserById/' + user._id, {
@@ -26,12 +27,12 @@ function Messaging(props) {
   const handleSendMessage = async (e) => {
     e.preventDefault();
     const username = userObject.username;
-  
+    console.log(circle)
     try {
       // Use the fetch API to send a POST request to the server
       const response = await fetch('/api/messages', {
         method: 'POST',
-        body: JSON.stringify({ message, username }),
+        body: JSON.stringify({ message, username, circle }),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${user.token}`
@@ -54,9 +55,10 @@ function Messaging(props) {
   // useEffect to fetch messages from the server when the component mounts
   useEffect(() => {
     getUser();
+    console.log(circle)
     const fetchMessages = async () => {
       try {
-        const response = await fetch('/api/messages', {
+        const response = await fetch('/api/messages/' + circle, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${user.token}`
