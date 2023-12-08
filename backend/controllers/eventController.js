@@ -96,7 +96,7 @@ const deleteEvent = async (req, res) => {
         return res.status(404).json({error: 'No such event'})
     }
 
-    res.status(200).json(circle)
+    res.status(200).json()
 }
 
 
