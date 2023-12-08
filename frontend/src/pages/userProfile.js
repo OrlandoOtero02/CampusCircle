@@ -3,7 +3,6 @@ import UserDetails from '../components/UserDetails';
 import { useParams, useNavigate } from 'react-router-dom'
 import Logo from '../assets/CampusCircle Logo White.png';
 import Inbox from './Inbox';
-=======
 import {
   Button,
   Dialog,
