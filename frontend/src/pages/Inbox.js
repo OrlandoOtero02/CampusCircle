@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useLogout } from '../hooks/useLogout';
 import axios from 'axios';
+import Button from '@mui/material/Button';
 
 const Inbox = () => {
   const [conversations, setConversations] = useState([]);
@@ -46,7 +47,10 @@ const Inbox = () => {
 
   return (
     <div>
-      <h1>Inbox</h1>
+      <h2>Inbox</h2>
+      <Button variant="contained" style={{marginBottom: 10}}>Send Message</Button><br/><br/>
+
+      <h3>My conversations</h3>
       
       {/* Button to initiate a new conversation */}
       <button onClick={initiateConversation}>Initiate Conversation</button>
