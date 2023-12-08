@@ -28,12 +28,9 @@ app.use((req, res, next) => {
 app.use('/api/circles', circlesRoutes)
 app.use('/api/events', eventsRoutes)
 app.use('/api/user', userRoutes)
-<<<<<<< HEAD
 app.use('/api/report', reportRoutes)
 
-=======
 app.use('/api/messages', messageRoutes)
->>>>>>> fd6be09b380418fd968683d795e3c98451c32808
 
 // connect to db
 mongoose.connect(process.env.MONGO_URI, {dbName: 'CampusCircle'})
