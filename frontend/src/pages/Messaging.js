@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuthContext } from '../hooks/useAuthContext';
+import Button from '@mui/material/Button';
 
 function Messaging({circleId}) {
   const [message, setMessage] = useState('');
@@ -100,7 +101,7 @@ function Messaging({circleId}) {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
         />
-        <button onClick={handleSendMessage}>Send</button>
+        <Button variant="contained" onClick={handleSendMessage}>Send</Button>
       </div>
     </div>
   );
