@@ -98,7 +98,7 @@ const CircleForm = () => {
       </ToggleButtonGroup>
 
 
-      <Button variant="contained">Add Circle</Button>
+      <Button variant="contained" onClick={handleSubmit}>Add Circle</Button>
       {error && <div className="error">{error}</div>}
     </form>
   );
