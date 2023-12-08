@@ -13,8 +13,8 @@ const MyConversations = ({ handleSelectUser }) => {
         const json = await response.json();
 
         if (response.ok) {
-          // Filter out the current user from the list
-          const filteredUsers = json.users.filter((u) => u._id !== user._id);
+          // Filter users based on dmPreference set to "everyone"
+          const filteredUsers = json.users.filter((u) => u.dmPreference === 'everyone' && u._id !== user._id);
           setUsers(filteredUsers);
         }
       } catch (error) {
