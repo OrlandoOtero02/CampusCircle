@@ -2,18 +2,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&family=VT323&display=swap');
 
 /* layout */
+
+/* Set CSS variables for both light and dark modes */
 :root {
-  --primary: #0988d0;
-  --error: #e7195a;
+  --primary-light: #0988d0;
+  --primary-dark: #55b1ff;
+  --error-light: #e7195a;
+  --error-dark: #ff7a7a;
+  --bg-color-light: #f1f1f1; /* Default background color for light mode */
+  --text-color-light: #333; /* Default text color for light mode */
+  --bg-color-dark: #1a1a1a; /* Background color for dark mode */
+  --text-color-dark: #ffffff; /* Text color for dark mode */
 }
+
+/* Apply background and text color based on the theme */
 body {
-  background: #f1f1f1;
+  background-color: var(--bg-color-light); /* Default background color for light mode */
+  color: var(--text-color-light); /* Default text color for light mode */
   margin: 0;
   font-family: "Poppins";
 }
+
+/* Header styles */
 header {
-  background: #fff;
+  background-color: #fff;
+  color: var(--text-color-light);
 }
+
 header .container {
   max-width: 1400px;
   margin: 0 auto;
@@ -22,11 +37,73 @@ header .container {
   align-items: center;
   justify-content: space-between;
 }
+
 header a {
   color: #333;
   text-decoration: none;
   margin-right: 20px;
 }
+
+/* Apply dark mode styles when the 'dark' class is added to the body */
+body.dark {
+  background-color: var(--bg-color-dark); /* Background color for dark mode */
+  color: var(--text-color-dark); /* Text color for dark mode */
+}
+
+/* Dark mode adjustments for specific elements (if needed) */
+body.dark header {
+  color: var(--text-color-dark);
+}
+
+/* Navbar styles for dark mode */
+body.dark header {
+  background-color: #000; /* Black background color */
+  color: #fff; /* White text color */
+}
+
+body.dark header a {
+  color: #fff; /* White link text color */
+}
+
+/* Keep the button blue with white text in dark mode */
+body.dark header button {
+  background-color: #0988d0; /* Blue background color */
+  color: #fff; /* White text color */
+}
+
+body.light header button {
+  background-color: #0988d0; /* Blue background color */
+  color: #fff; /* White text color */
+}
+
+/* Adjust text color for dark mode */
+body.dark .users-list {
+  color: black; /* Black text color in dark mode */
+}
+
+body.light .users-list {
+  color: black; /* Black text color in dark mode */
+}
+
+/* Define hover and active (clicked) effects for all buttons */
+button {
+  background-color: #0988d0;
+  color: #fff;
+  font-family: "Poppins";
+  border-radius: 15;
+}
+
+button:hover {
+  background-color: #07689f; /* Change to your desired hover background color */
+  color: #fff; /* Change to your desired hover text color */
+}
+
+button:active,
+button:focus {
+  background-color: #055a8c; /* Change to your desired active (clicked) background color */
+  color: #fff; /* Change to your desired active (clicked) text color */
+}
+
 .circle-navbar {
   max-width: 1400px;
   margin: 0 auto;
@@ -39,6 +116,45 @@ header a {
   max-width: 1400px;
   padding: 20px;
   margin: 0 auto;
+}
+
+/* Login.css */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #07689f;
+}
+
+.login-form {
+  background: #fff;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+  width: 70%; /* Adjust the width as needed */
+  text-align: center;
+  display: flex;
+  justify-content: space-between; /* Place the logo on the left, and fields on the right */
+  align-items: center;
+  margin: auto;
+}
+
+.logo-container {
+  width: 30%; /* Adjust the width as needed */
+  display: flex;
+  justify-content: flex-start; /* Place the logo on the left */
+  align-items: center;
+}
+
+.logo-image {
+  display: block;
+}
+
+.fields-container {
+  width: 60%; /* Adjust the width as needed */
+  display: flex;
+  flex-direction: column; /* Stack fields vertically */
 }
 
 /* homepage */
@@ -174,6 +290,12 @@ form.signup, form.login {
   margin: 0 0 10px 0;
   font-size: 1.2em;
   color: var(--primary);
+}
+.user-details h4.following {
+  margin: 0 0 10px 0;
+  font-size: 1.2em;
+  color: var(--primary);
+  text-align: center;
 }
 .user-details p {
   margin: 0;

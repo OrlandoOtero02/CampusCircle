@@ -28,7 +28,7 @@ const Navbar = () => {
     };
 
     return (
-        <header>
+        <header className={document.body.className}> {/* Apply the 'dark' class dynamically */}
             <div className="container">
                 <Link to="/">
                     <h1>Campus Circle</h1>
@@ -36,11 +36,15 @@ const Navbar = () => {
                 <nav>
                     {user && (
                         <div>
+                            <Link to="/blockedUsers">BlockedUsers</Link>
                             <Link to="/joinablecircles">Join Circles</Link>
-                            <Link to="/following">Following</Link>
+                            {/* <Link to="/following">Following</Link> */}
                             <Link to="/users">Users</Link>
                             <Link to="/profile">Profile</Link>
                             <Link to="/settings">Settings</Link>
+                            <Link to="/admin">Admin</Link> {/* Add the link to AdminPage it should be admin view only later on */}
+                            {/*{user.isAdmin && <Link to="/admin">Admin</Link>}
+                            <span>{user.email}</span>*/}
                             <span>{user.email}</span>
                             <button onClick={openLogoutDialog}>Log out</button>
                         </div>

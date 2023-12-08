@@ -1,11 +1,13 @@
-// app.js
+//App.js
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useAuthContext } from './hooks/useAuthContext';
+
 
 // pages & components
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Signup from './pages/Signup';
+import CirclePage from './pages/CirclePage';
 import JoinableCircles from './pages/JoinableCircles';
 import Navbar from './components/Navbar';
 
@@ -14,10 +16,13 @@ import CircleNavbar from "./components/CircleNavbar"
 import ForgotPassword from './pages/ForgotPassword';
 
 import Profile from './pages/Profile';
+import UserProfile from './pages/userProfile';
 import Settings from './pages/Settings';
 
 import UsersList from './pages/UsersList'
 import FollowingList from './pages/FollowingList';
+import BlockedUsers from './pages/BlockedUsers';
+import AdminPage from './pages/AdminPage';
 
 
 function App() {
@@ -28,9 +33,11 @@ function App() {
         <Navbar />
         <div className="pages">
           <Routes>
-            <Route
+          <Route
               path="/"
-              element={user ? <Home /> : <Navigate to="/login" />}
+              element={user ? (
+                  <Home />
+              ) : <Navigate to="/login" />}
             />
             <Route
               path="/login"
@@ -42,10 +49,14 @@ function App() {
             />
 
             <Route
+              path="/circle/:id"
+              element={user ? <CirclePage /> : <Navigate to="/"/>}
+            />
+
+            <Route
               path="/joinablecircles"
               element={user ? <JoinableCircles /> : <Navigate to="/"/>}
             />
-
             <Route
               path="/forgot-password"
               element={!user ? <ForgotPassword /> : <Navigate to="/" />}
@@ -65,8 +76,23 @@ function App() {
             <Route 
               path="/following"
               element={user ? <FollowingList/> : <Navigate to="/" />}
-
             />
+            {/* <Route
+              path="/profile/:userId"
+              element={user ? <UserProfile /> : <Navigate to="/" />}
+            /> */}
+            <Route path="/profile/:userId" element={<UserProfile />} />
+            <Route 
+              path="/blockedUsers"
+              element={user ? <BlockedUsers/> : <Navigate to="/" />}
+            />
+
+            <Route
+              path="/admin"
+              //element={user && user.isAdmin ? <AdminPage /> : <Navigate to="/" />}
+              element={user ? <AdminPage /> : <Navigate to="/" />}
+            />
+
           </Routes>
         </div>
       </BrowserRouter>
