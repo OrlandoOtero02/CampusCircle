@@ -56,7 +56,7 @@ const userSchema = new Schema({
         type: String,
         enum: ['everyone', 'noone'],
         default: 'everyone',
-    }
+    },
     isAdmin: {
       type: Boolean,
       default: false,
