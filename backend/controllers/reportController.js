@@ -26,17 +26,18 @@ const getReportById = async (req, res) => {
 
 // Create a new report
 const createReport = async (req, res) => {
-    const { user_id, content, imageUrls, location } = req.body;
+    //const { user_id, content } = req.body;
+    const reportMessage = req.body
+
 
     try {
         const newReport = new Report({
-            user_id,
-            content,
-            imageUrls,
-            location,
+            user_id: "placeholder",
+            content: JSON.stringify(reportMessage),
         });
 
         const savedReport = await newReport.save();
+        console.log(savedReport)
         res.status(201).json({ report: savedReport });
     } catch (error) {
         res.status(400).json({ error: error.message });
