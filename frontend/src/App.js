@@ -2,10 +2,12 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useAuthContext } from './hooks/useAuthContext';
 
+
 // pages & components
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Signup from './pages/Signup';
+import CirclePage from './pages/CirclePage';
 import JoinableCircles from './pages/JoinableCircles';
 import Navbar from './components/Navbar';
 
@@ -19,7 +21,10 @@ import Settings from './pages/Settings';
 
 import UsersList from './pages/UsersList'
 import FollowingList from './pages/FollowingList';
+
+import Messaging from './pages/Messaging.js'
 import BlockedUsers from './pages/BlockedUsers';
+import AdminPage from './pages/AdminPage';
 
 import MapPage from './pages/MapPage';
 
@@ -32,9 +37,11 @@ function App() {
         <Navbar />
         <div className="pages">
           <Routes>
-            <Route
+          <Route
               path="/"
-              element={user ? <Home /> : <Navigate to="/login" />}
+              element={user ? (
+                  <Home />
+              ) : <Navigate to="/login" />}
             />
             <Route
               path="/login"
@@ -46,10 +53,14 @@ function App() {
             />
 
             <Route
+              path="/circle/:id"
+              element={user ? <CirclePage /> : <Navigate to="/"/>}
+            />
+
+            <Route
               path="/joinablecircles"
               element={user ? <JoinableCircles /> : <Navigate to="/"/>}
             />
-
             <Route
               path="/forgot-password"
               element={!user ? <ForgotPassword /> : <Navigate to="/" />}
@@ -82,6 +93,17 @@ function App() {
             <Route 
               path="/map"
               element={user ? <MapPage/> : <Navigate to="/" />}
+            />
+            <Route 
+              path="/messaging"
+              //element={user ? <Messaging/> : <Navigate to='/' />}
+              element={<Messaging/>}
+            />
+
+            <Route
+              path="/admin"
+              //element={user && user.isAdmin ? <AdminPage /> : <Navigate to="/" />}
+              element={user ? <AdminPage /> : <Navigate to="/" />}
             />
 
           </Routes>
