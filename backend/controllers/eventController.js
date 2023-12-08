@@ -86,62 +86,11 @@ const deleteEvent = async (req, res) => {
 }
 
 
-// update a circle
-const updateEvent = async (req, res) => {
-    const { id } = req.params
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'No such event'})
-    }
-
-    const event = await Event.findByIdAndUpdate({_id: id}, {
-        ...req.body
-    })
-
-    if (!evente) {
-        return res.status(404).json({error: 'No such event'})
-    }
-
-    res.status(200).json(event)
-}
-
-
-const joinEvent = async (req,res) => {
-    const { id }  = req.params
-    const userId = req.user._id
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'No such event'})
-    }
-    try {
-    const event = await Event.findByIdAndUpdate({_id: id},
-        { $push: { participants: userId }})
-        res.status(200).json(event)
-    } catch (error) {
-        res.status(400).json({error: error.message})
-    }
-}
-
-const leaveEvent = async (req,res) => {
-    const { id }  = req.params
-    const userId = req.user._id
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'No such event'})
-    }
-    try {
-    const event = await Event.findByIdAndUpdate({_id: id},
-        { $pull: { members: userId }})
-        res.status(200).json(event)
-    } catch (error) {
-        res.status(400).json({error: error.message})
-    }
-}
 
 module.exports = {
     getEvents,
     getEvent,
     createEvent,
     deleteEvent,
-    updateEvent,
-    joinEvent,
-    leaveEvent,
 }

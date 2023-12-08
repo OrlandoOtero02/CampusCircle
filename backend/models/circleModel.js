@@ -16,9 +16,9 @@ const circleSchema = new Schema({
         type: String,
         required: true,
     },
-    members: [
-        {
-            type: String, 
+    members: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }],
     isPrivate: {
         type: Boolean,

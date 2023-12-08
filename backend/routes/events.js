@@ -6,9 +6,6 @@ const {
     getEvent,
     createEvent,
     deleteEvent,
-    updateEvent,
-    joinEvent,
-    leaveEvent,
 } = require('../controllers/eventController')
 const requireAuth = require('../middleware/requireAuth')
 
@@ -29,11 +26,5 @@ router.post('/', createEvent)
 // DELETE a event
 router.delete('/event/:id', deleteEvent)
 
-// UPDATE a circle
-router.patch('/event/u', updateEvent)
-
-router.patch('/event/add/:id', joinEvent)
-
-router.patch('/event/leave/:id', leaveEvent)
 
 module.exports = router
