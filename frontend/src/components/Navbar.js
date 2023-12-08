@@ -54,13 +54,15 @@ const Navbar = () => {
                     {user && (
                         <div>
                             <Link style={{ marginRight: 30 }} to="/map">Map</Link>
-                            <Link style={{ marginRight: 30 }} to="/blockedUsers">BlockedUsers</Link>
+                            <Link style={{ marginRight: 30 }} to="/blockedUsers">Blocked Users</Link>
                             <Link style={{ marginRight: 30 }} to="/joinablecircles">Join Circles</Link>
                             {/* <Link to="/following">Following</Link> */}
                             <Link style={{ marginRight: 30 }} to="/users">Users</Link>
                             <Link style={{ marginRight: 30 }} to="/profile">Profile</Link>
                             <Link style={{ marginRight: 30 }} to="/settings">Settings</Link>
-                            {isAdmin && <Link to="/admin">Admin</Link>}
+                            <Link style={{ marginRight: 30 }} to="/inbox">Inbox</Link>
+                            <Link to="/admin">Admin</Link> {/* Add the link to AdminPage it should be admin view only later on */}
+                            {user.isAdmin && <Link to="/admin">Admin</Link>}
                             <span>{user.email}</span>
                             <Button style={{ marginLeft: 30 }} variant="contained" onClick={openLogoutDialog}>Log out</Button>
                         </div>

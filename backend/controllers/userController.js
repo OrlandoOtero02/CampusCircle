@@ -266,11 +266,32 @@ const getUserById = async (req, res) => {
 };
 
 
-      const deleteUser = async (req, res) => {
-          console.log("KILL ME")
-          await User.findByIdAndDelete(req.params.Id)
-          res.status(200)
-      }
+const deleteUser = async (req, res) => {
+    console.log("KILL ME")
+    await User.findByIdAndDelete(req.params.Id)
+    res.status(200)
+}
+
+const updateUserSettings = async (req, res) => {
+    const userId = req.params.userId;
+  
+    try {
+      console.log('Request Body:', req.body);
+      const updatedUser = await User.findByIdAndUpdate(
+        userId,
+        {
+          $set: {
+            dmPreference: req.body.dmPreference
+          },
+        },
+        { new: true }
+      );
+  
+      res.status(200).json(updatedUser);
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  };
 
       const isAdmin = async (req, res) => {
         try {
@@ -312,6 +333,7 @@ module.exports = {
   updateUserPassword,
   getProfile,
   updateProfile,
+  updateUserSettings,
   isAdmin
 };
 
