@@ -333,7 +333,7 @@ module.exports = {
   updateUserPassword,
   getProfile,
   updateProfile,
-  updateUserSettings
+  updateUserSettings,
   isAdmin
 };
 
