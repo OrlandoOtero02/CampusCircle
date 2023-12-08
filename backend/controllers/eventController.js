@@ -5,11 +5,12 @@ const mongoose = require('mongoose')
 
 
 const getEvents = async (req, res) => {
-    const circle_id = req.circle._id
+    console.log("events:")
 
     const events = await Event.find({}).sort({createdAt: -1})
 
     res.status(200).json(events)
+    
 }
 
 

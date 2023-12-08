@@ -1,64 +1,69 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useAuthContext } from '../hooks/useAuthContext';
+// import React, { useState } from 'react';
+// import { useAuthContext } from '../hooks/useAuthContext';
+// import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+// import Button from '@mui/material/Button';
 
-const EventDetails = () => {
-    const { id } = useParams(); // Get the event ID from the URL
-    const { user } = useAuthContext();
-    const [event, setEvent] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
+// const EventDetails = ({ event }) => {
+//   const { user } = useAuthContext();
+//   const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const fetchEventDetails = async () => {
-            try {
-                setIsLoading(true);
-                const response = await fetch(`/api/events/${id}`, {
-                    headers: {
-                        'Authorization': `Bearer ${user.token}`
-                    }
-                });
-                const json = await response.json();
+//   const handleJoinEvent = async () => {
+//     if (!user) {
+//       setError('You must be logged in');
+//       return;
+//     }
 
-                if (!response.ok) {
-                    throw new Error(json.message || 'Could not fetch event');
-                }
+//     // Add logic for joining the event here
+//     console.log('Join Event button clicked');
+//   };
 
-                setEvent(json);
-            } catch (err) {
-                setError(err.message);
-            } finally {
-                setIsLoading(false);
-            }
-        };
+//   const handleLeaveEvent = async () => {
+//     if (!user) {
+//       setError('You must be logged in');
+//       return;
+//     }
 
-        if (user) {
-            fetchEventDetails();
-        }
-    }, [id, user]);
+//     // Add logic for leaving the event here
+//     console.log('Leave Event button clicked');
+//   };
 
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
+//   const textColor = document.body.className === 'dark' ? 'white' : 'black';
 
-    if (error) {
-        return <div>Error: {error}</div>;
-    }
+//   return (
+//     <div className="event-details">
+//       <h4 style={{ color: textColor }}>{event.title}</h4>
+//       <p>Description: {event.description}</p>
+//       <p>Location: {event.location}</p>
+//       <p>Starts at: {formatDistanceToNow(new Date(event.startDate), { addSuffix: true })}</p>
+//       <Button onClick={handleJoinEvent}>Join Event</Button>
+//       <Button onClick={handleLeaveEvent} style={{ marginLeft: '10px' }}>Leave Event</Button>
+//     </div>
+//   );
+// };
 
-    return (
-        <div className="event-details">
-            {event && (
-                <>
-                    <h2>{event.title}</h2>
-                    <p>Description: {event.description}</p>
-                    <p>Date: {event.date}</p>
-                    <p>Time: {event.time}</p>
-                    <p>Location: {event.location}</p>
-                    {/* Add more event details here as needed */}
-                </>
-            )}
-        </div>
-    );
+// export default EventDetails;
+
+// EventDetails.js
+
+import React from 'react';
+
+const EventDetails = ({ event }) => {
+  const formattedDate = new Date(event.date).toLocaleDateString();
+  const formattedTime = event.time; // You might want to format the time as needed
+
+  return (
+    <div className="event-details">
+      <h4>{event.title}</h4>
+      <p>Description: {event.description}</p>
+      <p>Date: {formattedDate}</p>
+      <p>Time: {formattedTime}</p>
+      <p>Location: {event.location}</p>
+      <p>Approved: {event.approved ? 'Yes' : 'No'}</p>
+      <p>Participants: {event.participants.length}</p>
+      <p>Circle ID: {event.circle_id}</p>
+    </div>
+  );
 };
 
 export default EventDetails;
+
