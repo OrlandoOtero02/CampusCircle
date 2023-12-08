@@ -51,7 +51,12 @@ const userSchema = new Schema({
     blockedUsers: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    }]
+    }],
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    }
+
 })
 
 //static signup method
