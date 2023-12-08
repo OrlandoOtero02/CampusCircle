@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuthContext } from '../hooks/useAuthContext';
 
-function Messaging() {
+function Messaging(props) {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const {user} = useAuthContext()

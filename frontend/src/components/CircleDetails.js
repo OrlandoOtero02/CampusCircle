@@ -72,7 +72,7 @@ const CircleDetails = ({ circle, joined }) => {
 
     const handleOpen = () => {
         if (joined) {
-            <Navigate to='/messaging'/>
+            console.log("\n How did you get here? \n")
         }
     }
 
@@ -84,7 +84,7 @@ const CircleDetails = ({ circle, joined }) => {
 
     return(
         <div className="circle-details">
-            <h4><Link to='/messaging'>{circle.title}</Link></h4>
+            {joined ? <h4><Link to='/messaging'>{circle.title}</Link></h4> : <h4>{circle.title}</h4>}
             <p>Description: {circle.description}</p>
             <p>Members: {circle.members.length}</p>
             <p>{formatDistanceToNow(new Date(circle.createdAt), { addSuffix: true })}</p>

@@ -11,9 +11,9 @@ const messageSchema = new Schema({
         type: String,
         required: true,
     }, 
-    /*circle: {
+    circle: {
         type: String,
-    },*/
+    },
 }, {timestamps: true})
 
 module.exports = mongoose.model('Message', messageSchema)

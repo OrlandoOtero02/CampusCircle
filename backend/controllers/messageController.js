@@ -6,9 +6,9 @@ const getMessages = async (req, res) => {
     const circleId = req.circle._id
     console.log(`\nUser Id: ${userId} Circle Id: ${circleId}`)
 
-    //const messages = await Message.find({_id: id})
+    const messages = await Message.find({_id: id})
 
-    //res.status(200).json(messages)
+    res.status(200).json(messages)
 }
 
 const createMessage = async (req, res) => {
@@ -27,9 +27,11 @@ const createMessage = async (req, res) => {
     if(emptyFields.length > 0) {
         return res.status(400).json({ error: 'Please fill in all fields', emptyFields })
     }
-    console.log("\nIm Getting To Here\n")
+    
     try {
+        console.log("\nIm Getting To Here\n")
         //const circle_id = req.circle._id
+        //console.log(`\nCircle Id: ${circle_id}\n`)
         const message1 = await Message.create({user, message})
         res.status(200).json(message1)
     } catch (error) {
