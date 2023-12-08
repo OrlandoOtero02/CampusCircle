@@ -88,10 +88,19 @@ const CircleDetails = ({ circle, joined }) => {
 
     return(
         <div className="circle-details">
-            {joined ? <h4 style={{ color: textColor }}><Link to='/messaging'>{circle.title}</Link></h4> : <h4 style={{ color: textColor }}>{circle.title}</h4>}
-            <p>Description: {circle.description}</p>
-            <p>Members: {circle.members.length}</p>
-            <p style={{ marginBottom: 10 }}>{formatDistanceToNow(new Date(circle.createdAt), { addSuffix: true })}</p>
+            {joined ?
+            <Link to={`/circle/${circle._id}`} style={{ textDecoration: 'none' }}>
+                <h4 style={{ color: textColor }}>{circle.title}</h4>
+                <p>Description: {circle.description}</p>
+                <p>Members: {circle.members.length}</p>
+                <p style={{ marginBottom: 10 }}>{formatDistanceToNow(new Date(circle.createdAt), { addSuffix: true })}</p>
+            </Link> 
+            : <div>
+            <h4 style={{ color: textColor }}>{circle.title}</h4>
+                <p>Description: {circle.description}</p>
+                <p>Members: {circle.members.length}</p>
+                <p style={{ marginBottom: 10 }}>{formatDistanceToNow(new Date(circle.createdAt), { addSuffix: true })}</p>
+               </div> }
             {isOwner && <Button onClick={handleDelete}>Delete</Button>}
             { joined ? <Button variant="contained" style={{ marginRight: 10 }} onClick={handleLeave}>Leave</Button> : <Button variant="contained" style={{ marginRight: 10 }} onClick={handleJoin}>Join</Button>}
         </div>

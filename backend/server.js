@@ -7,6 +7,7 @@ const mongoose = require('mongoose')
 
 // routes
 const circlesRoutes = require('./routes/circles')
+const eventsRoutes = require('./routes/events')
 const userRoutes = require('./routes/user')
 const messageRoutes = require('./routes/messages')
 
@@ -23,6 +24,7 @@ app.use((req, res, next) => {
 
 // routes
 app.use('/api/circles', circlesRoutes)
+app.use('/api/events', eventsRoutes)
 app.use('/api/user', userRoutes)
 app.use('/api/messages', messageRoutes)
 
