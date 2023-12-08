@@ -57,6 +57,11 @@ const userSchema = new Schema({
         enum: ['everyone', 'noone'],
         default: 'everyone',
     }
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    }
+
 })
 
 //static signup method

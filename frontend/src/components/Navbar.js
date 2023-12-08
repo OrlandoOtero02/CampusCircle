@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Dialog from '@mui/material/Dialog';
 import Button from '@mui/material/Button';
@@ -13,6 +13,7 @@ const Navbar = () => {
     const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false);
     const { logout } = useLogout();
     const { user } = useAuthContext();
+    const [isAdmin, setIsAdmin] = useState(false);
 
     const openLogoutDialog = () => {
         setIsLogoutDialogOpen(true);
@@ -26,6 +27,22 @@ const Navbar = () => {
         logout();
         closeLogoutDialog();
     };
+
+    useEffect(() => {
+      const checkAdminStatus = async () => {
+          if (user) {
+            const response = await fetch('/api/user/getUserById/' + user._id);
+
+            const json = await response.json();
+
+
+            setIsAdmin(json.user.isAdmin)
+
+          }
+      };
+
+      checkAdminStatus();
+    }, [user]);
 
     return (
         <header className={document.body.className}> {/* Apply the 'dark' class dynamically */}
@@ -45,8 +62,7 @@ const Navbar = () => {
                             <Link style={{ marginRight: 30 }} to="/settings">Settings</Link>
                             <Link style={{ marginRight: 30 }} to="/inbox">Inbox</Link>
                             <Link to="/admin">Admin</Link> {/* Add the link to AdminPage it should be admin view only later on */}
-                            {/*{user.isAdmin && <Link to="/admin">Admin</Link>}
-                            <span>{user.email}</span>*/}
+                            {user.isAdmin && <Link to="/admin">Admin</Link>}
                             <span>{user.email}</span>
                             <Button style={{ marginLeft: 30 }} variant="contained" onClick={openLogoutDialog}>Log out</Button>
                         </div>

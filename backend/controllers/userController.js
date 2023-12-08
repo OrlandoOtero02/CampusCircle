@@ -263,7 +263,7 @@ const getUserById = async (req, res) => {
       console.error('Error fetching user by ID:', error);
       res.status(500).json({ message: 'Internal server error' });
     }
-  };
+};
 
 
 const deleteUser = async (req, res) => {
@@ -293,6 +293,30 @@ const updateUserSettings = async (req, res) => {
     }
   };
 
+      const isAdmin = async (req, res) => {
+        try {
+          // Assuming you have the user ID available in the request (e.g., from authentication middleware)
+          const userId = req.params.Id;
+      
+          // Fetch the user by ID
+          const user = await User.findById(userId);
+      
+          if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+          }
+      
+          // Check if the user is an admin
+          
+          const isAdmin = user.isAdmin
+
+          console.log(isAdmin)
+
+          res.status(200).json({ isAdmin });
+        } catch (error) {
+          res.status(500).json({ error: error.message });
+        }
+      }
+
 module.exports = {
     loginUser,
     signupUser,
@@ -310,5 +334,6 @@ module.exports = {
   getProfile,
   updateProfile,
   updateUserSettings
+  isAdmin
 };
 

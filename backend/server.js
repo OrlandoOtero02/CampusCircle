@@ -9,6 +9,8 @@ const mongoose = require('mongoose')
 const circlesRoutes = require('./routes/circles')
 const eventsRoutes = require('./routes/events')
 const userRoutes = require('./routes/user')
+const reportRoutes = require('./routes/reports')
+
 const messageRoutes = require('./routes/messages')
 
 // express app
@@ -26,6 +28,8 @@ app.use((req, res, next) => {
 app.use('/api/circles', circlesRoutes)
 app.use('/api/events', eventsRoutes)
 app.use('/api/user', userRoutes)
+app.use('/api/report', reportRoutes)
+
 app.use('/api/messages', messageRoutes)
 
 // connect to db
