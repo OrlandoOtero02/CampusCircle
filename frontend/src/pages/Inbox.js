@@ -22,7 +22,7 @@ const Inbox = () => {
       {/* Render the Messaging component with the selectedUserId */}
       {selectedUserId && (
         <div>
-          <Messaging circleId={selectedUserId} />
+          <Messaging circleId={selectedUserId} dm={true}/>
           <Button
             variant="contained"
             onClick={() => setSelectedUserId(null)}

@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useAuthContext } from '../hooks/useAuthContext';
 import Button from '@mui/material/Button';
 
-function Messaging({circleId}) {
+function Messaging({circleId, dm}) {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const [userObject, setUserObject] = useState();
   const {user} = useAuthContext()
   const circle = circleId;
+  const [isDM, setIsDM] = useState(false);
 
   const getUser = async (e) => {
     const response = await fetch('/api/user/getUserById/' + user._id, {
@@ -33,7 +34,7 @@ function Messaging({circleId}) {
       // Use the fetch API to send a POST request to the server
       const response = await fetch('/api/messages', {
         method: 'POST',
-        body: JSON.stringify({ message, username, circle }),
+        body: JSON.stringify({ message, username, circle, isDM}),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${user.token}`
@@ -55,6 +56,7 @@ function Messaging({circleId}) {
 
   // useEffect to fetch messages from the server when the component mounts
   useEffect(() => {
+    if (dm) setIsDM(true);
     getUser();
     console.log(circle)
     const fetchMessages = async () => {
