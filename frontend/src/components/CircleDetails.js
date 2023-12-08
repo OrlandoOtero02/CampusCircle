@@ -3,6 +3,7 @@ import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 import { useCircleContext } from "../hooks/useCircleContext"
 import Button from '@mui/material/Button'
 import { useState } from "react"
+import { Link } from 'react-router-dom'
 
 const CircleDetails = ({ circle, joined }) => {
     const { dispatch } = useCircleContext()
@@ -72,10 +73,13 @@ const CircleDetails = ({ circle, joined }) => {
 
     return(
         <div className="circle-details">
-            <h4 style={{ color: textColor }}>{circle.title}</h4>
-            <p>Description: {circle.description}</p>
-            <p>Members: {circle.members.length}</p>
-            <p style={{ marginBottom: 10 }}>{formatDistanceToNow(new Date(circle.createdAt), { addSuffix: true })}</p>
+            {/* <h4 style={{ color: textColor }}>{circle.title}</h4> */}
+            <Link to={`/circle/${circle._id}`} style={{ textDecoration: 'none' }}>
+                <h4 style={{ color: textColor }}>{circle.title}</h4>
+                <p>Description: {circle.description}</p>
+                <p>Members: {circle.members.length}</p>
+                <p style={{ marginBottom: 10 }}>{formatDistanceToNow(new Date(circle.createdAt), { addSuffix: true })}</p>
+            </Link>
             {isOwner && <Button onClick={handleDelete}>Delete</Button>}
 
 
