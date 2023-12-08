@@ -54,7 +54,7 @@ const userSchema = new Schema({
     }],
     dmPreference: {
         type: String,
-        enum: ['everyone', 'friends', 'noone'],
+        enum: ['everyone', 'noone'],
         default: 'everyone',
     }
 })

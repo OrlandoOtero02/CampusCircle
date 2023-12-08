@@ -139,7 +139,6 @@ function Settings() {
                 onChange={(e) => setDmPreference(e.target.value)}
               >
                 <option value="everyone">Everyone</option>
-                <option value="friends">Only Friends</option>
                 <option value="noone">No One</option>
               </select>
             </label>
