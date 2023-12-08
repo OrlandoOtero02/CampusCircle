@@ -7,12 +7,12 @@ const Map = () => {
     {
       title: 'Event 1',
       description: 'This is the first event',
-      coordinates: [-86.913780, 40.428640],
+      coordinates: [-86.913780, 40.428340],
     },
     {
       title: 'Event 2',
       description: 'Another event at a different location',
-      coordinates: [-86.913790, 40.428650],
+      coordinates: [-86.913690, 40.428650],
     },
     {
       title: 'Event 3',
@@ -95,32 +95,3 @@ const Map = () => {
 };
 
 export default Map;
-
-// import React, { useEffect } from 'react';
-// import mapboxgl from 'mapbox-gl';
-
-// const Map = () => {
-//   useEffect(() => {
-//     mapboxgl.accessToken = 'pk.eyJ1Ijoib3VvdGVybyIsImEiOiJjbHByazhzc2IwMGt4MmtvNmRzbWJqOXVvIn0.RJRdRiC_gkuahLAsrkbDFA';
-
-//     const map = new mapboxgl.Map({
-//       container: 'map',
-//       style: 'mapbox://styles/mapbox/streets-v12',
-//       center: [12.550343, 55.665957],
-//       zoom: 8
-//     });
-
-//     // Create a default Marker and add it to the map.
-//     const marker = new mapboxgl.Marker()
-//       .setLngLat([12.554729, 55.70651])
-//       .addTo(map);
-
-//     // Cleanup the map when the component unmounts
-//     return () => map.remove();
-
-//   }, []); // The empty dependency array ensures that this effect runs once
-
-//   return <div id="map" style={{ width: '100%', height: '650px' }} />;
-// };
-
-// export default Map;
