@@ -1,4 +1,4 @@
-// app.js
+//App.js
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useAuthContext } from './hooks/useAuthContext';
 
@@ -14,12 +14,16 @@ import CircleNavbar from "./components/CircleNavbar"
 import ForgotPassword from './pages/ForgotPassword';
 
 import Profile from './pages/Profile';
+import UserProfile from './pages/userProfile';
 import Settings from './pages/Settings';
 
 import UsersList from './pages/UsersList'
 import FollowingList from './pages/FollowingList';
 
 import Messaging from './pages/Messaging.js'
+import BlockedUsers from './pages/BlockedUsers';
+
+import MapPage from './pages/MapPage';
 
 
 function App() {
@@ -28,7 +32,6 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Navbar />
-        <CircleNavbar />
         <div className="pages">
           <Routes>
             <Route
@@ -46,12 +49,12 @@ function App() {
 
             <Route
               path="/joinablecircles"
-              element={<JoinableCircles />}
+              element={user ? <JoinableCircles /> : <Navigate to="/"/>}
             />
 
             <Route
               path="/forgot-password"
-              element={<ForgotPassword/>}
+              element={!user ? <ForgotPassword /> : <Navigate to="/" />}
             />
             <Route
               path="/profile"
@@ -68,13 +71,26 @@ function App() {
             <Route 
               path="/following"
               element={user ? <FollowingList/> : <Navigate to="/" />}
-
+            />
+            {/* <Route
+              path="/profile/:userId"
+              element={user ? <UserProfile /> : <Navigate to="/" />}
+            /> */}
+            <Route path="/profile/:userId" element={<UserProfile />} />
+            <Route 
+              path="/blockedUsers"
+              element={user ? <BlockedUsers/> : <Navigate to="/" />}
+            />
+            <Route 
+              path="/map"
+              element={user ? <MapPage/> : <Navigate to="/" />}
             />
             <Route 
               path="/messaging"
               //element={user ? <Messaging/> : <Navigate to='/' />}
               element={<Messaging/>}
             />
+
           </Routes>
         </div>
       </BrowserRouter>

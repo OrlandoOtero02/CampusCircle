@@ -15,7 +15,6 @@ const circleSchema = new Schema({
     user_id: {
         type: String,
         required: true,
-        required: true
     },
     members: [
         {
@@ -26,6 +25,10 @@ const circleSchema = new Schema({
             type: String,
         }
     ],
+    isPrivate: {
+        type: Boolean,
+        default: false,
+    }
 }, { timestamps: true })
 
 module.exports = mongoose.model('Circle', circleSchema)

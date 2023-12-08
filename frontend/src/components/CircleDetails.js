@@ -12,7 +12,8 @@ const CircleDetails = ({ circle, joined }) => {
     const { dispatch } = useCircleContext()
     const { user } = useAuthContext()
     const [error, setError] = useState(null)
-
+    
+    const isOwner = circle.user_id === user._id;
 
     const handleDelete = async () => {
         const response = await fetch('/api/circles/' + circle._id, {
@@ -82,14 +83,17 @@ const CircleDetails = ({ circle, joined }) => {
         setOwner(true);
     }
 
+    // Determine the text color based on the theme (light or dark)
+    const textColor = document.body.className === "dark" ? "black" : "black";
+
     return(
         <div className="circle-details">
-            {joined ? <h4><Link to='/messaging'>{circle.title}</Link></h4> : <h4>{circle.title}</h4>}
+            {joined ? <h4 style={{ color: textColor }}><Link to='/messaging'>{circle.title}</Link></h4> : <h4 style={{ color: textColor }}>{circle.title}</h4>}
             <p>Description: {circle.description}</p>
             <p>Members: {circle.members.length}</p>
-            <p>{formatDistanceToNow(new Date(circle.createdAt), { addSuffix: true })}</p>
-            <Button onClick={handleDelete}>Delete</Button>
-            { joined ? <Button onClick={handleLeave}>Leave</Button> : <Button onClick={handleJoin}>Join</Button>}
+            <p style={{ marginBottom: 10 }}>{formatDistanceToNow(new Date(circle.createdAt), { addSuffix: true })}</p>
+            {isOwner && <Button onClick={handleDelete}>Delete</Button>}
+            { joined ? <Button variant="contained" style={{ marginRight: 10 }} onClick={handleLeave}>Leave</Button> : <Button variant="contained" style={{ marginRight: 10 }} onClick={handleJoin}>Join</Button>}
         </div>
     )
 }
