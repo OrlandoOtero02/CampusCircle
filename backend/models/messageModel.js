@@ -7,12 +7,17 @@ const messageSchema = new Schema({
         type: String,
         required: true,
     },
+    username: {
+        type: String,
+        required: true,
+    },
     message: {
         type: String,
         required: true,
     }, 
     circle: {
         type: String,
+        required: true,
     },
 }, {timestamps: true})
 
