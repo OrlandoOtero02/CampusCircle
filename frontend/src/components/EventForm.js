@@ -45,7 +45,7 @@ const EventForm = ({ onAddEvent, circleId }) => {
             approved: false,
             time,
             location,
-            circleId,
+            circle_id: circleId,
             participants: null,
         };
 
