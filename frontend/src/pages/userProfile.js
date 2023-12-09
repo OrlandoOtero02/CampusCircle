@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import UserDetails from '../components/UserDetails';
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom';
 import Logo from '../assets/CampusCircle Logo White.png';
-import Inbox from './Inbox';
 import {
   Button,
   Dialog,
@@ -15,7 +14,7 @@ import {
 
 const UserProfile = () => {
     const { userId } = useParams();
-    const navigate = useNavigate();
+    //console.log('User ID from useParams:', userId);    
     const [user, setUser] = useState(null);
   
     const [isReportingOpen, setIsReportingOpen] = useState(false);
@@ -24,10 +23,15 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
+        //console.log("five nights at freddies")
+        //console.log(userId)
         const response = await fetch('/api/user/getUserById/' + userId);
+
         const json = await response.json();
 
         if (response.ok) {
+          //setUser(json.user);
+          console.log("lets see what we got")
           console.log('User data:', json.user);       
           setUser(json.user);
         } else {
@@ -40,11 +44,6 @@ const UserProfile = () => {
 
     fetchUserDetails();
   }, [userId]);
-
-  const handleSendMessage = () => {
-    // Redirect to the inbox page
-    navigate('/inbox');
-  };
 
   const handleBlockUser = async () => {
     const currentUserId = JSON.parse(localStorage.getItem('user'))._id;
@@ -112,13 +111,10 @@ const handleReportMessageChange = (event) => {
       {user ? (
         <div>
           <div className="profile-header">
-            <img src={Logo} alt="Profile" className="profile-picture" />
+            <img src={user.profilePicture} alt="Profile" className="profile-picture" />
             <h2>{user.username}</h2>
-
-            <Button variant="contained" onClick={handleSendMessage} style={{marginBottom: 10}}>Send Message</Button><br/>
-            <Button variant="contained" onClick={handleBlockUser} className="blocking-user-button">Block</Button>
+            <button onClick={handleBlockUser} className="blocking-user-button">Block</button>
             <button onClick={toggleReporting} className="reporting-user-button">Report</button>
-
           </div>
           <div className="profile-info">
             <h3>About Me</h3>

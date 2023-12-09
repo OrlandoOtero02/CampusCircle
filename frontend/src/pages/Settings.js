@@ -20,8 +20,6 @@ function Settings() {
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const [dmPreference, setDmPreference] = useState('');
-
   
   
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
@@ -55,24 +53,7 @@ function Settings() {
     }
   };
 
-  const handleUpdateSettings = (e) => {
-    e.preventDefault();
-  
-    axios.patch('/api/user/updateUserSettings/' + currentUser._id, {
-      dmPreference: dmPreference,
-      // Include other settings if needed
-    })
-      .then((response) => {
-        console.log('Settings have been updated:', response.data);
-      })
-      .catch((error) => {
-        if (error.response && error.response.data) {
-          console.error('Error updating settings:', error.response.data.error);
-        } else {
-          console.error('Error updating settings:', error.message);
-        }
-      });
-  };
+
 
   const handleResetPassword = (e) => {
     e.preventDefault();
@@ -128,30 +109,10 @@ function Settings() {
           </div>
 
           <div className="settings-section">
-            <h3>Security Settings</h3>
+              <h3>Security Settings</h3>
             </div>
 
-            <label style={{ marginBottom: 10 }}>
-              Direct Message Preference:
-              <select
-                value={dmPreference}
-                style={{ marginLeft: 10 }}
-                onChange={(e) => setDmPreference(e.target.value)}
-              >
-                <option value="everyone">Everyone</option>
-                <option value="noone">No One</option>
-              </select>
-            </label>
-
-            <form onSubmit={handleUpdateSettings}>
-                <Button variant="contained" type="submit">Update Settings</Button>
-              </form>
-
-            <div className="settings-section">
-              <h3>General Settings</h3>
-            </div>
-
-              <Button style={{ marginBottom: 10 }} variant="contained" onClick={() => setShowChangePassword(!showChangePassword)} className="change-password-btn">
+              <Button variant="contained" onClick={() => setShowChangePassword(!showChangePassword)} className="change-password-btn">
                 Change Password
               </Button>
               {showChangePassword && (
@@ -182,6 +143,9 @@ function Settings() {
                   {passwordError && <div className="error-message">{passwordError}</div>}
                 </form>
               )}
+            </div>
+            <div className="settings-section">
+              <h3>General Settings</h3>
             </div>
             <div className="settings-section">
               <Button variant="contained" onClick={() => setOpen(true)}>

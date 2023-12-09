@@ -1,14 +1,14 @@
 // UsersList.js
 
 import { useEffect, useState } from "react";
-import { useAuthContext } from '../hooks/useAuthContext';
+//import { useAuthContext } from '../hooks/useAuthContext';
 
 // components
 import UserDetails from '../components/UserDetails';
 
 const UsersList = () => {
     const [users, setUsers] = useState(null);
-    const { user } = useAuthContext();
+    //const { user } = useAuthContext();
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -20,8 +20,7 @@ const UsersList = () => {
                 const json = await response.json();
 
                 if (response.ok) {
-                    const filteredUsers = json.users.filter((u) => u._id !== user._id);
-                    setUsers(filteredUsers);
+                    setUsers(json.users);
                 }
             } catch (error) {
                 console.error("Error fetching users:", error);
