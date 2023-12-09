@@ -46,21 +46,23 @@ const getJoinableCircles = async (req, res) => {
   };
 
 // get a single circle
+
 const getCircle = async (req, res) => {
-    const { id } = req.params
+    const { id } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'No such circle'})
+    try {
+        const circle = await Circle.findById(id)
+                             .populate('members', 'username'); // Populate only the usernames of the members
+
+        if (!circle) {
+            return res.status(404).json({ error: 'No such circle' });
+        }
+
+        res.status(200).json(circle);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
     }
-
-    const circle = await Circle.findById(id)
-
-    if (!circle) {
-        return res.status(404).json({error: 'No such circle'})
-    }
-
-    res.status(200).json(circle)
-}
+};
 
 
 // create new circle
@@ -129,20 +131,35 @@ const updateCircle = async (req, res) => {
 }
 
 
-const joinCircle = async (req,res) => {
-    const { id }  = req.params
-    const userId = req.user._id
+const joinCircle = async (req, res) => {
+    const { id } = req.params;
+    const userId = req.user._id;
+
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'No such circle'})
+        return res.status(404).json({ error: 'No such circle' });
     }
+
     try {
-    const circle = await Circle.findByIdAndUpdate({_id: id},
-        { $push: { members: userId }})
-        res.status(200).json(circle)
+        // First, retrieve the circle without updating it
+        const circle = await Circle.findById(id);
+
+        // Check if the user is already in the circle's members list
+        if (circle.members.includes(userId)) {
+            return res.status(400).json({ error: 'User already a member of this circle' });
+        }
+
+        // User is not a member, so proceed to add them to the circle
+        const updatedCircle = await Circle.findByIdAndUpdate(
+            { _id: id },
+            { $push: { members: userId }},
+            { new: true }  // Return the updated document
+        );
+
+        res.status(200).json(updatedCircle);
     } catch (error) {
-        res.status(400).json({error: error.message})
+        res.status(400).json({ error: error.message });
     }
-}
+};
 
 const leaveCircle = async (req,res) => {
     const { id }  = req.params

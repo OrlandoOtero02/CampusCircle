@@ -98,40 +98,60 @@ const EventForm = ({ onAddEvent, circleId }) => {
         participants: null,
     };
 
-    console.log(eventDetails)
-    
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if (!user) {
+            setError("You must be logged in");
+            return;
+        }
+
+        const eventDetails = {
+            title,
+            description,
+            date: eventDate,
+            approved: false,
+            time,
+            location,
+            circle_id: circleId,
+            participants: null,
+        };
+
+        console.log(eventDetails)
+        
 
 
-    console.log("hi")
-    // Replace '/api/events' with your actual endpoint
-    const response = await fetch("/api/events/", {
-        method: "POST",
-        body: JSON.stringify(eventDetails),
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${user.token}`,
-        },
-    });
+        console.log("hi")
+        // Replace '/api/events' with your actual endpoint
+        const response = await fetch("/api/events/", {
+            method: "POST",
+            body: JSON.stringify(eventDetails),
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${user.token}`,
+            },
+        });
 
-    const json = await response.json();
-    console.log(circleId)
-    if (!response.ok) {
-        setError(json.error || "An error occurred");
-        setEmptyFields(json.emptyFields || []);
-        setSuccess(""); // Clear any previous success message
-    } else {
-        console.log("in event form")
-        setTitle("");
-        setDescription("");
-        setEventDate("");
-        setTime("");
-        setLocation("");
-        setError(null);
-        setSuccess("Event created successfully!");
-        setEmptyFields([]);
-        console.log("New event added", json);
-    }
-};
+        const json = await response.json();
+        console.log(circleId)
+        if (!response.ok) {
+            setError(json.error || "An error occurred");
+            setEmptyFields(json.emptyFields || []);
+            setSuccess(""); // Clear any previous success message
+        } else {
+            console.log("in event form")
+            setTitle("");
+            setDescription("");
+            setEventDate("");
+            setTime("");
+            setLocation("");
+            setError(null);
+            setSuccess("Event created successfully!");
+            setEmptyFields([]);
+            console.log("New event added", json);
+        }
+    };
+
 
   const buttonColor = '#0988d0';
 

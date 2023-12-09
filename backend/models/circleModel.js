@@ -16,9 +16,9 @@ const circleSchema = new Schema({
         type: String,
         required: true,
     },
-    members: [
-        {
-            type: String, 
+    members: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }],
     messages: [
         {
@@ -28,7 +28,11 @@ const circleSchema = new Schema({
     isPrivate: {
         type: Boolean,
         default: false,
-    }
+    },
+    approvedEvents:[{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Event'    
+    }]
 }, { timestamps: true })
 
 module.exports = mongoose.model('Circle', circleSchema)
