@@ -13,8 +13,12 @@ const EventDetails = ({ event, onApprove }) => {
   const {eventtt, circleId} = useParams()
 
   const handleApprove = async () => {
+    if (!window.confirm("Are you sure you want to approve this event?")) {
+      return;
+    }
+  
     try {
-      // Call the onApprove handler, passing the event ID or any other necessary data
+      // Approve the event
       const response = await fetch(`/api/events/approveEvent/${event._id}`, {
         method: 'PATCH',
         headers: {
@@ -23,36 +27,31 @@ const EventDetails = ({ event, onApprove }) => {
       });
   
       if (response.ok) {
-        // Extract the event ID from the response or use the event._id if available
-        const approvedEventId = await response.json();
+        const { eventId } = await response.json();
   
-        // Call the API to add the approved event to the circle's approvedEvents array
-        const circleResponse = await fetch(`/api/circles/approveEvent/${circleId}`, {
+        // Add approved event to the circle
+        const circleResponse = await fetch(`/api/circles/${circleId}/addEvent/${eventId}`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${user.token}`,
           },
-          body: JSON.stringify({ eventId: approvedEventId }),
+          body: JSON.stringify({ eventId }),
         });
   
         if (circleResponse.ok) {
-          console.log(`Event ${approvedEventId} approved and added to the circle's approvedEvents array`);
-          // Handle success as needed
+          console.log(`Event ${eventId} approved and added to the circle's approvedEvents array`);
+          // Update frontend state if necessary
         } else {
           console.error('Failed to update circle with approved event:', circleResponse.statusText);
-          // Handle failure as needed
         }
       } else {
         console.error('Failed to approve event:', response.statusText);
-        // Handle failure as needed
       }
     } catch (error) {
       console.error('Error handling approval:', error.message);
-      // Handle errors as needed
     }
   };
-  
 
   const handleReject = async () => {
     try {
@@ -78,9 +77,7 @@ const EventDetails = ({ event, onApprove }) => {
   };
 
   // Conditionally render the component based on event.approved
-  if (event.approved) {
-    return null; // or return <></> for an empty fragment
-  }
+
 
   return (
     <div className="event-details">

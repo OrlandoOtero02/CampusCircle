@@ -161,6 +161,25 @@ const joinCircle = async (req, res) => {
     }
 };
 
+const addEventToCircle = async (req, res) => {
+    const { circleId, eventId } = req.params;
+    console.log("hiiiii")
+    // Validation and error handling goes here
+    try {
+        const updatedCircle = await Circle.findByIdAndUpdate(
+            circleId,
+            { $push: { approvedEvents: eventId } },
+            { new: true }
+        );
+        if (!updatedCircle) {
+            return res.status(404).json({ error: 'Circle not found' });
+        }
+        res.status(200).json(updatedCircle);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
 const leaveCircle = async (req,res) => {
     const { id }  = req.params
     const userId = req.user._id
@@ -184,6 +203,7 @@ module.exports = {
     createCircle,
     deleteCircle,
     updateCircle,
+    addEventToCircle,
     joinCircle,
     leaveCircle,
 }

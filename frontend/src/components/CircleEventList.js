@@ -38,7 +38,7 @@ const CircleEventList = () => {
 
   return (
     <div>
-      <h2>Cicle Event List</h2>
+      <h2>Circle Event List</h2>
       {loading ? (
         <p>Loading events...</p>
       ) : (

@@ -9,6 +9,7 @@ const {
     updateCircle,
     getUserCircles,
     getJoinableCircles,
+    addEventToCircle,
     joinCircle,
     leaveCircle,
 } = require('../controllers/circleController')
@@ -25,6 +26,8 @@ router.get('/', getCircles)
 router.get('/user', getUserCircles)
 
 router.get('/joinable', getJoinableCircles)
+
+router.patch('/:circleId/addEvent/:eventId', addEventToCircle);
 
 // GET a single circle
 router.get('/:id', getCircle)

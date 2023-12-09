@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import mapboxgl from 'mapbox-gl';
 import { useAuthContext } from "../hooks/useAuthContext";
+
+// Maybe comment out
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import Button from '@mui/material/Button';
 
 const EventForm = ({ onAddEvent, circleId }) => {
     const { user } = useAuthContext();
@@ -13,6 +17,46 @@ const EventForm = ({ onAddEvent, circleId }) => {
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState("");
     const [emptyFields, setEmptyFields] = useState([]);
+    const [clickedLocation, setClickedLocation] = useState(null);
+
+    useEffect(() => {
+        mapboxgl.accessToken = 'your-mapbox-access-token';
+
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/standard',
+            center: [-86.913780, 40.428640],
+            zoom: 15,
+            pitch: 0,
+            maxBounds: [[-86.930515, 40.420158], [-86.910465, 40.435776]],
+            attributionControl: false
+        });
+
+        map.on('load', () => {
+            map.addLayer({
+                id: '3d-buildings',
+                source: 'composite',
+                'source-layer': 'building',
+                filter: ['==', 'extrude', 'true'],
+                type: 'fill-extrusion',
+                minzoom: 15,
+                paint: {
+                    'fill-extrusion-color': '#aaa',
+                    'fill-extrusion-height': ['get', 'height'],
+                    'fill-extrusion-base': ['get', 'min_height'],
+                    'fill-extrusion-opacity': 0.8
+                }
+            });
+        });
+
+        map.on('click', (e) => {
+            const { lng, lat } = e.lngLat;
+            setClickedLocation({ lng, lat });
+            setLocation(`${lng.toFixed(6)}, ${lat.toFixed(6)}`);
+        });
+
+        return () => map.remove();
+    }, []);
 
     const allowedChars = /^[a-zA-Z0-9\s.,'-]+$/;
 
@@ -49,12 +93,8 @@ const EventForm = ({ onAddEvent, circleId }) => {
             participants: null,
         };
 
-        console.log(eventDetails)
-        
+        console.log(eventDetails);
 
-
-        console.log("hi")
-        // Replace '/api/events' with your actual endpoint
         const response = await fetch("/api/events/", {
             method: "POST",
             body: JSON.stringify(eventDetails),
@@ -65,13 +105,12 @@ const EventForm = ({ onAddEvent, circleId }) => {
         });
 
         const json = await response.json();
-        console.log(circleId)
+
         if (!response.ok) {
             setError(json.error || "An error occurred");
             setEmptyFields(json.emptyFields || []);
             setSuccess(""); // Clear any previous success message
         } else {
-            console.log("in event form")
             setTitle("");
             setDescription("");
             setEventDate("");
@@ -85,6 +124,7 @@ const EventForm = ({ onAddEvent, circleId }) => {
     };
 
     const buttonColor = '#0988d0';
+
     return (
         <form className="create-event" onSubmit={handleSubmit}>
             <h3>Create a New Event</h3>
@@ -125,6 +165,8 @@ const EventForm = ({ onAddEvent, circleId }) => {
                 onChange={(e) => setLocation(e.target.value)}
                 value={location}
             />
+
+            <div id="map" style={{ width: '50%', height: '350px' }} />
             <button style={{ backgroundColor: buttonColor }}>Add Event</button>
             {error && <div className="error">{error}</div>}
             {success && <div className="success">{success}</div>}
