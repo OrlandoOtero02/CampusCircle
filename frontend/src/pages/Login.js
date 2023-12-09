@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { useLogin } from '../hooks/useLogin'
 import { Link } from 'react-router-dom'; // Import Link from React Router
 import Logo from '../assets/CampusCircle Logo White.png'
-import Button from '@mui/material/Button';
 
 const Login = () => {
     //const [email, setEmail] = useState('')
@@ -26,10 +25,10 @@ const Login = () => {
                 </div>
 
                 <div className="fields-container">
-                    <h3 style={{color: 'black'}}>Login</h3>
+                    <h3>Login</h3>
 
                     <div className="form-group">
-                        <label style={{color: 'black'}} htmlFor="username">Username:</label>
+                        <label htmlFor="username">Username:</label>
                         <input
                             type="text"
                             id="username"
@@ -39,7 +38,7 @@ const Login = () => {
                     </div>
 
                     <div className="form-group">
-                        <label style={{color: 'black'}} htmlFor="password">Password:</label>
+                        <label htmlFor="password">Password:</label>
                         <input
                             type="password"
                             id="password"
@@ -48,7 +47,7 @@ const Login = () => {
                         />
                     </div>
 
-                    <Button variant="contained" type="submit" style={{marginBottom: 10}} disabled={isLoading}>Login</Button>
+                    <button disabled={isLoading}>Login</button>
                     {error && <div className="error">{error}</div>}
                     <Link to="/forgot-password" className="forgot-password-link">
                         Forgot Password?

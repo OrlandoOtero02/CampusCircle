@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useAuthContext } from '../hooks/useAuthContext';
-import Button from '@mui/material/Button';
 
-function Messaging({circleId, dm}) {
+function Messaging({circleId}) {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const [userObject, setUserObject] = useState();
   const {user} = useAuthContext()
   const circle = circleId;
-  const [isDM, setIsDM] = useState(false);
 
   const getUser = async (e) => {
     const response = await fetch('/api/user/getUserById/' + user._id, {
@@ -34,7 +32,7 @@ function Messaging({circleId, dm}) {
       // Use the fetch API to send a POST request to the server
       const response = await fetch('/api/messages', {
         method: 'POST',
-        body: JSON.stringify({ message, username, circle, isDM}),
+        body: JSON.stringify({ message, username, circle }),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${user.token}`
@@ -56,7 +54,6 @@ function Messaging({circleId, dm}) {
 
   // useEffect to fetch messages from the server when the component mounts
   useEffect(() => {
-    if (dm) setIsDM(true);
     getUser();
     console.log(circle)
     const fetchMessages = async () => {
@@ -89,15 +86,12 @@ function Messaging({circleId, dm}) {
   return (
     <div>
       <div className="chat-box">
-      {messages.map((msg, index) => (
-  // Check if msg.circles is defined and includes the user's ID
-  (msg.circles ?? []).includes(user._id) && (
-    <div key={index} className="message">
-      <strong>{msg.username}: </strong>
-      {msg.message}
-    </div>
-  )
-))}
+        {messages.map((msg, index) => (
+          <div key={index} className="message">
+            <strong>{msg.username}: </strong>
+            {msg.message}
+          </div>
+        ))}
       </div>
       <div className="input-box">
         <input
@@ -106,9 +100,7 @@ function Messaging({circleId, dm}) {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
         />
-        <Button variant="contained" onClick={handleSendMessage}>
-          Send
-        </Button>
+        <button onClick={handleSendMessage}>Send</button>
       </div>
     </div>
   );
