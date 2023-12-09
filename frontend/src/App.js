@@ -18,6 +18,7 @@ import ForgotPassword from './pages/ForgotPassword';
 import Profile from './pages/Profile';
 import UserProfile from './pages/userProfile';
 import Settings from './pages/Settings';
+import Inbox from './pages/Inbox';
 
 import UsersList from './pages/UsersList'
 import FollowingList from './pages/FollowingList';
@@ -76,6 +77,10 @@ function App() {
             <Route 
               path="/users"
               element={user ? <UsersList/> : <Navigate to="/" />}
+            />
+            <Route
+              path="/inbox"
+              element={user ? <Inbox/> : <Navigate to="/" />}
             />
             <Route 
               path="/following"

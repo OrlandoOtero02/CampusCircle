@@ -92,13 +92,14 @@ const CircleForm = () => {
         value={isPrivate ? "private" : "public"} // "private" when isPrivate is true
         exclusive
         onChange={handlePrivacyChange}
+        style={{backgroundColor: "lightgray"}}
       >
       <ToggleButton value="public">Public</ToggleButton>
       <ToggleButton value="private">Private</ToggleButton>
       </ToggleButtonGroup>
 
 
-      <Button variant="contained" onClick={handleSubmit}>Add Circle</Button>
+      <Button style={{marginLeft: 15}} variant="contained" onClick={handleSubmit}>Add Circle</Button>
       {error && <div className="error">{error}</div>}
     </form>
   );

@@ -32,6 +32,15 @@ router.post('/', createEvent)
 // DELETE a event
 router.delete('/:id', deleteEvent)
 
+
+// UPDATE a circle
+router.patch('/u', updateEvent)
+
+router.patch('/add/:eventId', joinEvent)
+
+router.patch('/leave/:id', leaveEvent)
+
+
 router.patch('/approveEvent/:eventId', approveEvent)
 
 router.get('/forAdmin', forAdmin1);

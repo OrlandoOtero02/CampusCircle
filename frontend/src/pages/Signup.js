@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import emailjs from 'emailjs-com';
 import Modal from 'react-modal';
 import { useSignup} from '../hooks/useSignup'
+import Button from '@mui/material/Button';
 Modal.setAppElement('#root'); // This line is important for accessibility reasons. Replace '#root' with your app's root element.
 //signup.js
 const Signup = () => {
@@ -82,9 +83,9 @@ const Signup = () => {
     return (
         <div>
             <form className="signup" onSubmit={handleSubmit}>
-                <h2>Sign Up</h2>
+                <h2 style={{color: 'black'}}>Sign Up</h2>
                 {/* Email field */}
-                <label htmlFor="email">Email:</label>
+                <label style={{color: 'black'}} htmlFor="email">Email:</label>
                 <input
                     id="email"
                     type="email"
@@ -93,7 +94,7 @@ const Signup = () => {
                     required
                 />
                 {/* Username field */}
-                <label htmlFor="username">Username:</label>
+                <label style={{color: 'black'}} htmlFor="username">Username:</label>
                 <input
                     id="username"
                     type="text"
@@ -102,7 +103,7 @@ const Signup = () => {
                     required
                 />
                 {/* Password field */}
-                <label htmlFor="password">Password:</label>
+                <label style={{color: 'black'}} htmlFor="password">Password:</label>
                 <input
                     id="password"
                     type="password"
@@ -111,7 +112,7 @@ const Signup = () => {
                     required
                 />
                 {/* Confirm password field */}
-                <label htmlFor="confirm-password">Retype Password:</label>
+                <label style={{color: 'black'}} htmlFor="confirm-password">Retype Password:</label>
                 <input
                     id="confirm-password"
                     type="password"
@@ -120,7 +121,7 @@ const Signup = () => {
                     required
                 />
                 {/* Birthdate field */}
-                <label htmlFor="birthdate">Birthdate:</label>
+                <label style={{color: 'black'}} htmlFor="birthdate">Birthdate:</label>
                 <input
                     id="birthdate"
                     type="date"
@@ -129,7 +130,7 @@ const Signup = () => {
                     required
                 />
                 {/* Submit button */}
-                <button type="submit" disabled={isLoading}>Sign up</button>
+                <Button variant="contained" type="submit" disabled={isLoading}>Sign up</Button>
                 {/* Error display */}
                 {passwordError && <div className="error">{passwordError}</div>}
             </form>
